@@ -1,0 +1,32 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# Test coverage
+cobertura.xml
+tarpaulin-report.html
+
+# Benchmarks
+*.bench
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+

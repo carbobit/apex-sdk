@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+.github
+
+# Build artifacts
+target/
+**/target/
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+.github/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
+.env
+.env.*
+tmp/
