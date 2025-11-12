@@ -1,0 +1,152 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
+
+jobs:
+  # Check code complexity
+  complexity:
+    name: Code Complexity Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-geiger (unsafe code detection)
+        run: cargo install --locked cargo-geiger
+
+      - name: Check for unsafe code
+        run: cargo geiger --output-format GitHubMarkdown >> $GITHUB_STEP_SUMMARY
+
+  # Dead code detection
+  dead-code:
+    name: Dead Code Detection
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+
+      - name: Check for dead code
+        run: RUSTFLAGS="-W dead_code" cargo +nightly check --all-features
+
+  # Check for TODO/FIXME comments
+  todos:
+    name: Check TODOs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Count TODOs
+        run: |
+          echo "## TODO/FIXME Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          TODO_COUNT=$(grep -r "TODO\|FIXME" --include="*.rs" . | wc -l || echo "0")
+          echo "Found $TODO_COUNT TODO/FIXME comments" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "$TODO_COUNT" -gt 0 ]; then
+            echo "### Details:" >> $GITHUB_STEP_SUMMARY
+            grep -rn "TODO\|FIXME" --include="*.rs" . >> $GITHUB_STEP_SUMMARY || true
+          fi
+
+  # Code statistics
+  stats:
+    name: Code Statistics
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install tokei
+        run: |
+          cargo install --locked tokei
+
+      - name: Generate statistics
+        run: |
+          echo "## Code Statistics" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tokei >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  # Dependency graph
+  dependency-graph:
+    name: Generate Dependency Graph
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Generate dependency graph
+        run: |
+          echo "## Dependency Graph" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cargo tree --all-features --depth 2 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  # Bloat check
+  bloat:
+    name: Binary Size Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-bloat
+        run: cargo install --locked cargo-bloat
+
+      - name: Cache cargo build
+        uses: actions/cache@v4
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-bloat-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build release binary
+        run: cargo build --release --bin apex
+
+      - name: Check binary size
+        run: |
+          echo "## Binary Size Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Binary Size:" >> $GITHUB_STEP_SUMMARY
+          ls -lh target/release/apex >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Top 20 Functions by Size:" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cargo bloat --release --bin apex -n 20 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,156 @@
+name: Security & Dependency Checks
+
+on:
+  schedule:
+    # Run every day at 00:00 UTC
+    - cron: '0 0 * * *'
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
+  issues: write  # For creating security issues
+
+jobs:
+  # Audit dependencies for known vulnerabilities
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo audit binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/cargo-audit
+          key: ${{ runner.os }}-cargo-audit
+
+      - name: Install cargo-audit
+        run: cargo install --locked cargo-audit || true
+
+      - name: Run security audit
+        run: cargo audit --deny warnings
+
+      - name: Create issue on vulnerability found
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔒 Security Vulnerability Detected',
+              body: '⚠️ The security audit has detected vulnerabilities in dependencies.\n\n' +
+                    'Please review the workflow run: ' + context.payload.repository.html_url + '/actions/runs/' + context.runId + '\n\n' +
+                    'Run `cargo audit` locally to see details.',
+              labels: ['security', 'dependencies']
+            });
+            console.log('Created issue #' + issue.data.number);
+
+  # Check for outdated dependencies
+  dependency-check:
+    name: Dependency Updates Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-outdated
+        run: cargo install --locked cargo-outdated
+
+      - name: Check for outdated dependencies
+        run: cargo outdated --exit-code 1 || echo "Some dependencies are outdated"
+
+  # Scan for common security issues
+  cargo-deny:
+    name: Cargo Deny
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-deny
+        run: cargo install --locked cargo-deny
+
+      - name: Run cargo deny
+        run: cargo deny check
+
+  # Check licenses
+  license-check:
+    name: License Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-license
+        run: cargo install --locked cargo-license
+
+      - name: Check licenses
+        run: |
+          echo "=== Dependency Licenses ==="
+          cargo license --all-features
+          
+      - name: Verify no copyleft licenses
+        run: |
+          if cargo license --all-features | grep -i 'GPL\|AGPL\|LGPL'; then
+            echo "Error: Copyleft license detected"
+            exit 1
+          fi
+
+  # Dependency tree analysis
+  dependency-tree:
+    name: Dependency Tree
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-tree
+        run: cargo install --locked cargo-tree || true
+
+      - name: Generate dependency tree
+        run: |
+          echo "=== Dependency Tree ==="
+          cargo tree --all-features
+
+      - name: Check for duplicate dependencies
+        run: |
+          DUPLICATES=$(cargo tree --all-features --duplicates)
+          if [ ! -z "$DUPLICATES" ]; then
+            echo "Warning: Duplicate dependencies found:"
+            echo "$DUPLICATES"
+          fi
