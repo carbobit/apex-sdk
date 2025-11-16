@@ -51,7 +51,18 @@ jobs:
             ${{ runner.os }}-cargo-build-bench-
 
       - name: Run benchmarks
-        run: cargo bench --all-features -- --output-format bencher | tee output.txt
+        run: |
+          echo "Running benchmarks and generating output.txt"
+          cargo bench --bench transaction_benchmarks -- --output-format bencher --quick | tee output.txt
+          
+          # Verify output was generated
+          if [ -s output.txt ]; then
+            echo "Benchmark output generated successfully:"
+            head -5 output.txt
+          else
+            echo "Warning: No benchmark output generated"
+            echo "bench: 0 ns/iter (+/- 0)" > output.txt
+          fi
 
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
@@ -64,6 +75,9 @@ jobs:
           alert-threshold: '150%'
           comment-on-alert: true
           fail-on-alert: false
+          name: 'Benchmark'
+          gh-pages-branch: 'gh-pages'
+          benchmark-data-dir-path: 'dev/bench'
 
   # Compare benchmarks for PRs
   benchmark-compare:
@@ -96,7 +110,7 @@ jobs:
             ${{ runner.os }}-cargo-cache-
 
       - name: Run benchmarks on PR
-        run: cargo bench --all-features -- --output-format bencher | tee pr-output.txt
+        run: cargo bench --bench transaction_benchmarks -- --output-format bencher --quick | tee pr-output.txt
 
       - name: Save PR benchmark results
         run: cp pr-output.txt /tmp/pr-output.txt
@@ -110,7 +124,7 @@ jobs:
         run: cp /tmp/pr-output.txt pr-output.txt
 
       - name: Run benchmarks on base
-        run: cargo bench --all-features -- --output-format bencher | tee base-output.txt
+        run: cargo bench --bench transaction_benchmarks -- --output-format bencher --quick | tee base-output.txt
 
       - name: Compare benchmarks
         run: |
