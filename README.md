@@ -1,11 +1,11 @@
 # Apex SDK Protocol
 
-[![CI](https://github.com/kherldhussein/apexsdk/actions/workflows/ci.yml/badge.svg)](https://github.com/kherldhussein/apexsdk/actions/workflows/ci.yml)
-[![Security](https://github.com/kherldhussein/apexsdk/actions/workflows/security.yml/badge.svg)](https://github.com/kherldhussein/apexsdk/actions/workflows/security.yml)
-[![Benchmarks](https://github.com/kherldhussein/apexsdk/actions/workflows/benchmarks.yml/badge.svg)](https://github.com/kherldhussein/apexsdk/actions/workflows/benchmarks.yml)
+[![CI](https://github.com/kherldhussein/apex-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/kherldhussein/apex-sdk/actions/workflows/ci.yml)
+[![Security](https://github.com/kherldhussein/apex-sdk/actions/workflows/security.yml/badge.svg)](https://github.com/kherldhussein/apex-sdk/actions/workflows/security.yml/badge.svg)
+[![Benchmarks](https://github.com/kherldhussein/apex-sdk/actions/workflows/benchmarks.yml/badge.svg)](https://github.com/kherldhussein/apex-sdk/actions/workflows/benchmarks.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Rust](https://img.shields.io/badge/Rust-1.75%2B-orange.svg)](https://www.rust-lang.org/)
-[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://docs.rs/apex-sdk)
+[![Rust](https://img.shields.io/badge/Rust-1.85%2B-orange.svg)](https://www.rust-lang.org/)
+[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://docs.apex-sdk.io)
 
 Apex SDK Protocol is a compile-time safe, unified Rust SDK that enables developers to build cross-chain apps spanning Substrate and EVM ecosystems with a single, intuitive API reducing development complexity while ensuring type safety and native performance.
 
@@ -43,9 +43,8 @@ cargo test
 
 ### Requirements
 
-- Rust 1.75 or higher
+- Rust 1.85 or higher
 - Cargo package manager
-- Node.js 18+ (for EVM interaction)
 
 ### Via Cargo
 

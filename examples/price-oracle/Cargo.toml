@@ -1,0 +1,16 @@
+[package]
+name = "price-oracle"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "price-oracle"
+path = "main.rs"
+
+[dependencies]
+apex-sdk = { path = "../../apex-sdk" }
+tokio = { version = "1.35", features = ["full"] }
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+hex = "0.4"

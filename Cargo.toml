@@ -10,16 +10,19 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
+name = "apex-sdk"
 edition = "2021"
 description = "Unified Rust SDK for Substrate & EVM Blockchain Development"
 authors = ["Khalid Hussein <kherld.hussein@gmail.com>"]
 rust-version = "1.85"
+readme = "README.md"
 license = "Apache-2.0"
 repository = "https://github.com/kherldhussein/apex-sdk"
 homepage = "https://github.com/kherldhussein/apex-sdk"
 keywords = ["blockchain", "substrate", "evm", "sdk", "development"]
-documentation = "https://apexsdk/kherldhussein.github.io/apex-sdk/"
+documentation = "https://docs.rs/apex-sdk"
+categories = ["cryptography::cryptocurrencies", "api-bindings", "development-tools::libraries"]
 
 [workspace.dependencies]
 # Async runtime

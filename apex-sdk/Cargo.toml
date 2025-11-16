@@ -10,12 +10,13 @@ documentation.workspace = true
 description = "Unified Rust SDK for Substrate & EVM blockchain development"
 keywords = ["blockchain", "substrate", "ethereum", "cross-chain", "web3"]
 categories = ["cryptography::cryptocurrencies", "api-bindings"]
+readme = "README.md"
 
 [dependencies]
-apex-sdk-core = { workspace = true }
-apex-sdk-substrate = { workspace = true }
-apex-sdk-evm = { workspace = true }
-apex-sdk-types = { workspace = true }
+apex-sdk-core = { path = "../apex-sdk-core", version = "0.1.1" }
+apex-sdk-substrate = { path = "../apex-sdk-substrate", version = "0.1.1" }
+apex-sdk-evm = { path = "../apex-sdk-evm", version = "0.1.1" }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.1" }
 tokio = { workspace = true }
 async-trait = { workspace = true }
 anyhow = { workspace = true }
@@ -31,10 +32,6 @@ tracing-subscriber = { workspace = true }
 proptest = { workspace = true }
 mockall = { workspace = true }
 criterion = { workspace = true }
-
-[[example]]
-name = "basic_transfer"
-path = "../examples/basic-transfer/main.rs"
 
 [[bench]]
 name = "transaction_benchmarks"

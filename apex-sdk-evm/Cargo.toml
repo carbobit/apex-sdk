@@ -5,10 +5,16 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 description = "EVM adapter for Apex SDK"
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+keywords = ["blockchain", "evm", "ethereum", "web3", "sdk"]
+categories = ["cryptography::cryptocurrencies", "api-bindings"]
+readme = "README.md"
 
 [dependencies]
-apex-sdk-core = { workspace = true }
-apex-sdk-types = { workspace = true }
+apex-sdk-core = { path = "../apex-sdk-core", version = "0.1.1" }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.1" }
 tokio = { workspace = true }
 async-trait = { workspace = true }
 thiserror = { workspace = true }

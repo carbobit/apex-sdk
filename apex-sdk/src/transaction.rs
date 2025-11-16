@@ -90,6 +90,7 @@ impl TransactionBuilder {
     }
 
     /// Build the transaction
+    #[allow(clippy::result_large_err)]
     pub fn build(self) -> Result<Transaction> {
         let from = self
             .from

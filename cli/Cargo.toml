@@ -14,7 +14,7 @@ name = "apex"
 path = "src/main.rs"
 
 [dependencies]
-apex-sdk = { path = "../apex-sdk" }
+apex-sdk = { path = "../apex-sdk", version = "0.1.0" }
 tokio = { workspace = true }
 anyhow = { workspace = true }
 clap = { version = "4.4", features = ["derive"] }

@@ -5,13 +5,56 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 description = "Substrate adapter for Apex SDK"
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+keywords = ["blockchain", "substrate", "polkadot", "kusama", "sdk"]
+categories = ["cryptography::cryptocurrencies", "api-bindings"]
+readme = "README.md"
+
+[features]
+default = []
+typed = []
+typed-polkadot = ["typed"]
+typed-kusama = ["typed"]
+typed-westend = ["typed"]
 
 [dependencies]
-apex-sdk-core = { workspace = true }
-apex-sdk-types = { workspace = true }
+apex-sdk-core = { path = "../apex-sdk-core", version = "0.1.1" }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.1" }
+tokio = { workspace = true }
 async-trait = { workspace = true }
+anyhow = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }
 
+# Substrate dependencies
+subxt = { workspace = true }
+sp-core = { workspace = true }
+sp-runtime = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Utilities
+hex = { workspace = true }
+bs58 = { workspace = true }
+rand = { workspace = true }
+
+# Additional Substrate dependencies
+parity-scale-codec = "3.0"
+scale-info = "2.0"
+schnorrkel = "0.11"
+bip39 = "2.0"
+
+# Caching and metrics
+lru = "0.16.2"
+parking_lot = "0.12"
+
+[build-dependencies]
+# No build dependencies needed - metadata generation is manual
+
 [dev-dependencies]
-tokio = { workspace = true }
+proptest = { workspace = true }
+mockall = { workspace = true }

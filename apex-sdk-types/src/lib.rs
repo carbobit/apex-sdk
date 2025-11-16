@@ -1,4 +1,32 @@
-//! Common types for Apex SDK
+//! # Apex SDK Types
+//!
+//! Common types and data structures used across the Apex SDK.
+//!
+//! This crate provides fundamental types for representing blockchain entities
+//! across different chain types (Substrate, EVM, Hybrid).
+//!
+//! ## Core Types
+//!
+//! - **Chain**: Enumeration of supported blockchain networks
+//! - **ChainType**: Classification of chains (Substrate, EVM, Hybrid)
+//! - **Address**: Generic address type supporting multiple formats
+//! - **TransactionStatus**: Unified transaction status representation
+//! - **CrossChainTransaction**: Cross-chain transaction information
+//!
+//! ## Example
+//!
+//! ```rust
+//! use apex_sdk_types::{Chain, ChainType, Address};
+//!
+//! // Create addresses for different chains
+//! let eth_addr = Address::evm("0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7");
+//! let dot_addr = Address::substrate("15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5");
+//!
+//! // Check chain types
+//! assert_eq!(Chain::Ethereum.chain_type(), ChainType::Evm);
+//! assert_eq!(Chain::Polkadot.chain_type(), ChainType::Substrate);
+//! assert_eq!(Chain::Moonbeam.chain_type(), ChainType::Hybrid);
+//! ```
 
 use serde::{Deserialize, Serialize};
 

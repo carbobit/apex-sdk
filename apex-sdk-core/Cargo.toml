@@ -4,8 +4,16 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
 description = "Core functionality for Apex SDK"
+keywords = ["blockchain", "substrate", "evm", "sdk", "cross-chain"]
+categories = ["cryptography::cryptocurrencies", "api-bindings"]
+readme = "README.md"
 
 [dependencies]
-apex-sdk-types = { workspace = true }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.1" }
 async-trait = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }

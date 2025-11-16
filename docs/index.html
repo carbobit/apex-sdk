@@ -289,7 +289,7 @@ async fn main() -> Result<()> {
     // Create a cross-chain transaction with compile-time type safety
     let tx = sdk
         .transaction()
-        .from_substrate_account(alice)
+        .from_substrate_account(Ilara)
         .to_evm_address("0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7")
         .amount(1000_u128)
         .build()?;

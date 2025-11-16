@@ -30,3 +30,7 @@ tmp/
 temp/
 *.tmp
 
+# Generated metadata
+/apex-sdk-substrate/src/metadata/*.rs
+/apex-sdk-substrate/src/metadata/*.scale
+/apex-sdk-substrate/src/metadata/mod.rs

@@ -5,6 +5,14 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 description = "Common types for Apex SDK"
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+keywords = ["blockchain", "types", "substrate", "evm", "cross-chain"]
+categories = ["cryptography::cryptocurrencies", "data-structures"]
+readme = "README.md"
 
 [dependencies]
 serde = { workspace = true }
+serde_json = { workspace = true }
+hex = { workspace = true }

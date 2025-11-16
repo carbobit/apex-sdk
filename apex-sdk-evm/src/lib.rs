@@ -1,4 +1,42 @@
-//! EVM blockchain adapter
+//! # Apex SDK EVM Adapter
+//!
+//! EVM blockchain adapter for the Apex SDK, providing unified access to Ethereum
+//! and EVM-compatible chains.
+//!
+//! ## Supported Networks
+//!
+//! - Ethereum Mainnet
+//! - Binance Smart Chain (BSC)
+//! - Polygon (Matic)
+//! - Avalanche C-Chain
+//! - And other EVM-compatible chains
+//!
+//! ## Features
+//!
+//! - **HTTP and WebSocket Support**: Flexible connection types
+//! - **Transaction Management**: Send, track, and query transactions
+//! - **Smart Contract Interaction**: Call and deploy contracts
+//! - **Wallet Integration**: Built-in wallet and signing support
+//! - **Connection Pooling**: Efficient resource management
+//! - **Metrics Collection**: Performance monitoring
+//!
+//! ## Quick Start
+//!
+//! ```rust,no_run
+//! use apex_sdk_evm::EvmAdapter;
+//!
+//! #[tokio::main]
+//! async fn main() -> Result<(), Box<dyn std::error::Error>> {
+//!     // Connect to Ethereum mainnet
+//!     let adapter = EvmAdapter::connect("https://eth.llamarpc.com").await?;
+//!
+//!     // Get balance
+//!     let balance = adapter.get_balance("0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7").await?;
+//!     println!("Balance: {} wei", balance);
+//!
+//!     Ok(())
+//! }
+//! ```
 
 pub mod cache;
 pub mod metrics;
