@@ -1,7 +1,7 @@
 //! Secure keystore implementation for managing accounts
 
 use aes_gcm::{
-    aead::{generic_array::typenum::U12, Aead, KeyInit, OsRng},
+    aead::{Aead, KeyInit, OsRng},
     Aes256Gcm, Nonce,
 };
 use anyhow::{Context, Result};
@@ -42,7 +42,7 @@ impl std::fmt::Display for AccountType {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Keystore {
     pub accounts: Vec<EncryptedAccount>,
 }
@@ -188,10 +188,10 @@ fn encrypt_data(data: &[u8], password: &str) -> Result<(Vec<u8>, Vec<u8>, Vec<u8
     let mut nonce_bytes = [0u8; NONCE_SIZE];
     use ::rand::RngCore;
     ::rand::rng().fill_bytes(&mut nonce_bytes);
-    let nonce: &Nonce<U12> = (&nonce_bytes).into();
+    let nonce = Nonce::from(nonce_bytes);
 
     let encrypted = cipher
-        .encrypt(nonce, data)
+        .encrypt(&nonce, data)
         .map_err(|e| anyhow::anyhow!("Encryption failed: {}", e))?;
 
     // Zeroize key after use
@@ -219,10 +219,10 @@ fn decrypt_data(
     let nonce_array: [u8; NONCE_SIZE] = nonce_bytes
         .try_into()
         .map_err(|_| anyhow::anyhow!("Invalid nonce length"))?;
-    let nonce: &Nonce<U12> = (&nonce_array).into();
+    let nonce = Nonce::from(nonce_array);
 
     let decrypted = cipher
-        .decrypt(nonce, encrypted)
+        .decrypt(&nonce, encrypted)
         .map_err(|_| anyhow::anyhow!("Decryption failed - incorrect password or corrupted data"))?;
 
     // Zeroize key after use

@@ -3,7 +3,7 @@
 use anyhow::Result;
 use colored::Colorize;
 
-use crate::config::{get_config_path, get_legacy_config_path, Config};
+use crate::config::{get_config_path, get_legacy_config_path, Config, Preferences};
 
 /// Show current configuration
 pub fn show_config() -> Result<()> {
@@ -242,7 +242,7 @@ pub async fn init_config_interactive() -> Result<()> {
     let config = Config {
         default_chain,
         default_endpoint,
-        preferences: crate::config::Preferences {
+        preferences: Preferences {
             color_output,
             progress_bars,
             log_level,
