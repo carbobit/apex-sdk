@@ -7,10 +7,13 @@
 [![Rust](https://img.shields.io/badge/Rust-1.85%2B-orange.svg)](https://www.rust-lang.org/)
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://apexsdk.dev/)
 [![Crates.io](https://img.shields.io/crates/v/apex-sdk.svg)](https://crates.io/crates/apex-sdk)
+[![Downloads](https://img.shields.io/crates/d/apex-sdk.svg)](https://crates.io/crates/apex-sdk)
+[![Discord](https://img.shields.io/discord/322538954119184384.svg?logo=discord&logoColor=white&label=Discord&color=5865F2)](https://discord.gg/zCDFsBaZJN)
+[![Twitter Follow](https://img.shields.io/twitter/follow/eurybits?style=social)](https://twitter.com/eurybits)
 
-> **Build secure, multi-chain blockchain applications with compile-time safety**
+> **Build secure, multichain blockchain applications with compile-time safety**
 
-Apex SDK Protocol is a compile-time safe, unified Rust SDK that enables developers to build multi-chain applications spanning Substrate and EVM ecosystems. With a single, intuitive API, reduce development complexity while ensuring type safety and native performance across Polkadot, Kusama, Ethereum, and more.
+Apex SDK Protocol is a compile-time safe, unified Rust SDK that enables developers to build multichain applications spanning Substrate and EVM ecosystems. With a single, intuitive API, reduce development complexity while ensuring type safety and native performance across Polkadot, Kusama, Ethereum, and more.
 
 ## Features
 
@@ -18,9 +21,9 @@ Apex SDK Protocol is a compile-time safe, unified Rust SDK that enables develope
 - **Compile-Time Type Safety**: Catch errors before deployment, not in production
 - **Native Performance**: Rust-based implementation for optimal execution speed
 - **Metadata-Driven**: Automatic type generation from blockchain runtime metadata
-- **Multi-Chain Ready**: Built-in support for multi-chain communication
+- **Multi-Chain Ready**: Built-in support for multichain communication
 - **Modular Architecture**: Easy to extend with new blockchain protocols
-- **Comprehensive Testing**: Built-in testing framework for multi-chain scenarios
+- **Comprehensive Testing**: Built-in testing framework for multichain scenarios
 - **Developer Friendly**: Extensive documentation and examples
 
 ## Quick Start
@@ -116,13 +119,13 @@ cargo install --path ./cli
 
 Quick access via dedicated subdomains:
 
-- 🚀 [start.apexsdk.dev](https://start.apexsdk.dev) - Quick Start
-- 📚 [api.apexsdk.dev](https://api.apexsdk.dev) - API Reference
-- ⌨️ [cli.apexsdk.dev](https://cli.apexsdk.dev) - CLI Guide
-- 🎮 [play.apexsdk.dev](https://play.apexsdk.dev) - Interactive Viewer
-- 📖 [docs.apexsdk.dev](https://docs.apexsdk.dev) - Full Documentation
+- [start.apexsdk.dev](https://start.apexsdk.dev) - Quick Start
+- [api.apexsdk.dev](https://api.apexsdk.dev) - API Reference
+- [cli.apexsdk.dev](https://cli.apexsdk.dev) - CLI Guide
+- [play.apexsdk.dev](https://play.apexsdk.dev) - Interactive Viewer
+- [docs.apexsdk.dev](https://docs.apexsdk.dev) - Full Documentation
 
-See [DOMAINS.md](./docs/DOMAINS.md) for complete domain structure.
+See [DOMAINS.md](./docs/DOMAINS.md) for the complete domain structure.
 
 ### Examples
 
