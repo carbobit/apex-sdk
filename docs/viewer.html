@@ -6,11 +6,19 @@
     <title>Apex SDK Protocol Documentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="icon" type="image/png" href="assets/apex_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
+    <link rel="stylesheet" href="css/viewer.css">
+    <script src="js/search.js" defer></script>
+    <!-- Libraries loaded lazily for performance -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js" defer></script>
+    <script src="js/personalization.js"></script>
     <style>
+        /* Minimal critical styles only */
         :root {
             --primary-color: #3b82f6;
             --primary-hover: #2563eb;
@@ -633,26 +641,57 @@
     </style>
 </head>
 <body>
+    <a href="#markdownContent" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
     <!-- Reading Progress -->
     <div class="reading-progress" id="readingProgress"></div>
 
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-left">
-            <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
             <a href="index.html" class="navbar-logo">
-                <div class="navbar-logo-icon">A</div>
-                <span>Apex SDK</span>
+                <img src="assets/apex_logo.png" alt="Apex SDK Protocol" class="navbar-logo-icon">
+                <span>Apex SDK Protocol</span>
             </a>
         </div>
         <div class="navbar-right">
+            <a href="https://github.com/eurybits/apex-sdk" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border-color);border-radius:8px;margin-right:.5rem;text-decoration:none;color:var(--text-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+            </a>
+            <a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener" title="Discord" aria-label="Discord" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border-color);border-radius:8px;margin-right:.75rem;text-decoration:none;color:var(--text-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.36-.43.85-.589 1.232a18.27 18.27 0 0 0-4-.003A12.3 12.3 0 0 0 11.379 3 19.736 19.736 0 0 0 7.62 4.369C3.693 9.478 2.89 14.46 3.247 19.385a19.9 19.9 0 0 0 4.963 1.615c.401-.553.758-1.138 1.065-1.748-.583-.22-1.14-.494-1.665-.816.14-.101.277-.206.41-.313 3.212 1.499 6.695 1.499 9.862 0 .134.107.271.212.41.313-.525.322-1.082.596-1.665.816.307.61.664 1.195 1.065 1.748a19.9 19.9 0 0 0 4.963-1.615c.406-5.52-.692-10.463-3.963-15.016zM9.7 15.408c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98zm4.6 0c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98z"/></svg>
+            </a>
             <div class="search-container">
-                <span class="search-icon">🔍</span>
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
                 <input type="text" class="search-input" id="searchInput" placeholder="Search documentation...">
                 <span class="search-shortcut">Ctrl+K</span>
                 <div class="search-results" id="searchResults"></div>
             </div>
-            <button class="theme-toggle" id="themeToggle" title="Toggle theme (Ctrl+/)">🌙</button>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme (Ctrl+/)">
+                <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -661,36 +700,36 @@
         <div class="sidebar-section">
             <div class="sidebar-title">Getting Started</div>
             <nav class="sidebar-nav">
-                <a href="#" data-doc="QUICK_START.md"><span class="sidebar-icon">🚀</span>Quick Start</a>
-                <a href="#" data-doc="CLI_GUIDE.md"><span class="sidebar-icon">💻</span>CLI Guide</a>
-                <a href="#" data-doc="API.md"><span class="sidebar-icon">📚</span>API Reference</a>
+                <a href="#" data-doc="QUICK_START.md">Quick Start</a>
+                <a href="#" data-doc="CLI_GUIDE.md">CLI Guide</a>
+                <a href="#" data-doc="API.md">API Reference</a>
             </nav>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-title">Core Concepts</div>
             <nav class="sidebar-nav">
-                <a href="#" data-doc="SYSTEM_ARCHITECTURE.md"><span class="sidebar-icon">🏗️</span>Architecture</a>
-                <a href="#" data-doc="TYPED_METADATA.md"><span class="sidebar-icon">🔷</span>Typed Metadata</a>
-                <a href="#" data-doc="TESTNETS.md"><span class="sidebar-icon">🧪</span>Testnets</a>
+                <a href="#" data-doc="SYSTEM_ARCHITECTURE.md">Architecture</a>
+                <a href="#" data-doc="TYPED_METADATA.md">Typed Metadata</a>
+                <a href="#" data-doc="TESTNETS.md">Testnets</a>
             </nav>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-title">Development</div>
             <nav class="sidebar-nav">
-                <a href="#" data-doc="TESTING_FRAMEWORK.md"><span class="sidebar-icon">✅</span>Testing</a>
-                <a href="#" data-doc="SECURITY.md"><span class="sidebar-icon">🔒</span>Security</a>
-                <a href="#" data-doc="SECURITY_AUDIT.md"><span class="sidebar-icon">🛡️</span>Security Audit</a>
+                <a href="#" data-doc="TESTING_FRAMEWORK.md">Testing</a>
+                <a href="#" data-doc="SECURITY.md">Security</a>
+                <a href="#" data-doc="SECURITY_AUDIT.md">Security Audit</a>
             </nav>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-title">Community</div>
             <nav class="sidebar-nav">
-                <a href="#" data-doc="CONTRIBUTING.md"><span class="sidebar-icon">🤝</span>Contributing</a>
-                <a href="#" data-doc="ROADMAP.md"><span class="sidebar-icon">🗺️</span>Roadmap</a>
-                <a href="https://github.com/eurybits/apex-sdk" target="_blank"><span class="sidebar-icon">⭐</span>GitHub</a>
+                <a href="#" data-doc="CONTRIBUTING.md">Contributing</a>
+                <a href="#" data-doc="ROADMAP.md">Roadmap</a>
+                <a href="https://github.com/eurybits/apex-sdk" target="_blank" rel="noopener">GitHub</a>
             </nav>
         </div>
     </aside>
@@ -698,19 +737,30 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="content-wrapper">
-            <div class="content-header">
+            <div class="content-header" style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:1rem;justify-content:space-between;">
                 <div class="breadcrumb" id="breadcrumb">
                     <a href="index.html">Home</a>
                     <span>/</span>
                     <span id="currentDoc">Documentation</span>
                 </div>
+                <div style="margin-left:auto;display:flex;gap:.5rem;align-items:center;">
+                    <a id="editOnGitHub" href="https://github.com/eurybits/apex-sdk/blob/main/docs/QUICK_START.md" target="_blank" rel="noopener" class="btn btn-secondary" style="border:1px solid var(--border-color);padding:.4rem .8rem;border-radius:.5rem;text-decoration:none;color:var(--text-primary);">Edit on GitHub</a>
+                </div>
                 <h1 class="page-title" id="pageTitle">Welcome to Apex SDK Protocol Documentation</h1>
-                <p class="page-subtitle" id="pageSubtitle">Select a document from the sidebar to get started</p>
+                <p class="page-subtitle" id="pageSubtitle">Select a document from the sidebar to get started · <span id="lastUpdated">Last updated: —</span></p>
             </div>
 
             <div class="content-area">
                 <div class="markdown-body" id="markdownContent">
                     <p>Loading documentation...</p>
+                </div>
+                <div id="docPager" style="display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;">
+                    <a id="prevDoc" href="#" style="border:1px solid var(--border-color);padding:.5rem .75rem;border-radius:.5rem;text-decoration:none;color:var(--text-primary);visibility:hidden;">
+                        ← Previous
+                    </a>
+                    <a id="nextDoc" href="#" style="border:1px solid var(--border-color);padding:.5rem .75rem;border-radius:.5rem;text-decoration:none;color:var(--text-primary);margin-left:auto;visibility:hidden;">
+                        Next →
+                    </a>
                 </div>
             </div>
         </div>
@@ -721,6 +771,72 @@
         <div class="toc-title">On This Page</div>
         <ul class="toc-list" id="tocList"></ul>
     </div>
+
+    <!-- Footer -->
+    <footer class="docs-footer">
+        <div class="footer-container">
+            <div class="footer-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;align-items:flex-start;">
+                <div class="footer-column">
+                    <div class="footer-logo" style="display:flex;align-items:center;gap:.75rem;">
+                        <img src="assets/apex_logo.png" alt="Apex SDK Protocol" class="footer-logo-img" width="36" height="36">
+                        <span class="footer-logo-text" style="font-weight:800;">Apex SDK Protocol</span>
+                    </div>
+                    <p class="footer-description" style="margin-top:.75rem;color:var(--text-secondary);">
+                        Unified Rust SDK for Substrate & EVM blockchain development.
+                    </p>
+                    <div class="footer-social" style="display:flex;gap:.75rem;margin-top:.75rem;align-items:center;">
+                        <a href="https://github.com/eurybits/apex-sdk" target="_blank" rel="noopener" class="footer-social-link" aria-label="GitHub" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--text-primary);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+                            <span>GitHub</span>
+                        </a>
+                        <span aria-hidden="true" style="opacity:.35;">•</span>
+                        <a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener" class="footer-social-link" aria-label="Discord" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--text-primary);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.36-.43.85-.589 1.232a18.27 18.27 0 0 0-4-.003A12.3 12.3 0 0 0 11.379 3 19.736 19.736 0 0 0 7.62 4.369C3.693 9.478 2.89 14.46 3.247 19.385a19.9 19.9 0 0 0 4.963 1.615c.401-.553.758-1.138 1.065-1.748-.583-.22-1.14-.494-1.665-.816.14-.101.277-.206.41-.313 3.212 1.499 6.695 1.499 9.862 0 .134.107.271.212.41.313-.525.322-1.082.596-1.665.816.307.61.664 1.195 1.065 1.748a19.9 19.9 0 0 0 4.963-1.615c.406-5.52-.692-10.463-3.963-15.016zM9.7 15.408c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98zm4.6 0c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98z"/></svg>
+                            <span>Discord</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Documentation</h4>
+                    <ul class="footer-links">
+                        <li><a href="viewer.html?doc=QUICK_START.md">Quick Start</a></li>
+                        <li><a href="viewer.html?doc=API.md">API Reference</a></li>
+                        <li><a href="viewer.html?doc=CLI_GUIDE.md">CLI Guide</a></li>
+                        <li><a href="viewer.html?doc=SYSTEM_ARCHITECTURE.md">Architecture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="viewer.html?doc=TESTNETS.md">Testnets</a></li>
+                        <li><a href="viewer.html?doc=TESTING_FRAMEWORK.md">Testing</a></li>
+                        <li><a href="viewer.html?doc=SECURITY.md">Security</a></li>
+                        <li><a href="viewer.html?doc=ROADMAP.md">Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Stay in the loop</h4>
+                    <form data-subscribe data-source="viewer" style="display:flex;gap:.5rem;">
+                        <input type="email" name="email" required placeholder="Email address" aria-label="Email address" style="flex:1;min-width:180px;padding:.6rem .8rem;border:1px solid var(--border-color);border-radius:.5rem;background:var(--bg-secondary);color:var(--text-primary);"/>
+                        <button type="submit" class="btn btn-primary" style="padding:.6rem 1rem;border:none;border-radius:.5rem;background:var(--primary-color);color:#fff;font-weight:700;cursor:pointer;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom" style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-color);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;">
+                <p class="footer-copyright" style="color:var(--text-tertiary);">
+                    &copy; 2025 Apex SDK Protocol by <a href="https://eurybits.com" target="_blank" rel="noopener">Eurybits</a> • 
+                    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a>
+                </p>
+                <div class="footer-version" style="color:var(--text-tertiary);">
+                    <span>Version 0.1.4</span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Keyboard Shortcuts Modal -->
     <div class="shortcuts-modal" id="shortcutsModal">
@@ -811,17 +927,31 @@
 
         // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
+        const themeIconMoon = document.getElementById('theme-icon-moon');
+        const themeIconSun = document.getElementById('theme-icon-sun');
         const html = document.documentElement;
         const savedTheme = localStorage.getItem('theme') || 'dark';
         html.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                if (themeIconMoon) themeIconMoon.style.display = 'block';
+                if (themeIconSun) themeIconSun.style.display = 'none';
+            } else {
+                if (themeIconMoon) themeIconMoon.style.display = 'none';
+                if (themeIconSun) themeIconSun.style.display = 'block';
+            }
+        }
+        
+        // Initialize icon on page load
+        updateThemeIcon(savedTheme);
 
         themeToggle.addEventListener('click', () => {
             const current = html.getAttribute('data-theme');
             const newTheme = current === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+            updateThemeIcon(newTheme);
         });
 
         // Sidebar toggle
@@ -832,22 +962,104 @@
             sidebar.classList.toggle('show');
         });
 
-        // Load document
+        // Load document with lazy loading (hardened with diagnostics and fallbacks)
         async function loadDoc(filename) {
             try {
-                const response = await fetch(filename);
-                const markdown = await response.text();
-                const html = marked.parse(markdown);
+                const contentEl = document.getElementById('markdownContent');
+                if (contentEl) contentEl.innerHTML = '<p>Loading documentation...</p>';
 
-                document.getElementById('markdownContent').innerHTML = html;
+                // Ensure we have a sane relative path
+                const docPath = filename.startsWith('http') ? filename : filename.replace(/^\/*/, '');
+
+                // Ensure marked is present; try primary CDN then fallback
+                async function ensureMarked() {
+                    if (typeof marked !== 'undefined') return;
+                    try {
+                        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js');
+                    } catch (e1) {
+                        console.warn('Primary marked CDN failed, trying fallback...', e1);
+                        await loadScript('https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js');
+                    }
+                }
+                await ensureMarked();
+
+                // Fetch markdown with error handling
+                const response = await fetch(docPath, { cache: 'no-cache' });
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${docPath} (status ${response.status})`);
+                }
+                const markdown = await response.text();
+
+                const parsedHtml = (typeof marked !== 'undefined') ? marked.parse(markdown) : markdown;
+
+                if (contentEl) contentEl.innerHTML = parsedHtml;
 
                 // Update UI
-                const docInfo = docs[filename];
+                const docInfo = docs[filename] || docs[docPath];
                 if (docInfo) {
                     document.getElementById('pageTitle').textContent = docInfo.title;
                     document.getElementById('pageSubtitle').textContent = docInfo.subtitle;
                     document.getElementById('currentDoc').textContent = docInfo.title;
                 }
+
+                // SEO: update title/description/JSON-LD dynamically
+                try {
+                    const firstP = document.querySelector('#markdownContent p');
+                    const description = (firstP ? firstP.textContent.trim() : (docInfo && docInfo.subtitle) || 'Apex SDK Protocol documentation');
+                    const fullTitle = `${(docInfo && docInfo.title) || filename} — Apex SDK Docs`;
+                    document.title = fullTitle;
+                    // meta description
+                    let metaDesc = document.querySelector('meta[name="description"]');
+                    if (!metaDesc) {
+                        metaDesc = document.createElement('meta');
+                        metaDesc.setAttribute('name','description');
+                        document.head.appendChild(metaDesc);
+                    }
+                    metaDesc.setAttribute('content', description.slice(0, 300));
+                    // Open Graph
+                    function setOg(name, content){
+                        let el = document.querySelector(`meta[property='${name}']`);
+                        if (!el) { el = document.createElement('meta'); el.setAttribute('property', name); document.head.appendChild(el); }
+                        el.setAttribute('content', content);
+                    }
+                    setOg('og:title', fullTitle);
+                    setOg('og:description', description.slice(0, 300));
+                    setOg('og:type', 'article');
+                    // Twitter
+                    function setTw(name, content){
+                        let el = document.querySelector(`meta[name='${name}']`);
+                        if (!el) { el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
+                        el.setAttribute('content', content);
+                    }
+                    setTw('twitter:title', fullTitle);
+                    setTw('twitter:description', description.slice(0, 300));
+                    // JSON-LD Breadcrumb + TechArticle
+                    const existingLd = document.getElementById('doc-jsonld');
+                    if (existingLd) existingLd.remove();
+                    const ld = document.createElement('script');
+                    ld.type = 'application/ld+json';
+                    ld.id = 'doc-jsonld';
+                    const url = `${location.origin}${location.pathname}?doc=${encodeURIComponent(filename)}`;
+                    const now = new Date().toISOString();
+                    ld.textContent = JSON.stringify({
+                        '@context':'https://schema.org',
+                        '@type':'TechArticle',
+                        'headline': (docInfo && docInfo.title) || filename,
+                        'description': description.slice(0, 300),
+                        'dateModified': now,
+                        'url': url,
+                        'author': {'@type':'Organization','name':'Apex SDK Team'},
+                        'breadcrumb': {
+                            '@type':'BreadcrumbList',
+                            'itemListElement': [
+                                { '@type':'ListItem','position':1, 'name':'Home', 'item': `${location.origin}${location.pathname.replace('viewer.html','index.html')}` },
+                                { '@type':'ListItem','position':2, 'name':'Docs', 'item': `${location.origin}${location.pathname}` },
+                                { '@type':'ListItem','position':3, 'name': (docInfo && docInfo.title) || filename, 'item': url }
+                            ]
+                        }
+                    });
+                    document.head.appendChild(ld);
+                } catch(e) { /* best-effort SEO updates */ }
 
                 // Update active nav item
                 document.querySelectorAll('.sidebar-nav a').forEach(a => {
@@ -857,32 +1069,73 @@
                     }
                 });
 
-                // Highlight code
-                document.querySelectorAll('pre code').forEach((block) => {
-                    hljs.highlightElement(block);
+                // Lazy load and highlight code blocks
+                if (typeof hljs !== 'undefined') {
+                    document.querySelectorAll('pre code').forEach((block) => {
+                        hljs.highlightElement(block);
 
-                    // Add copy button
-                    const pre = block.parentElement;
-                    const button = document.createElement('button');
-                    button.className = 'copy-code-btn';
-                    button.textContent = 'Copy';
-                    button.onclick = () => copyCode(button, block.textContent);
-                    pre.style.position = 'relative';
-                    pre.appendChild(button);
-                });
+                        // Add copy button
+                        const pre = block.parentElement;
+                        if (!pre.querySelector('.copy-code-btn')) {
+                            const button = document.createElement('button');
+                            button.className = 'copy-code-btn';
+                            button.textContent = 'Copy';
+                            button.onclick = () => copyCode(button, block.textContent);
+                            pre.style.position = 'relative';
+                            pre.appendChild(button);
+                        }
+                    });
+                } else {
+                    // Lazy load highlight.js
+                    loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js').catch(() => loadScript('https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/core.min.js')).then(() => {
+                        document.querySelectorAll('pre code').forEach((block) => {
+                            hljs.highlightElement(block);
+                            const pre = block.parentElement;
+                            if (!pre.querySelector('.copy-code-btn')) {
+                                const button = document.createElement('button');
+                                button.className = 'copy-code-btn';
+                                button.textContent = 'Copy';
+                                button.onclick = () => copyCode(button, block.textContent);
+                                pre.style.position = 'relative';
+                                pre.appendChild(button);
+                            }
+                        });
+                    });
+                }
 
                 // Generate TOC
                 generateTOC();
+                
+                // Apply progressive revelation
+                applyProgressiveRevelation();
 
                 // Scroll to top
                 window.scrollTo(0, 0);
 
                 currentDoc = filename;
+                // Update Edit on GitHub link
+                const editLink = document.getElementById('editOnGitHub');
+                if (editLink) {
+                    const clean = (filename || '').replace(/^\/+/, '');
+                    editLink.href = `https://github.com/eurybits/apex-sdk/blob/main/docs/${encodeURIComponent(clean)}`;
+                }
             } catch (error) {
                 console.error('Error loading document:', error);
-                document.getElementById('markdownContent').innerHTML = `
-                    <p style="color: var(--error-color);">Error loading document. Please try again.</p>
-                `;
+                const contentEl = document.getElementById('markdownContent');
+                const safeName = (typeof filename === 'string') ? filename : '';
+                if (contentEl) {
+                    contentEl.innerHTML = `
+                        <div style="padding:1rem;border:1px solid var(--border-color);background:var(--bg-card);border-radius:8px;">
+                            <p style="color: var(--text-secondary); margin-bottom: 0.75rem;">Error loading document <code>${safeName}</code>.</p>
+                            <p style="color: var(--text-tertiary); margin-bottom: 1rem;">Please check your connection or try another page.</p>
+                            <div style="display:flex; gap:.5rem; flex-wrap: wrap;">
+                                <a class="btn btn-secondary" href="viewer.html?doc=QUICK_START.md">Open Quick Start</a>
+                                <a class="btn btn-secondary" href="viewer.html?doc=API.md">Open API Reference</a>
+                                <button class="btn btn-secondary" onclick="loadDoc('QUICK_START.md')">Retry</button>
+                            </div>
+                        </div>
+                    `;
+                }
             }
         }
 
@@ -955,13 +1208,63 @@
 
         window.addEventListener('scroll', updateReadingProgress);
 
-        // Sidebar navigation
+        // Sidebar doc order from DOM (for pager)
+        function getSidebarOrder() {
+            return Array.from(document.querySelectorAll('.sidebar-nav a[data-doc]')).map(a => a.getAttribute('data-doc'));
+        }
+
+        function updatePager(current) {
+            const order = getSidebarOrder();
+            const idx = order.indexOf(current);
+            const prev = document.getElementById('prevDoc');
+            const next = document.getElementById('nextDoc');
+            if (!prev || !next) return;
+            // Prev
+            if (idx > 0) {
+                const prevDoc = order[idx - 1];
+                prev.href = `viewer.html?doc=${encodeURIComponent(prevDoc)}`;
+                prev.textContent = `← ${ (docs[prevDoc] && docs[prevDoc].title) || 'Previous' }`;
+                prev.style.visibility = 'visible';
+                prev.onclick = (e) => { e.preventDefault(); navigateToDoc(prevDoc); };
+            } else {
+                prev.style.visibility = 'hidden';
+            }
+            // Next
+            if (idx >= 0 && idx < order.length - 1) {
+                const nextDoc = order[idx + 1];
+                next.href = `viewer.html?doc=${encodeURIComponent(nextDoc)}`;
+                next.textContent = `${ (docs[nextDoc] && docs[nextDoc].title) || 'Next' } →`;
+                next.style.visibility = 'visible';
+                next.onclick = (e) => { e.preventDefault(); navigateToDoc(nextDoc); };
+            } else {
+                next.style.visibility = 'hidden';
+            }
+        }
+
+        // Idle prefetch utility
+        window.requestIdleCallback = window.requestIdleCallback || function (cb) { return setTimeout(() => cb({ timeRemaining: () => 0 }), 1); };
+        function idlePrefetch(paths) { requestIdleCallback(() => paths.forEach(p => { try { fetch(p, { cache: 'force-cache' }); } catch(_) {} })); }
+
+        function navigateToDoc(doc) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('doc', doc);
+            history.pushState({ doc }, '', url);
+            setCanonicalForDoc(doc);
+            loadDoc(doc);
+        }
+
+        // Sidebar navigation + prefetch
+        function prefetchDoc(path){
+            try { fetch(path, { cache: 'force-cache' }); } catch(_) {}
+        }
         document.querySelectorAll('.sidebar-nav a[data-doc]').forEach(link => {
+            const doc = link.getAttribute('data-doc');
+            link.addEventListener('mouseenter', () => prefetchDoc(doc));
+            link.addEventListener('focus', () => prefetchDoc(doc));
+            // Enhance click to client-route
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const doc = link.getAttribute('data-doc');
-                loadDoc(doc);
-
+                navigateToDoc(doc);
                 // Close sidebar on mobile
                 if (window.innerWidth <= 768) {
                     sidebar.classList.remove('show');
@@ -969,53 +1272,25 @@
             });
         });
 
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-
-            if (query.length < 2) {
-                searchResults.classList.remove('show');
-                return;
-            }
-
-            const results = Object.entries(docs)
-                .filter(([filename, info]) =>
-                    info.title.toLowerCase().includes(query) ||
-                    info.subtitle.toLowerCase().includes(query) ||
-                    info.category.toLowerCase().includes(query)
-                )
-                .slice(0, 5);
-
-            if (results.length > 0) {
-                searchResults.innerHTML = results.map(([filename, info]) => `
-                    <div class="search-result-item" onclick="loadDoc('${filename}'); document.getElementById('searchInput').value = ''; document.getElementById('searchResults').classList.remove('show');">
-                        <div class="search-result-title">${info.title}</div>
-                        <div class="search-result-excerpt">${info.subtitle}</div>
-                    </div>
-                `).join('');
-                searchResults.classList.add('show');
-            } else {
-                searchResults.innerHTML = '<div class="search-result-item"><div class="search-result-title">No results found</div></div>';
-                searchResults.classList.add('show');
-            }
-        });
-
-        // Close search results when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container')) {
-                searchResults.classList.remove('show');
+        // Search functionality (Lunr-powered)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.ApexSearch) {
+                window.ApexSearch.setupSearch({
+                    input: '#searchInput',
+                    results: '#searchResults',
+                    manifest: 'search-manifest.json'
+                });
             }
         });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
             // Ctrl+K - Focus search
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                searchInput.focus();
+                if (searchInput) searchInput.focus();
             }
 
             // Ctrl+/ - Toggle theme
@@ -1032,7 +1307,7 @@
             // Esc - Close modals
             if (e.key === 'Escape') {
                 document.getElementById('shortcutsModal').classList.remove('show');
-                searchResults.classList.remove('show');
+                if (searchResults) searchResults.classList.remove('show');
             }
         });
 
@@ -1043,10 +1318,138 @@
             }
         });
 
+        // Progressive Revelation - Content unfolds as user scrolls (lazy loaded)
+        function applyProgressiveRevelation() {
+            // Only load GSAP if user scrolls (performance optimization)
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                // Defer GSAP loading until needed
+                return;
+            }
+            
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate sections as they come into view
+            const sections = document.querySelectorAll('.markdown-body > h2, .markdown-body > h3, .markdown-body > p, .markdown-body > pre, .markdown-body > ul, .markdown-body > ol');
+            
+            sections.forEach((section, index) => {
+                gsap.from(section, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    delay: index * 0.05,
+                    ease: 'power2.out'
+                });
+            });
+            
+            // Animate code blocks with special effect
+            document.querySelectorAll('.markdown-body pre').forEach((pre, index) => {
+                gsap.from(pre, {
+                    scrollTrigger: {
+                        trigger: pre,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: 'power2.out'
+                });
+            });
+        }
+
+        // Client-side routing: update URL and head tags per doc
+        function setCanonicalForDoc(doc) {
+            const href = `${location.origin}${location.pathname}?doc=${encodeURIComponent(doc)}`;
+            let link = document.querySelector('link[rel="canonical"]');
+            if (!link) {
+                link = document.createElement('link');
+                link.rel = 'canonical';
+                document.head.appendChild(link);
+            }
+            link.href = href;
+        }
+
+        // Enhance sidebar links to pushState without reload
+        document.querySelectorAll('.sidebar-nav a[data-doc]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const doc = link.getAttribute('data-doc');
+                const url = new URL(window.location.href);
+                url.searchParams.set('doc', doc);
+                history.pushState({ doc }, '', url);
+                setCanonicalForDoc(doc);
+                loadDoc(doc);
+            });
+        });
+
+        // Handle back/forward
+        window.addEventListener('popstate', (e) => {
+            const doc = (e.state && e.state.doc) || new URLSearchParams(location.search).get('doc') || 'QUICK_START.md';
+            loadDoc(doc);
+            setCanonicalForDoc(doc);
+        });
+
+        // Initialize canonical for initial doc
+        (function initCanonicalOnLoad(){
+            const initialDoc = new URLSearchParams(location.search).get('doc') || 'QUICK_START.md';
+            setCanonicalForDoc(initialDoc);
+            // Initial pager + idle prefetch neighbors
+            updatePager(initialDoc);
+            const order = getSidebarOrder();
+            const idx = order.indexOf(initialDoc);
+            const neighbors = [];
+            if (idx > 0) neighbors.push(order[idx-1]);
+            if (idx >= 0 && idx < order.length - 1) neighbors.push(order[idx+1]);
+            idlePrefetch(neighbors);
+        })();
+        
+        // Intersection Observer for lazy loading images and animations
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
+            
+            // Lazy load GSAP on scroll
+            let gsapLoaded = false;
+            const scrollObserver = new IntersectionObserver((entries) => {
+                if (!gsapLoaded && entries.some(e => e.isIntersecting)) {
+                    gsapLoaded = true;
+                    loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js').then(() => {
+                        return loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js');
+                    }).then(() => {
+                        applyProgressiveRevelation();
+                    });
+                }
+            }, { threshold: 0.1 });
+            
+            const contentArea = document.querySelector('.content-area');
+            if (contentArea) {
+                scrollObserver.observe(contentArea);
+            }
+        }
+        
         // Load default document from URL or QUICK_START
         const urlParams = new URLSearchParams(window.location.search);
         const initialDoc = urlParams.get('doc') || 'QUICK_START.md';
         loadDoc(initialDoc);
     </script>
+    <script src="js/subscribe.js" defer></script>
 </body>
 </html>
