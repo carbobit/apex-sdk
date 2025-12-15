@@ -1,0 +1,18 @@
+[
+  {"path": "QUICK_START.md", "title": "Quick Start", "category": "Getting Started"},
+  {"path": "CLI_GUIDE.md", "title": "CLI Guide", "category": "Getting Started"},
+  {"path": "API.md", "title": "API Reference", "category": "Reference"},
+  {"path": "SYSTEM_ARCHITECTURE.md", "title": "System Architecture", "category": "Concepts"},
+  {"path": "TYPED_METADATA.md", "title": "Typed Metadata", "category": "Concepts"},
+  {"path": "TESTING_FRAMEWORK.md", "title": "Testing Framework", "category": "Development"},
+  {"path": "SECURITY.md", "title": "Security", "category": "Security"},
+  {"path": "SECURITY_AUDIT.md", "title": "Security Audit", "category": "Security"},
+  {"path": "ROADMAP.md", "title": "Roadmap", "category": "Community"},
+  {"path": "CONTRIBUTING.md", "title": "Contributing", "category": "Community"},
+  {"path": "DOCUMENTATION_HUB.md", "title": "Documentation Hub", "category": "Overview"},
+  {"path": "ECOSYSTEM_INTEGRATION.md", "title": "Ecosystem Integration", "category": "Guides"},
+  {"path": "DOMAINS.md", "title": "Domains", "category": "Overview"},
+  {"path": "MODULARIZATION_SUMMARY.md", "title": "Modularization Summary", "category": "Development"},
+  {"path": "METADATA_GENERATION.md", "title": "Metadata Generation", "category": "Guides"},
+  {"path": "Substrate_Features.md", "title": "Substrate Features", "category": "Concepts"}
+]
