@@ -44,14 +44,16 @@ jobs:
           source: ./docs
           destination: ./_site
 
-      - name: Fix permissions and inject API key in built site
+      - name: Verify API key injection
         run: |
           if [ -f ./_site/js/subscribe.js ]; then
-            chmod -R u+w ./_site
-            sed -i "s/__WEB3FORMS_ACCESS_KEY__/${{ secrets.WEB3FORMS_ACCESS_KEY }}/g" ./_site/js/subscribe.js
-            echo "API key injected into built subscribe.js"
+            if grep -q "${{ secrets.WEB3FORMS_ACCESS_KEY }}" ./_site/js/subscribe.js; then
+              echo "✓ API key successfully present in built subscribe.js"
+            else
+              echo "⚠ Warning: API key placeholder may still be present"
+            fi
           else
-            echo "Warning: subscribe.js not found in _site"
+            echo "⚠ Warning: subscribe.js not found in _site"
           fi
         env:
           WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
