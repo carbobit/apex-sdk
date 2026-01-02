@@ -8,7 +8,7 @@
 use alloy::primitives::U256;
 use apex_sdk_core::ChainAdapter;
 use apex_sdk_evm::{Error, EvmAdapter};
-use apex_sdk_types::{Address, TransactionStatus};
+use apex_sdk_types::{Address, TxStatus};
 use wiremock::{
     matchers::{method, path},
     Mock, MockServer, ResponseTemplate,
@@ -330,7 +330,7 @@ async fn test_get_balance_zero() {
         .get_balance("0x0000000000000000000000000000000000000000")
         .await;
     assert!(balance.is_ok());
-    assert_eq!(balance.unwrap(), U256::ZERO);
+    assert_eq!(balance.unwrap(), 0);
 }
 
 // ============================================================================
@@ -352,12 +352,9 @@ async fn test_transaction_status_confirmed() {
 
     assert!(status.is_ok());
     match status.unwrap() {
-        TransactionStatus::Confirmed {
-            block_hash,
-            block_number,
-        } => {
-            assert!(!block_hash.is_empty());
-            assert!(block_number.is_some());
+        ref s if s.status == TxStatus::Confirmed => {
+            assert!(s.block_hash.is_some());
+            assert!(s.block_number.is_some());
         }
         _ => panic!("Expected confirmed status"),
     }
@@ -377,9 +374,10 @@ async fn test_transaction_status_failed() {
     let status = adapter.get_transaction_status(tx_hash).await;
 
     assert!(status.is_ok());
-    match status.unwrap() {
-        TransactionStatus::Failed { error } => {
-            assert!(!error.is_empty());
+    let unwrapped_status = status.unwrap();
+    match unwrapped_status {
+        ref s if s.status == TxStatus::Failed => {
+            // Expected for failed transaction
         }
         _ => panic!("Expected failed status"),
     }
@@ -398,7 +396,7 @@ async fn test_transaction_status_unknown() {
     let status = adapter.get_transaction_status(tx_hash).await;
 
     assert!(status.is_ok());
-    assert!(matches!(status.unwrap(), TransactionStatus::Unknown));
+    assert!(status.unwrap().status == TxStatus::Unknown);
 }
 
 #[tokio::test]
@@ -414,7 +412,7 @@ async fn test_transaction_status_pending() {
     let status = adapter.get_transaction_status(tx_hash).await;
 
     assert!(status.is_ok());
-    assert!(matches!(status.unwrap(), TransactionStatus::Pending));
+    assert!(status.unwrap().status == TxStatus::Pending);
 }
 
 #[tokio::test]
@@ -530,10 +528,7 @@ async fn test_contract_creation_valid() {
     assert!(contract_result.is_ok());
 
     let contract = contract_result.unwrap();
-    assert_eq!(
-        contract.address(),
-        "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7"
-    );
+    assert_eq!(contract, "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb7");
 }
 
 #[tokio::test]

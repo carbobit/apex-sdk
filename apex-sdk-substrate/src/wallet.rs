@@ -17,6 +17,9 @@
 //! - Ensure wallets are dropped when no longer needed
 
 use crate::{Error, Result};
+use apex_sdk_core::{SdkError, Signer as CoreSigner};
+use apex_sdk_types::Address;
+use async_trait::async_trait;
 use parking_lot::RwLock;
 use sp_core::crypto::{Ss58AddressFormat, Ss58Codec};
 use sp_core::{ed25519, sr25519, Pair as PairTrait};
@@ -328,6 +331,17 @@ impl Drop for Wallet {
             self.key_type,
             self.address()
         );
+    }
+}
+
+#[async_trait]
+impl CoreSigner for Wallet {
+    async fn sign_transaction(&self, tx: &[u8]) -> std::result::Result<Vec<u8>, SdkError> {
+        Ok(self.sign(tx))
+    }
+
+    fn address(&self) -> Address {
+        Address::Substrate(self.address())
     }
 }
 

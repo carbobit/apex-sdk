@@ -8,6 +8,8 @@
 //! - Transaction confirmation tracking
 
 use crate::{Error, Metrics, Result, Sr25519Signer, Wallet};
+use apex_sdk_core::{FeeEstimator, SdkError};
+use async_trait::async_trait;
 use std::time::Duration;
 use subxt::{OnlineClient, PolkadotConfig};
 use tokio::time::sleep;
@@ -384,6 +386,46 @@ impl TransactionExecutor {
         .await
     }
 
+    /// Estimate fees from raw transaction bytes
+    pub async fn estimate_fee_for_bytes(&self, _tx_bytes: &[u8]) -> Result<u128> {
+        // For Substrate, we can't easily parse arbitrary transaction bytes
+        // without knowing the call structure. For now, we'll estimate a basic transfer.
+        // In a production implementation, this would need proper SCALE decoding.
+
+        debug!("Estimating fee from transaction bytes (using transfer estimation)");
+
+        // Use a reasonable default transfer amount for estimation
+        let dummy_dest = "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"; // Alice
+        let dummy_amount = 1_000_000_000_000u128; // 1 DOT
+
+        // Create a dummy wallet for estimation context
+        let dummy_wallet = match crate::wallet::Wallet::from_mnemonic(
+            "bottom drive obey lake curtain smoke basket hold race lonely fit walk",
+            crate::wallet::KeyPairType::Sr25519,
+        ) {
+            Ok(wallet) => wallet,
+            Err(_) => {
+                // Fallback to a reasonable default fee
+                return Ok(1_000_000u128); // 1 million Planck
+            }
+        };
+
+        // Estimate fee for a basic transfer as a proxy for transaction complexity
+        match self
+            .estimate_transfer_fee(dummy_dest, dummy_amount, &dummy_wallet)
+            .await
+        {
+            Ok(fee) => {
+                debug!("Estimated fee from bytes: {}", fee);
+                Ok(fee)
+            }
+            Err(e) => {
+                warn!("Fee estimation from bytes failed: {}, using fallback", e);
+                Ok(1_000_000u128) // 1 million Planck fallback
+            }
+        }
+    }
+
     /// Execute a batch of transactions using the Utility pallet
     ///
     /// # Arguments
@@ -510,6 +552,22 @@ impl TransactionExecutor {
         }
 
         self.execute_batch(calls, wallet, batch_mode).await
+    }
+}
+
+#[async_trait]
+impl FeeEstimator for TransactionExecutor {
+    async fn estimate_fee(&self, _tx: &[u8]) -> std::result::Result<u128, SdkError> {
+        // This is a placeholder implementation.
+        // In a real implementation, we would need to decode the transaction bytes
+        // to extract the call and arguments, then call the runtime API.
+        // Since we don't have the full context here (like the sender wallet),
+        // we can't easily use the existing estimate_fee method.
+
+        // For now, we'll return a default fee or error
+        Err(SdkError::NotImplemented(
+            "Fee estimation from raw bytes not fully implemented for Substrate".to_string(),
+        ))
     }
 }
 

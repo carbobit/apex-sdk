@@ -12,6 +12,9 @@ use alloy::signers::{
     local::{coins_bip39::English, MnemonicBuilder, PrivateKeySigner},
     Signer,
 };
+use apex_sdk_core::{SdkError, Signer as CoreSigner};
+use apex_sdk_types::Address;
+use async_trait::async_trait;
 use std::str::FromStr;
 
 /// Wallet for managing EVM accounts and signing transactions
@@ -216,6 +219,31 @@ impl std::fmt::Debug for Wallet {
             .field("address", &self.address())
             .field("chain_id", &self.chain_id())
             .finish()
+    }
+}
+
+#[async_trait]
+impl CoreSigner for Wallet {
+    async fn sign_transaction(&self, tx: &[u8]) -> std::result::Result<Vec<u8>, SdkError> {
+        // This is a simplified implementation. In reality, we'd need to decode the tx bytes
+        // to get the hash or the full transaction to sign.
+        // For now, we'll assume the input is the hash to sign (32 bytes)
+        if tx.len() == 32 {
+            let hash = B256::from_slice(tx);
+            let signature = self
+                .sign_transaction_hash(&hash)
+                .await
+                .map_err(|e| SdkError::SignerError(e.to_string()))?;
+            Ok(signature.as_bytes().to_vec())
+        } else {
+            Err(SdkError::SignerError(
+                "Input must be a 32-byte hash".to_string(),
+            ))
+        }
+    }
+
+    fn address(&self) -> Address {
+        Address::Evm(self.address())
     }
 }
 

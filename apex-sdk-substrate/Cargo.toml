@@ -28,6 +28,8 @@ apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.4" }
 tokio = { workspace = true }
 async-trait = { workspace = true }
 thiserror = { workspace = true }
+chrono = { version = "0.4", features = ["serde"] }
+
 tracing = { workspace = true }
 
 # Substrate dependencies

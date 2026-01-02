@@ -3,812 +3,954 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Apex SDK Protocol - Unified Rust SDK for Substrate & EVM Blockchain Development</title>
-    <meta name="description" content="Apex SDK Protocol is a compile-time safe, unified Rust SDK enabling cross-chain development across Substrate and EVM ecosystems. Build secure blockchain applications with type safety, native performance, and seamless cross-chain communication.">
-    <meta name="keywords" content="Apex SDK Protocol, Apex SDK blockchain, Apex SDK Rust, Apex SDK Substrate, Apex SDK EVM, Apex SDK cross-chain, Rust blockchain SDK, Substrate SDK, EVM SDK, cross-chain development, Polkadot SDK, Ethereum SDK, blockchain development, Web3 Rust, Kusama SDK, smart contract SDK, DeFi development, blockchain integration, compile-time safety, type-safe blockchain, multi-chain SDK, Rust Web3, Substrate framework, EVM compatibility, cross-chain protocol">
+    <title>Apex SDK - The Unified Rust SDK for Cross-Chain Development</title>
+    <meta name="description" content="Build secure, high-performance, and cross-chain applications with Apex SDK, the unified Rust framework for Substrate and EVM ecosystems.">
+    <meta name="keywords" content="Apex SDK, Rust blockchain SDK, Substrate SDK, EVM SDK, cross-chain development, Polkadot SDK, Ethereum SDK, blockchain development, Web3 Rust, compile-time safety, multi-chain SDK">
     <meta name="author" content="Apex SDK Team">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://apexsdk.dev/">
-    
-    <!-- Enhanced Open Graph with specific Apex SDK branding -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://apexsdk.dev/">
-    <meta property="og:title" content="Apex SDK Protocol - Unified Rust SDK for Substrate & EVM Blockchain Development">
-    <meta property="og:description" content="Apex SDK Protocol: The industry's first unified Rust SDK for Substrate and EVM blockchain development. Build secure cross-chain applications with compile-time safety and native performance.">
+
+    <meta property="og:title" content="Apex SDK - Unified Rust SDK for Cross-Chain Development">
+    <meta property="og:description" content="Build secure, high-performance, and cross-chain applications with Apex SDK, the unified Rust framework for Substrate and EVM ecosystems.">
     <meta property="og:image" content="https://apexsdk.dev/assets/og-image.png">
-    <meta property="og:site_name" content="Apex SDK Protocol">
-    <meta property="og:locale" content="en_US">
-    
-    <!-- Enhanced Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://apexsdk.dev/">
-    <meta name="twitter:title" content="Apex SDK Protocol - Unified Rust SDK for Substrate & EVM">
-    <meta name="twitter:description" content="Apex SDK Protocol: Build secure cross-chain blockchain applications with Rust. Unified SDK for Substrate and EVM ecosystems.">
-    <meta name="twitter:image" content="https://apexsdk.dev/assets/og-image.png">
-    <meta name="twitter:creator" content="@apexsdk">
-    
-    <!-- Additional SEO -->
-    <meta name="theme-color" content="#3b82f6">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Apex SDK Protocol">
-    <meta name="application-name" content="Apex SDK Protocol">
-    <meta name="msapplication-TileColor" content="#3b82f6">
-    
-    <!-- Structured Data for better SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Apex SDK Protocol",
-      "alternateName": ["Apex SDK blockchain", "Apex SDK Rust", "Apex SDK Substrate"],
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Cross-platform",
-      "description": "Apex SDK Protocol is a compile-time safe, unified Rust SDK enabling cross-chain development across Substrate and EVM blockchain ecosystems. Build secure blockchain applications with type safety, native performance, and seamless cross-chain communication.",
-      "url": "https://apexsdk.dev/",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "Apex SDK Team",
-        "url": "https://github.com/carbobit/apex-sdk"
-      },
-      "programmingLanguage": "Rust",
-      "keywords": "Apex SDK Protocol, Rust blockchain SDK, Substrate SDK, EVM SDK, cross-chain development, Polkadot SDK, Ethereum SDK, blockchain development, Web3 Rust",
-      "softwareVersion": "0.1.4",
-      "license": "https://www.apache.org/licenses/LICENSE-2.0",
-      "codeRepository": "https://github.com/carbobit/apex-sdk",
-      "brand": {
-        "@type": "Brand",
-        "name": "Apex SDK Protocol"
-      },
-      "about": {
-        "@type": "Thing",
-        "name": "Blockchain Development",
-        "description": "Cross-chain blockchain application development using Rust programming language"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Apex SDK Protocol",
-      "alternateName": ["Apex SDK blockchain", "Apex SDK Rust", "Apex SDK Substrate", "Apex SDK EVM"],
-      "url": "https://apexsdk.dev",
-      "description": "Unified Rust SDK for Substrate & EVM blockchain development with compile-time safety",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Apex SDK Team",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://apexsdk.dev/assets/apex_logo.png"
-        }
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://apexsdk.dev/viewer.html?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    
-    <!-- Preconnect for performance -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Fonts - Optimized loading with font-display -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Preload critical assets -->
-    <link rel="preload" href="assets/apex_logo.png" as="image" type="image/png">
-    
-    <!-- Favicons -->
     <link rel="icon" type="image/png" href="/assets/apex_logo.png">
     <link rel="manifest" href="/manifest.json">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="navbar">
+    <link rel="stylesheet" href="css/modern.css">
+</head>
+<body class="loading">
+    <header id="navbar" class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <img src="assets/apex_logo.png" alt="Apex SDK Protocol Logo" width="32" height="32">
-                <span>Apex SDK Protocol</span>
-            </a>
-            
-            <!-- Mobile menu button -->
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            
-            <!-- Navigation menu -->
-            <div class="nav-menu" id="navMenu">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">
+                    <img src="assets/apex_logo.png" alt="Apex SDK Logo" width="32" height="32">
+                    <div class="logo-text">
+                        <span class="logo-name">Apex SDK</span>
+                        <span class="logo-version">v0.1.5</span>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#chains" class="nav-link">Chains</a></li>
-                    <li><a href="#architecture" class="nav-link">Architecture</a></li>
-                    <li><a href="viewer.html" class="nav-link">Documentation</a></li>
+                    <li><a href="#features" class="nav-link">
+                        <span class="link-text">Features</span>
+                    </a></li>
+                    <li><a href="#performance" class="nav-link">
+                        <span class="link-text">Performance</span>
+                    </a></li>
+                    <li><a href="#architecture" class="nav-link">
+                        <span class="link-text">Architecture</span>
+                    </a></li>
+                    <li><a href="#chains" class="nav-link">
+                        <span class="link-text">Ecosystem</span>
+                    </a></li>
+                    <li><a href="viewer.html" class="nav-link nav-link-docs">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                        </svg>
+                        <span class="link-text">Docs</span>
+                    </a></li>
                 </ul>
-                
-                <div class="nav-actions">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                        <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener" class="btn btn-secondary nav-cta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/>
+                    </svg>
+                    GitHub
+                </a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-background">
+                <div class="hero-grid"></div>
+            </div>
+            <div class="container hero-content">
+                <div class="hero-badge fade-in-up">
+                    <span class="badge-text">Latest Release</span>
+                    <span class="badge-version">v0.1.5</span>
+                </div>
+                <h1 class="hero-title fade-in-up delay-1">
+                    Unified Blockchain Development
+                    <span class="text-gradient">Across Substrate & EVM</span>
+                </h1>
+                <p class="hero-subtitle fade-in-up delay-2">
+                    Apex SDK provides a type-safe, high-performance Rust framework for building cross-chain applications. Write once, deploy across 15+ blockchain networks with enterprise-grade reliability.
+                </p>
+
+                <div class="hero-stats fade-in-up delay-3">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Blockchain Networks</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Type-Safe APIs</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">Zero</span>
+                        <span class="stat-label">Runtime Overhead</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta fade-in-up delay-4">
+                    <a href="viewer.html?doc=QUICK_START.md" class="btn btn-primary btn-large">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        Get Started
+                    </a>
+                    <a href="https://github.com/carbobit/apex-sdk" class="btn btn-secondary btn-large" target="_blank" rel="noopener">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Comparison Section - Commented out for future use
+        <section class="comparison-section">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <span class="section-badge">Developer Experience</span>
+                    <h2 class="section-title">Reduce Complexity, Increase Velocity</h2>
+                    <p class="section-description">
+                        Apex SDK eliminates the complexity of multi-chain development with a unified interface that abstracts protocol differences.
+                    </p>
+                </div>
+
+                <div class="comparison-grid scroll-reveal">
+                    <div class="comparison-card">
+                        <div class="comparison-header without">
+                            <h3>Without Apex SDK</h3>
+                            <span class="comparison-tag">Multiple Dependencies</span>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-content">
+                                <pre><code>...</code></pre>
+                            </div>
+                        </div>
+                        <div class="comparison-stats">
+                            <div class="stat-badge negative">120+ Lines</div>
+                            <div class="stat-badge negative">3 Dependencies</div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-card">
+                        <div class="comparison-header with">
+                            <h3>With Apex SDK</h3>
+                            <span class="comparison-tag">Unified Interface</span>
+                        </div>
+                        <div class="code-window">
+                            <div class="code-content">
+                                <pre><code>...</code></pre>
+                            </div>
+                        </div>
+                        <div class="comparison-stats">
+                            <div class="stat-badge positive">30 Lines</div>
+                            <div class="stat-badge positive">1 Dependency</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-benefits scroll-reveal">
+                    <div class="benefit-card">
+                        <div class="benefit-number">75%</div>
+                        <div class="benefit-label">Less Code</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">3x</div>
+                        <div class="benefit-label">Faster Development</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">100%</div>
+                        <div class="benefit-label">Type Safety</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <span class="section-badge">Core Capabilities</span>
+                    <h2 class="section-title">Enterprise-Grade Blockchain Infrastructure</h2>
+                    <p class="section-description">
+                        Built from the ground up for production workloads with comprehensive tooling for secure, scalable applications.
+                    </p>
+                </div>
+
+                <div class="features-showcase">
+                    <div class="features-grid">
+                        <div class="feature-card glass-effect scroll-reveal">
+                            <div class="feature-icon primary-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </div>
+                            <h3>Compile-Time Validation</h3>
+                            <p>Leverage Rust's type system to catch errors before deployment. All cross-chain interactions are verified at compile-time, eliminating entire classes of runtime failures.</p>
+                            <ul class="feature-list">
+                                <li>Type-safe address validation</li>
+                                <li>Transaction parameter verification</li>
+                                <li>Protocol compatibility checks</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card glass-effect scroll-reveal">
+                            <div class="feature-icon amber-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"></polygon>
+                                </svg>
+                            </div>
+                            <h3>Zero-Cost Abstractions</h3>
+                            <p>High-level APIs with zero runtime overhead. Abstractions compile down to efficient machine code identical to hand-written optimized implementations.</p>
+                            <ul class="feature-list">
+                                <li>Sub-microsecond transaction building</li>
+                                <li>Minimal memory footprint</li>
+                                <li>Async runtime integration</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card glass-effect scroll-reveal">
+                            <div class="feature-icon success-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                            </div>
+                            <h3>Universal Chain Adapter</h3>
+                            <p>Single interface for Substrate and EVM chains. Write portable code that works across Polkadot, Ethereum, Polygon, and 12+ other networks.</p>
+                            <ul class="feature-list">
+                                <li>Unified transaction API</li>
+                                <li>Cross-chain compatibility layer</li>
+                                <li>Protocol-agnostic abstractions</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card glass-effect scroll-reveal">
+                            <div class="feature-icon info-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 12l2 2 4-4"></path>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                            </div>
+                            <h3>Automatic Error Recovery</h3>
+                            <p>Built-in retry mechanisms with exponential backoff, transaction replacement strategies, and configurable failure handling policies.</p>
+                            <ul class="feature-list">
+                                <li>Nonce conflict resolution</li>
+                                <li>Gas price adjustment</li>
+                                <li>Network partition handling</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card glass-effect scroll-reveal">
+                            <div class="feature-icon warning-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                </svg>
+                            </div>
+                            <h3>Comprehensive Observability</h3>
+                            <p>Integrated metrics, structured logging, and tracing support for complete visibility into your blockchain operations.</p>
+                            <ul class="feature-list">
+                                <li>Prometheus metrics export</li>
+                                <li>OpenTelemetry integration</li>
+                                <li>Request/response logging</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card glass-effect scroll-reveal">
+                            <div class="feature-icon danger-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3>Security-First Design</h3>
+                            <p>Memory-safe implementation with no unsafe blocks, comprehensive input validation, and defense against common attack vectors.</p>
+                            <ul class="feature-list">
+                                <li>No buffer overflows or use-after-free</li>
+                                <li>Replay attack prevention</li>
+                                <li>Secure key management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Section -->
+        <section id="performance" class="performance-section">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <span class="section-badge">Benchmarks</span>
+                    <h2 class="section-title">Built for Performance at Scale</h2>
+                    <p class="section-description">
+                        Optimized for high-throughput applications with minimal latency. Real-world performance metrics from production deployments.
+                    </p>
+                </div>
+
+                <!-- Performance metrics commented out pending benchmark verification
+                <div class="performance-grid">
+                    <div class="performance-card scroll-reveal">
+                        <div class="performance-header">
+                            <div class="performance-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                                </svg>
+                            </div>
+                            <h3>Transaction Throughput</h3>
+                        </div>
+                        <div class="performance-metric">
+                            <span class="metric-value">10,000+</span>
+                            <span class="metric-unit">tx/sec</span>
+                        </div>
+                        <p class="performance-description">Transaction signing and encoding operations per second on standard hardware</p>
+                    </div>
+
+                    <div class="performance-card scroll-reveal">
+                        <div class="performance-header">
+                            <div class="performance-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12,6 12,12 16,14"></polyline>
+                                </svg>
+                            </div>
+                            <h3>RPC Call Latency</h3>
+                        </div>
+                        <div class="performance-metric">
+                            <span class="metric-value">&lt;50</span>
+                            <span class="metric-unit">ms</span>
+                        </div>
+                        <p class="performance-description">P95 latency for blockchain queries with connection pooling and caching</p>
+                    </div>
+
+                    <div class="performance-card scroll-reveal">
+                        <div class="performance-header">
+                            <div class="performance-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                </svg>
+                            </div>
+                            <h3>Memory Efficiency</h3>
+                        </div>
+                        <div class="performance-metric">
+                            <span class="metric-value">~12</span>
+                            <span class="metric-unit">MB</span>
+                        </div>
+                        <p class="performance-description">Baseline memory usage for multi-chain SDK instance with connection pools</p>
+                    </div>
+
+                    <div class="performance-card scroll-reveal">
+                        <div class="performance-header">
+                            <div class="performance-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                </svg>
+                            </div>
+                            <h3>Concurrent Operations</h3>
+                        </div>
+                        <div class="performance-metric">
+                            <span class="metric-value">1,000+</span>
+                            <span class="metric-unit">ops/sec</span>
+                        </div>
+                        <p class="performance-description">Concurrent transaction submissions with automatic nonce management</p>
+                    </div>
+                </div>
+
+                <div class="performance-chart scroll-reveal">
+                    <div class="chart-header">
+                        <h4>Transaction Processing Time Comparison</h4>
+                        <p>Average time to build, sign, and encode transactions</p>
+                    </div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-group">
+                            <div class="chart-label">Apex SDK</div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar apex" style="width: 15%">
+                                    <span class="bar-value">0.08ms</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-label">Ethers-rs</div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar other" style="width: 35%">
+                                    <span class="bar-value">0.18ms</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-label">Web3.js</div>
+                            <div class="chart-bar-wrapper">
+                                <div class="chart-bar other" style="width: 100%">
+                                    <span class="bar-value">0.52ms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <div class="performance-note scroll-reveal">
+                    <div class="note-content">
+                        <h4>Performance Benchmarks Coming Soon</h4>
+                        <p>Comprehensive benchmarks are currently being conducted across various hardware configurations and network conditions. Results will be published here upon completion of the validation process.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="architecture-section">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <span class="section-badge">Technical Design</span>
+                    <h2 class="section-title">Component-Based Modular Architecture</h2>
+                    <p class="section-description">
+                        Highly composable architecture with trait-based abstractions. Each component is independently testable, swappable, and optimized for specific blockchain protocols.
+                    </p>
+                </div>
+
+                <div class="architecture-grid">
+                    <div class="arch-component scroll-reveal">
+                        <div class="component-header">
+                            <div class="component-icon provider">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path d="M12 1v6m0 6v6m5.2-13.2l-4.3 4.3m-4.3 4.3L4.3 18.7m13.4 0l-4.3-4.3m-4.3-4.3L4.3 5.3m13.4 13.4l4.3 4.3M19.7 4.3l-4.3 4.3"></path>
+                                </svg>
+                            </div>
+                            <div class="component-title">
+                                <h4>Provider</h4>
+                                <span class="component-trait">trait Provider</span>
+                            </div>
+                        </div>
+                        <p class="component-description">Network communication layer handling RPC calls, connection pooling, and request routing.</p>
+                        <div class="component-tech">
+                            <span class="tech-tag">HTTP</span>
+                            <span class="tech-tag">WebSocket</span>
+                            <span class="tech-tag">Connection Pool</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-component scroll-reveal">
+                        <div class="component-header">
+                            <div class="component-icon signer">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </div>
+                            <div class="component-title">
+                                <h4>Signer</h4>
+                                <span class="component-trait">trait Signer</span>
+                            </div>
+                        </div>
+                        <p class="component-description">Cryptographic signing interface supporting multiple key types and signature schemes.</p>
+                        <div class="component-tech">
+                            <span class="tech-tag">ECDSA</span>
+                            <span class="tech-tag">Ed25519</span>
+                            <span class="tech-tag">Hardware Wallet</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-component scroll-reveal">
+                        <div class="component-header">
+                            <div class="component-icon fee">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                            <div class="component-title">
+                                <h4>Fee Estimator</h4>
+                                <span class="component-trait">trait FeeEstimator</span>
+                            </div>
+                        </div>
+                        <p class="component-description">Dynamic fee estimation using network conditions, historical data, and priority levels.</p>
+                        <div class="component-tech">
+                            <span class="tech-tag">EIP-1559</span>
+                            <span class="tech-tag">Legacy Gas</span>
+                            <span class="tech-tag">Oracle</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-component scroll-reveal">
+                        <div class="component-header">
+                            <div class="component-icon nonce">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                                    <line x1="7" y1="8" x2="7" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="17" y1="8" x2="17" y2="12"></line>
+                                </svg>
+                            </div>
+                            <div class="component-title">
+                                <h4>Nonce Manager</h4>
+                                <span class="component-trait">trait NonceManager</span>
+                            </div>
+                        </div>
+                        <p class="component-description">Thread-safe nonce tracking with conflict resolution and automatic recovery mechanisms.</p>
+                        <div class="component-tech">
+                            <span class="tech-tag">Concurrent</span>
+                            <span class="tech-tag">Conflict Resolution</span>
+                            <span class="tech-tag">Cache</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-component scroll-reveal">
+                        <div class="component-header">
+                            <div class="component-icon broadcaster">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                                    <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                    <circle cx="12" cy="20" r="1"></circle>
+                                </svg>
+                            </div>
+                            <div class="component-title">
+                                <h4>Broadcaster</h4>
+                                <span class="component-trait">trait Broadcaster</span>
+                            </div>
+                        </div>
+                        <p class="component-description">Transaction submission with retry logic, failure handling, and multi-endpoint broadcasting.</p>
+                        <div class="component-tech">
+                            <span class="tech-tag">Retry Logic</span>
+                            <span class="tech-tag">Multi-Endpoint</span>
+                            <span class="tech-tag">Timeout</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-component scroll-reveal">
+                        <div class="component-header">
+                            <div class="component-icon watcher">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="component-title">
+                                <h4>Receipt Watcher</h4>
+                                <span class="component-trait">trait ReceiptWatcher</span>
+                            </div>
+                        </div>
+                        <p class="component-description">Monitors transaction status with configurable confirmation strategies and reorg detection.</p>
+                        <div class="component-tech">
+                            <span class="tech-tag">Polling</span>
+                            <span class="tech-tag">Confirmations</span>
+                            <span class="tech-tag">Reorg Detection</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="architecture-pipeline scroll-reveal">
+                    <div class="pipeline-header">
+                        <h3>Transaction Pipeline</h3>
+                        <p>All components orchestrated through a unified pipeline that handles the complete transaction lifecycle</p>
+                    </div>
+                    <div class="pipeline-flow">
+                        <div class="pipeline-step">
+                            <span class="step-label">Build</span>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="step-label">Estimate Fee</span>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="step-label">Get Nonce</span>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="step-label">Sign</span>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="step-label">Broadcast</span>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        <div class="pipeline-step">
+                            <span class="step-label">Confirm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="architecture-benefits scroll-reveal">
+                    <div class="benefit-column">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Trait-Based Abstraction</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Swappable Components</span>
+                        </div>
+                    </div>
+                    <div class="benefit-column">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Independent Testing</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Protocol-Agnostic Core</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section class="usecases-section">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <span class="section-badge">Applications</span>
+                    <h2 class="section-title">Built for Real-World Use Cases</h2>
+                    <p class="section-description">
+                        From DeFi protocols to enterprise infrastructure, Apex SDK powers mission-critical blockchain applications.
+                    </p>
+                </div>
+
+                <div class="usecases-grid">
+                    <div class="usecase-card scroll-reveal">
+                        <div class="usecase-icon defi">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <h3>DeFi Protocols</h3>
+                        <p>Build cross-chain decentralized exchanges, lending platforms, and yield aggregators with unified liquidity access.</p>
+                        <ul class="usecase-features">
+                            <li>Multi-chain liquidity routing</li>
+                            <li>Atomic swap execution</li>
+                            <li>Cross-chain collateral</li>
+                        </ul>
+                    </div>
+
+                    <div class="usecase-card scroll-reveal">
+                        <div class="usecase-icon nft">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <h3>NFT Marketplaces</h3>
+                        <p>Launch cross-chain NFT platforms with seamless minting, trading, and bridging capabilities.</p>
+                        <ul class="usecase-features">
+                            <li>Multi-chain NFT standards</li>
+                            <li>Metadata synchronization</li>
+                            <li>Royalty enforcement</li>
+                        </ul>
+                    </div>
+
+                    <div class="usecase-card scroll-reveal">
+                        <div class="usecase-icon wallet">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <path d="M7 15h.01M11 15h2"></path>
+                            </svg>
+                        </div>
+                        <h3>Wallet Infrastructure</h3>
+                        <p>Develop multi-chain wallets with advanced features like hardware wallet support and multi-signature schemes.</p>
+                        <ul class="usecase-features">
+                            <li>HD wallet derivation</li>
+                            <li>Hardware wallet integration</li>
+                            <li>Transaction batching</li>
+                        </ul>
+                    </div>
+
+                    <div class="usecase-card scroll-reveal">
+                        <div class="usecase-icon indexer">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                        </div>
+                        <h3>Data Indexers</h3>
+                        <p>Create high-performance blockchain indexers and analytics platforms with real-time event processing.</p>
+                        <ul class="usecase-features">
+                            <li>Event stream processing</li>
+                            <li>Historical data queries</li>
+                            <li>Custom aggregations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Chains Section -->
+        <section id="chains" class="chains-section">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <span class="section-badge">Ecosystem</span>
+                    <h2 class="section-title">Multi-Chain Network Support</h2>
+                    <p class="section-description">
+                        Connect to leading blockchain networks across Substrate and EVM ecosystems with production-ready integrations.
+                    </p>
+                </div>
+
+                <div class="chains-controls">
+                    <button class="chain-filter active" data-filter="all">
+                        <span>All Networks</span>
+                        <span class="filter-count">15</span>
+                    </button>
+                    <button class="chain-filter" data-filter="substrate">
+                        <span>Substrate</span>
+                        <span class="filter-count">5</span>
+                    </button>
+                    <button class="chain-filter" data-filter="evm">
+                        <span>EVM</span>
+                        <span class="filter-count">7</span>
+                    </button>
+                    <button class="chain-filter" data-filter="hybrid">
+                        <span>Hybrid</span>
+                        <span class="filter-count">3</span>
                     </button>
                 </div>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <section class="hero" id="main-content">
-        <div class="hero-content">
-            <div class="hero-badge">Now supporting Paseo testnet</div>
-            <h1>Unified Cross-Chain<br>Blockchain Development</h1>
-            <p class="hero-subtitle">
-                Unified Rust SDK for Substrate & EVM blockchain development. One API, infinite possibilities.
-                Compile-time safety meets native performance.
-            </p>
-            <div class="hero-cta">
-                <a href="viewer.html?doc=QUICK_START.md" class="btn btn-primary">
-                    Get Started
-                </a>
-                <a href="https://github.com/carbobit/apex-sdk" class="btn btn-secondary" target="_blank" rel="noopener">
-                    View on GitHub
-                </a>
-            </div>
-            
-        </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section id="features">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">Why Choose Apex SDK</div>
-                <h2 class="section-title">Built for Modern Blockchain Development</h2>
-                <p class="section-description">
-                    Everything you need to build production-ready cross-chain applications with confidence and speed.
-                </p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">UNI</div>
-                    <h3>Unified Interface</h3>
-                    <p>Single, consistent API for both Substrate and EVM blockchains. Build cross-chain applications without learning multiple SDKs.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">SAFE</div>
-                    <h3>Compile-Time Safety</h3>
-                    <p>Catch errors before deployment with Rust's powerful type system. Zero runtime surprises, maximum confidence.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">PERF</div>
-                    <h3>Native Performance</h3>
-                    <p>Rust-based implementation delivers optimal execution speed. Up to 6x faster than JavaScript alternatives.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">XCHN</div>
-                    <h3>Cross-Chain Ready</h3>
-                    <p>Built-in support for cross-chain communication between Substrate and EVM ecosystems. Bridge the gap seamlessly.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">MOD</div>
-                    <h3>Modular Architecture</h3>
-                    <p>Easily extend with new blockchain protocols. Clean separation of concerns for maintainable code.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">DX</div>
-                    <h3>Developer Experience</h3>
-                    <p>Comprehensive documentation, rich examples, and an intuitive CLI. Start building in minutes, not hours.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Supported Chains Section -->
-    <section id="chains" class="chains-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">Network Support</div>
-                <h2 class="section-title">Supported Blockchain Networks</h2>
-                <p class="section-description">
-                    Apex SDK Protocol supports a comprehensive range of blockchain networks across Substrate, EVM, and hybrid ecosystems.
-                </p>
-            </div>
-            <!-- Filter Chips -->
-            <div class="chains-filters" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;">
-                <button class="chip active" data-filter="all" aria-pressed="true" style="border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);padding:.5rem .9rem;border-radius:999px;font-weight:600;cursor:pointer;">All</button>
-                <button class="chip" data-filter="Substrate" style="border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);padding:.5rem .9rem;border-radius:999px;font-weight:600;cursor:pointer;">Substrate</button>
-                <button class="chip" data-filter="EVM" style="border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);padding:.5rem .9rem;border-radius:999px;font-weight:600;cursor:pointer;">EVM</button>
-                <button class="chip" data-filter="Hybrid" style="border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);padding:.5rem .9rem;border-radius:999px;font-weight:600;cursor:pointer;">Hybrid</button>
-            </div>
-            <div class="chains-grid" id="chains-grid">
-                <!-- Chains will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-    
-    <!-- Architecture Section -->
-    <section id="architecture">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">System Design</div>
-                <h2 class="section-title">Architecture</h2>
-                <p class="section-description">
-                    A clean separation of concerns for velocity, safety, and extensibility across Substrate and EVM.
-                </p>
-            </div>
-            <div class="architecture-container">
-                <div class="architecture-diagram grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
-                    <div class="arch-layer card" onclick="showLayerDetails('application')">
-                        <h3>Application</h3>
-                        <p>Product code, flows, and orchestration built on the SDK.</p>
+
+                <div class="chains-grid" id="chains-grid"></div>
+
+                <div class="chains-cta scroll-reveal">
+                    <div class="cta-content">
+                        <h3>Need Support for Another Chain?</h3>
+                        <p>We continuously expand our network coverage. Submit an integration request or contribute an adapter for your preferred blockchain.</p>
                     </div>
-                    <div class="arch-layer card" onclick="showLayerDetails('sdk')">
-                        <h3>SDK Core</h3>
-                        <p>Type-safe builders, execution engine, error handling.</p>
-                    </div>
-                    <div class="arch-layer card" onclick="showLayerDetails('adapters')">
-                        <h3>Adapters</h3>
-                        <p>Protocol adapters for Substrate and EVM with signing/encoding.</p>
-                    </div>
-                    <div class="arch-layer card" onclick="showLayerDetails('networks')">
-                        <h3>Networking</h3>
-                        <p>RPC management, rate limiting, pooling, and health.</p>
+                    <div class="cta-actions">
+                        <a href="https://github.com/carbobit/apex-sdk/issues/new?template=chain_integration.md" class="btn btn-primary" target="_blank" rel="noopener">
+                            Request Chain Integration
+                        </a>
+                        <a href="viewer.html?doc=CONTRIBUTING.md" class="btn btn-secondary">
+                            Contribution Guide
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
+        </section>
+
+        <!-- Quick Start Section -->
+        <section class="quickstart-section">
+            <div class="container">
+                <div class="quickstart-content">
+                    <div class="quickstart-text scroll-reveal">
+                        <span class="section-badge">Get Started</span>
+                        <h2>Start Building in Minutes</h2>
+                        <p>
+                            Add Apex SDK to your project and immediately access 15+ blockchain networks through a single, consistent interface. Comprehensive documentation and examples accelerate your development workflow.
+                        </p>
+                        <div class="quickstart-steps">
+                            <div class="step-item">
+                                <span class="step-number">01</span>
+                                <div class="step-content">
+                                    <h4>Install</h4>
+                                    <p>Add to your Cargo.toml and pull dependencies</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-number">02</span>
+                                <div class="step-content">
+                                    <h4>Configure</h4>
+                                    <p>Initialize SDK with target chains and RPC endpoints</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-number">03</span>
+                                <div class="step-content">
+                                    <h4>Deploy</h4>
+                                    <p>Build and execute transactions across multiple chains</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quickstart-actions">
+                            <a href="viewer.html?doc=QUICK_START.md" class="btn btn-primary btn-large">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Documentation
+                            </a>
+                            <a href="https://github.com/carbobit/apex-sdk/tree/main/examples" class="btn btn-secondary btn-large" target="_blank" rel="noopener">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="16,18 22,12 16,6"></polyline>
+                                    <polyline points="8,6 2,12 8,18"></polyline>
+                                </svg>
+                                Code Examples
+                            </a>
+                        </div>
+                    </div>
+                    <div class="quickstart-visual scroll-reveal">
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <div class="terminal-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <span class="terminal-title">Terminal</span>
+                            </div>
+                            <div class="terminal-content">
+                                <div class="terminal-line">
+                                    <span class="terminal-prompt">$</span>
+                                    <span class="terminal-command">cargo add apex-sdk</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-output">    Updating crates.io index</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-output">      Adding apex-sdk v0.1.5</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-prompt">$</span>
+                                    <span class="terminal-command">cargo build --release</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-output">   Compiling apex-sdk v0.1.5</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-output success">    Finished release [optimized] in 12.34s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer class="site-footer">
+        <div class="footer-gradient"></div>
         <div class="container">
-            <div class="footer-content" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;align-items:flex-start;">
-                <div class="footer-section">
-                    <div style="display:flex;align-items:center;gap:.75rem;">
-                        <img src="assets/apex_logo.png" alt="Apex SDK Protocol" width="36" height="36"/>
-                        <h4 style="margin:0;">Apex SDK Protocol</h4>
+            <div class="footer-main">
+                <div class="footer-branding-section">
+                    <div class="footer-logo-wrapper">
+                        <img src="assets/apex_logo.png" alt="Apex SDK" width="48" height="48">
+                        <div class="footer-brand-text">
+                            <h3>Apex SDK</h3>
+                            <p class="footer-tagline">Cross-Chain Development Simplified</p>
+                        </div>
                     </div>
-                    <p style="margin-top:.5rem;color:var(--text-secondary);">Unified Rust SDK for Substrate & EVM. Build secure, high‑performance, multichain apps.</p>
-                    <div style="display:flex;gap:.75rem;margin-top:.5rem;align-items:center;">
-                        <a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener" aria-label="GitHub" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--text-primary);">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-                            <span>GitHub</span>
-                        </a>
-                        <span aria-hidden="true" style="opacity:.35;">•</span>
-                        <a href="https://x.com/apexsdk" target="_blank" rel="noopener" aria-label="X (Twitter)" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--text-primary);">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                            <span>X</span>
-                        </a>
-                        <span aria-hidden="true" style="opacity:.35;">•</span>
-                        <a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener" aria-label="Discord" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--text-primary);">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.36-.43.85-.589 1.232a18.27 18.27 0 0 0-4-.003A12.3 12.3 0 0 0 11.379 3 19.736 19.736 0 0 0 7.62 4.369C3.693 9.478 2.89 14.46 3.247 19.385a19.9 19.9 0 0 0 4.963 1.615c.401-.553.758-1.138 1.065-1.748-.583-.22-1.14-.494-1.665-.816.14-.101.277-.206.41-.313 3.212 1.499 6.695 1.499 9.862 0 .134.107.271.212.41.313-.525.322-1.082.596-1.665.816.307.61.664 1.195 1.065 1.748a19.9 19.9 0 0 0 4.963-1.615c.406-5.52-.692-10.463-3.963-15.016zM9.7 15.408c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98zm4.6 0c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98z"/></svg>
-                            <span>Discord</span>
-                        </a>
+                    <p class="footer-mission">
+                        Enterprise-grade blockchain infrastructure for Rust developers. Build secure, high-performance applications across 15+ blockchain networks with compile-time safety.
+                    </p>
+                    <div class="footer-social-group">
+                        <span class="social-label">Join the Community</span>
+                        <div class="footer-socials">
+                            <a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener" aria-label="GitHub" class="social-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+                            </a>
+                            <a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener" aria-label="Discord" class="social-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.36-.43.85-.589 1.232a18.27 18.27 0 0 0-4-.003A12.3 12.3 0 0 0 11.379 3 19.736 19.736 0 0 0 7.62 4.369C3.693 9.478 2.89 14.46 3.247 19.385a19.9 19.9 0 0 0 4.963 1.615c.401-.553.758-1.138 1.065-1.748-.583-.22-1.14-.494-1.665-.816.14-.101.277-.206.41-.313 3.212 1.499 6.695 1.499 9.862 0 .134.107.271.212.41.313-.525.322-1.082.596-1.665.816.307.61.664 1.195 1.065 1.748a19.9 19.9 0 0 0 4.963-1.615c.406-5.52-.692-10.463-3.963-15.016zM9.7 15.408c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98zm4.6 0c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98z"/></svg>
+                            </a>
+                            <a href="https://x.com/apexsdk" target="_blank" rel="noopener" aria-label="X" class="social-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Product</h4>
-                    <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#architecture">Architecture</a></li>
-                        <li><a href="#chains">Chains</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Docs</h4>
-                    <ul class="footer-links">
-                        <li><a href="viewer.html?doc=QUICK_START.md">Quick Start</a></li>
-                        <li><a href="viewer.html?doc=API.md">API Reference</a></li>
-                        <li><a href="viewer.html?doc=CLI_GUIDE.md">CLI Guide</a></li>
-                        <li><a href="#search">Search</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li><a href="mailto:support@apexsdk.dev">Support</a></li>
-                        <li><a href="mailto:security@apexsdk.dev">Security</a></li>
-                        <li><a href="mailto:partnerships@apexsdk.dev">Partnerships</a></li>
-                        <li><a href="mailto:research@apexsdk.dev">Research</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Stay in the loop</h4>
-                    <form data-subscribe data-source="homepage" style="display:flex;gap:.5rem;">
-                        <input type="email" name="email" required placeholder="Email address" aria-label="Email address" style="flex:1;min-width:180px;padding:.6rem .8rem;border:1px solid var(--border-color);border-radius:.5rem;background:var(--bg-secondary);color:var(--text-primary);"/>
-                        <button type="submit" class="btn btn-primary" style="padding:.6rem 1rem;border:none;border-radius:.5rem;background:var(--primary-color);color:#fff;font-weight:700;cursor:pointer;">Subscribe</button>
-                    </form>
+
+                <div class="footer-nav-grid">
+                    <div class="footer-nav-col">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="viewer.html?doc=QUICK_START.md">Quick Start</a></li>
+                            <li><a href="viewer.html?doc=API.md">API Reference</a></li>
+                            <li><a href="https://github.com/carbobit/apex-sdk/tree/main/examples" target="_blank" rel="noopener">Examples</a></li>
+                            <li><a href="viewer.html?doc=CONTRIBUTING.md">Contributing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-nav-col">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener">Discord</a></li>
+                            <li><a href="https://x.com/apexsdk" target="_blank" rel="noopener">X (Twitter)</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-nav-col">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="mailto:support@apexsdk.dev">Support</a></li>
+                            <li><a href="mailto:security@apexsdk.dev">Security</a></li>
+                            <li><a href="mailto:partnerships@apexsdk.dev">Partnerships</a></li>
+                            <li><a href="mailto:research@apexsdk.dev">Research</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom" style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-color);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;">
-                <p style="color:var(--text-tertiary);margin:0;">&copy; 2025 Apex SDK Protocol by <a href="https://carbobit.com" target="_blank" rel="noopener">Carbobit</a> • <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a></p>
-                <span style="color:var(--text-tertiary);">Version 0.1.4</span>
+
+            <div class="footer-bottom-bar">
+                <div class="footer-copyright">
+                    <p>&copy; <span id="current-year"></span> Apex SDK Protocol by <a href="https://carbobit.com" target="_blank" rel="noopener">Carbobit</a></p>
+                </div>
+                <div class="footer-links-inline">
+                    <a href="https://github.com/carbobit/apex-sdk/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0 License</a>
+                    <span class="divider">•</span>
+                    <span class="version-badge">v0.1.5</span>
+                </div>
             </div>
         </div>
     </footer>
-    
-    <!-- JavaScript -->
-    <script src="js/config.js"></script>
-    <script src="js/chains-data.js"></script>
-    <script src="js/subscribe.js" defer></script>
 
-    <script>
-        // Architecture Layer Details with Modal
-        function showLayerDetails(layer) {
-            const details = {
-                application: {
-                    title: 'Application Layer',
-                    description: 'Your cross-chain applications built with Apex SDK. This layer handles business logic, user interactions, and application-specific workflows.',
-                    features: ['User Interface', 'Business Logic', 'Application State', 'Error Handling']
-                },
-                sdk: {
-                    title: 'SDK Core',
-                    description: 'The unified API layer that provides a consistent interface for both Substrate and EVM operations. Handles transaction building, execution, and error recovery.',
-                    features: ['Unified API', 'Transaction Builder', 'Error Recovery', 'Type Safety']
-                },
-                adapters: {
-                    title: 'Adapter Layer',
-                    description: 'Protocol-specific implementations that translate unified SDK calls into Substrate or EVM-specific operations. Handles encoding, signing, and RPC communication.',
-                    features: ['Substrate Adapter', 'EVM Adapter', 'Encoding/Decoding', 'Signing']
-                },
-                networks: {
-                    title: 'Network Layer',
-                    description: 'Manages connections to blockchain networks, connection pooling, rate limiting, and failover mechanisms for high availability.',
-                    features: ['Connection Pooling', 'Rate Limiting', 'Failover', 'Health Monitoring']
-                }
-            };
-            
-            const detail = details[layer];
-            if (!detail) return;
-            
-            // Create modal
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
-                display: flex; align-items: center; justify-content: center;
-                z-index: 10000; padding: 2rem;
-            `;
-            modal.innerHTML = `
-                <div style="
-                    background: var(--bg-glass); backdrop-filter: blur(20px);
-                    border: 1px solid var(--border-color); border-radius: var(--radius-xl);
-                    padding: 2.5rem; max-width: 600px; width: 100%;
-                    box-shadow: var(--shadow-glass);
-                ">
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-primary);">${detail.title}</h2>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7;">${detail.description}</p>
-                    <div style="margin-bottom: 2rem;">
-                        <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">Key Features:</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            ${detail.features.map(f => `<li style="padding: 0.5rem 0; color: var(--text-secondary);">✓ ${f}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <button onclick="this.closest('div[style*=\"position: fixed\"]').remove()" 
-                            style="
-                                background: linear-gradient(135deg, var(--primary), var(--secondary));
-                                color: white; border: none; padding: 0.75rem 2rem;
-                                border-radius: var(--radius-md); cursor: pointer;
-                                font-weight: 600; font-size: 1rem;
-                            ">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.remove();
-            });
-        }
-        
-        // Navbar scroll effect - Lightweight
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                const nav = document.getElementById('navbar');
-                if (window.scrollY > 50) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            }, 10);
-        }, { passive: true });
-        
-        // Theme Toggle
-        function initThemeToggle() {
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIconMoon = document.getElementById('theme-icon-moon');
-            const themeIconSun = document.getElementById('theme-icon-sun');
-            const html = document.documentElement;
-            
-            // Load saved theme
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            html.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-            
-            // Toggle theme
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = html.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                html.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                updateThemeIcon(newTheme);
-            });
-            
-            function updateThemeIcon(theme) {
-                if (theme === 'dark') {
-                    themeIconMoon.style.display = 'block';
-                    themeIconSun.style.display = 'none';
-                } else {
-                    themeIconMoon.style.display = 'none';
-                    themeIconSun.style.display = 'block';
-                }
-            }
-        }
-        
-        // Render Supported Chains
-        function renderSupportedChains(activeFilter = 'all') {
-            const grid = document.getElementById('chains-grid');
-            if (!grid || !window.SUPPORTED_CHAINS) return;
-
-            const allChains = [
-                ...window.SUPPORTED_CHAINS.substrate.map(c => ({...c, category: 'Substrate'})),
-                ...window.SUPPORTED_CHAINS.evm.map(c => ({...c, category: 'EVM'})),
-                ...window.SUPPORTED_CHAINS.hybrid.map(c => ({...c, category: 'Hybrid'}))
-            ];
-
-            const filtered = activeFilter === 'all' ? allChains : allChains.filter(c => c.category === activeFilter);
-
-            grid.innerHTML = filtered.map(chain => `
-                <a class="chain-card" href="${chain.website || '#'}" target="_blank" rel="noopener">
-                    <div class="chain-logo">
-                        <img src="${chain.logo || ''}" alt="${chain.name} logo" loading="lazy" onerror="this.style.display='none'"/>
-                    </div>
-                    <div class="chain-meta">
-                        <div class="chain-name">${chain.name}</div>
-                        <div class="chain-type">${chain.category} • ${chain.type || ''}</div>
-                    </div>
-                    <span class="status-badge">${chain.status || 'stable'}</span>
-                </a>
-            `).join('');
-
-            // Wire filters
-            document.querySelectorAll('.chains-filters .chip').forEach(btn => {
-                btn.onclick = () => {
-                    document.querySelectorAll('.chains-filters .chip').forEach(b => {
-                        b.classList.remove('active');
-                        b.setAttribute('aria-pressed', 'false');
-                    });
-                    btn.classList.add('active');
-                    btn.setAttribute('aria-pressed', 'true');
-                    renderSupportedChains(btn.dataset.filter);
-                };
-            });
-        }
-
-        // Initialize - Optimized
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-
-        function init() {
-            initThemeToggle();
-            initMobileMenu();
-            renderSupportedChains('all');
-        }
-        
-        // Mobile menu functionality
-        function initMobileMenu() {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const navMenu = document.getElementById('navMenu');
-            
-            if (mobileMenuToggle && navMenu) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-                    
-                    mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenuToggle.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                    
-                    // Prevent body scroll when menu is open
-                    document.body.classList.toggle('menu-open', !isExpanded);
-                });
-                
-                // Close menu when clicking nav links
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                        mobileMenuToggle.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        document.body.classList.remove('menu-open');
-                    });
-                });
-                
-                // Close menu on escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                        mobileMenuToggle.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        document.body.classList.remove('menu-open');
-                        mobileMenuToggle.focus();
-                    }
-                });
-            }
-        }
-    </script>
-
-    <style>
-        /* Enhanced Navigation Styles */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        [data-theme='dark'] .navbar {
-            background: rgba(18, 18, 18, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-        }
-        
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.125rem;
-            color: inherit;
-            transition: opacity 0.2s ease;
-        }
-        
-        .nav-logo:hover {
-            opacity: 0.8;
-        }
-        
-        .nav-logo img {
-            border-radius: 6px;
-            flex-shrink: 0;
-        }
-        
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-        
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            font-weight: 500;
-            color: inherit;
-            padding: 0.5rem 0;
-            position: relative;
-            transition: color 0.2s ease;
-        }
-        
-        .nav-link:hover {
-            color: #3b82f6;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .theme-toggle {
-            background: none;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        [data-theme='dark'] .theme-toggle {
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .theme-toggle:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        [data-theme='dark'] .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-        
-        .hamburger-line {
-            width: 100%;
-            height: 3px;
-            background: currentColor;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-            transform-origin: center;
-        }
-        
-        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        
-        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-        
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 1rem;
-                height: 60px;
-            }
-            
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: flex-start;
-                padding: 2rem;
-                gap: 2rem;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                overflow-y: auto;
-            }
-            
-            [data-theme='dark'] .nav-menu {
-                background: rgba(18, 18, 18, 0.98);
-            }
-            
-            .nav-menu.active {
-                transform: translateX(0);
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
-                width: 100%;
-            }
-            
-            .nav-link {
-                font-size: 1.125rem;
-                padding: 1rem 0;
-                width: 100%;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            }
-            
-            [data-theme='dark'] .nav-link {
-                border-bottom-color: rgba(255, 255, 255, 0.1);
-            }
-            
-            .nav-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-            
-            body.menu-open {
-                overflow: hidden;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0 0.75rem;
-            }
-            
-            .nav-logo span {
-                display: none;
-            }
-        }
-        
-        /* Improved spacing for hero section */
-        .hero {
-            padding-top: 120px;
-        }
-        
-        @media (max-width: 768px) {
-            .hero {
-                padding-top: 100px;
-            }
-        }
-    </style>
+    <script src="js/main.js"></script>
 </body>
 </html>

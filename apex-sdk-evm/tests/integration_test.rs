@@ -8,10 +8,9 @@
 //! cargo test --package apex-sdk-evm --test integration_test -- --ignored
 //! ```
 
-use alloy::primitives::U256;
 use apex_sdk_core::ChainAdapter;
 use apex_sdk_evm::EvmAdapter;
-use apex_sdk_types::TransactionStatus;
+use apex_sdk_types::TxStatus;
 
 /// Test connecting to Ethereum mainnet via public RPC
 #[tokio::test]
@@ -41,7 +40,7 @@ async fn test_get_balance() {
     let balance_wei = balance.unwrap();
 
     // Address should have non-zero balance
-    assert!(balance_wei > U256::ZERO, "Expected non-zero balance");
+    assert!(balance_wei > 0, "Expected non-zero balance");
 }
 
 /// Test querying balance in ETH format
@@ -80,12 +79,9 @@ async fn test_get_confirmed_transaction() {
         .expect("Failed to get transaction status");
 
     match status {
-        TransactionStatus::Confirmed {
-            block_hash,
-            block_number,
-        } => {
-            assert!(!block_hash.is_empty(), "Expected valid block hash");
-            if let Some(num) = block_number {
+        ref s if s.status == TxStatus::Confirmed => {
+            assert!(s.block_hash.is_some(), "Expected valid block hash");
+            if let Some(num) = s.block_number {
                 assert!(num > 0, "Expected valid block number");
             }
         }
@@ -110,7 +106,7 @@ async fn test_get_unknown_transaction() {
         .expect("Failed to get transaction status");
 
     match status {
-        TransactionStatus::Unknown => {
+        ref s if s.status == TxStatus::Unknown => {
             // Expected - transaction doesn't exist
         }
         other => {

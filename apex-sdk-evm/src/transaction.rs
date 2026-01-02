@@ -12,6 +12,8 @@ use alloy::network::TransactionBuilder;
 use alloy::primitives::{Address as EthAddress, Bytes, B256, U256};
 use alloy::providers::Provider;
 use alloy::rpc::types::{Block, BlockNumberOrTag, TransactionReceipt, TransactionRequest};
+use apex_sdk_core::{FeeEstimator, SdkError};
+use async_trait::async_trait;
 use std::time::Duration;
 
 /// Configuration for gas estimation and pricing
@@ -449,6 +451,25 @@ impl TransactionExecutor {
         }
 
         Ok(receipt)
+    }
+}
+
+#[async_trait]
+impl FeeEstimator for TransactionExecutor {
+    async fn estimate_fee(&self, tx: &[u8]) -> Result<u128, SdkError> {
+        // This is a simplified implementation that assumes the tx bytes contain
+        // enough info or we use default values. In a real implementation, we'd parse
+        // the tx bytes to get the transaction request.
+        // For now, we'll just estimate gas for a simple transfer from a dummy address
+
+        // Note: This is a placeholder. Real implementation needs to decode the tx.
+        let from = EthAddress::ZERO;
+        let gas_estimate = self
+            .estimate_gas(from, None, None, Some(tx.to_vec()))
+            .await
+            .map_err(|e| SdkError::TransactionError(e.to_string()))?;
+
+        Ok(gas_estimate.total_cost.to::<u128>())
     }
 }
 
