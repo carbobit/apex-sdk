@@ -3607,10 +3607,17 @@ a:hover::after {
     border: 2px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 1.5rem 2rem;
-    transition: all var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
     overflow: visible;
+    flex: 1;
+    min-width: 200px;
+}
+
+.explorer-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .explorer-tab::before {
@@ -3676,37 +3683,57 @@ a:hover::after {
 /* Ecosystem Panels */
 .ecosystem-panel {
     display: none;
-    animation: fadeIn 0.5s ease;
 }
 
 .ecosystem-panel.active {
     display: block;
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .panel-header {
     text-align: center;
-    max-width: 600px;
-    margin: 0 auto 3rem auto;
+    max-width: 700px;
+    margin: 0 auto 3.5rem auto;
+    padding: 0 1rem;
 }
 
 .panel-header h3 {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
 }
 
 .panel-header p {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 /* Advanced Networks Grid */
 .advanced-networks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 1200px) {
+    .advanced-networks-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
 }
 
 .network-card {
@@ -3714,10 +3741,13 @@ a:hover::after {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 2rem;
-    transition: all var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: visible;
     cursor: pointer;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
 .network-card::before {
@@ -3750,14 +3780,21 @@ a:hover::after {
     border-color: transparent;
 }
 
+.network-card > * {
+    position: relative;
+    z-index: 1;
+}
+
 .network-card.featured {
     grid-column: span 2;
 }
 
 .network-card.compact {
-    padding: 1.5rem;
+    padding: 1.75rem 1.5rem;
     text-align: center;
-    min-height: auto;
+    min-height: 160px;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Network Card Header */
@@ -3787,6 +3824,83 @@ a:hover::after {
     width: 48px;
     height: 48px;
     margin: 0 auto 1rem auto;
+}
+
+/* Network-specific colors */
+.network-icon.ethereum {
+    background: linear-gradient(135deg, #627eea, #8c9eff);
+    color: white;
+}
+
+.network-icon.arbitrum {
+    background: linear-gradient(135deg, #28a0f0, #12aaff);
+    color: white;
+}
+
+.network-icon.optimism {
+    background: linear-gradient(135deg, #ff0420, #ff4d6a);
+    color: white;
+}
+
+.network-icon.polygon {
+    background: linear-gradient(135deg, #8247e5, #a05cef);
+    color: white;
+}
+
+.network-icon.base {
+    background: linear-gradient(135deg, #0052ff, #0066ff);
+    color: white;
+}
+
+.network-icon.bsc {
+    background: linear-gradient(135deg, #f3ba2f, #f5c842);
+    color: #1e2026;
+}
+
+.network-icon.avalanche {
+    background: linear-gradient(135deg, #e84142, #ff5b5c);
+    color: white;
+}
+
+.network-icon.polkadot {
+    background: linear-gradient(135deg, #e6007a, #ff1a8c);
+    color: white;
+}
+
+.network-icon.kusama {
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.network-icon.acala {
+    background: linear-gradient(135deg, #645aff, #7b73ff);
+    color: white;
+}
+
+.network-icon.astar {
+    background: linear-gradient(135deg, #0ae2ff, #1cebff);
+    color: white;
+}
+
+.network-icon.moonbeam {
+    background: linear-gradient(135deg, #53cbc8, #67d8d5);
+    color: white;
+}
+
+.network-icon.westend {
+    background: linear-gradient(135deg, #da68a7, #e37bb8);
+    color: white;
+}
+
+.network-icon.sepolia {
+    background: linear-gradient(135deg, #9ca3af, #b0b7c0);
+    color: white;
+}
+
+.network-icon.paseo {
+    background: linear-gradient(135deg, #6b7280, #7d8794);
+    color: white;
 }
 
 .network-info {
@@ -3869,14 +3983,17 @@ a:hover::after {
 
 .network-description {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    flex: 1;
 }
 
 .network-features {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-top: auto;
 }
 
 .feature-tag {
@@ -3896,26 +4013,123 @@ a:hover::after {
     color: var(--primary-color);
 }
 
+/* Tablet and below */
+@media (max-width: 1024px) {
+    .networks-section {
+        padding: 80px 0;
+    }
+
+    .advanced-networks-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .network-card.featured {
+        grid-column: span 1;
+    }
+
+    .explorer-tabs {
+        gap: 0.75rem;
+    }
+
+    .explorer-tab {
+        padding: 1.25rem 1.75rem;
+    }
+
+    .tab-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
+    .networks-section {
+        padding: 60px 0;
+    }
+
     .explorer-tabs {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .explorer-tab {
         padding: 1rem 1.5rem;
+        width: 100%;
     }
-    
+
     .advanced-networks-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .network-card.featured {
         grid-column: span 1;
     }
-    
+
+    .network-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .network-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .network-status {
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
     .panel-header h3 {
         font-size: 1.5rem;
+    }
+
+    .panel-header p {
+        font-size: 1rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .networks-section {
+        padding: 40px 0;
+    }
+
+    .network-card {
+        padding: 1.5rem;
+    }
+
+    .network-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .network-card.compact .network-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .network-info h4 {
+        font-size: 1.25rem;
+    }
+
+    .network-card.compact h5 {
+        font-size: 1rem;
+    }
+
+    .explorer-tab {
+        padding: 0.875rem 1.25rem;
+    }
+
+    .tab-content h4 {
+        font-size: 1rem;
+    }
+
+    .tab-content p {
+        font-size: 0.8125rem;
     }
 }
