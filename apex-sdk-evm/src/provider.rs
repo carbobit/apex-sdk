@@ -86,19 +86,35 @@ impl CoreProvider for EvmProvider {
         Ok(nonce)
     }
 
-    async fn estimate_fee(&self, _tx: &[u8]) -> Result<u128, SdkError> {
+    async fn estimate_fee(&self, tx: &[u8]) -> Result<u128, SdkError> {
         // For EVM, estimate gas price * gas limit
-        // This is a simplified implementation - in practice you'd decode the transaction
         let gas_price = self
             .provider
             .get_gas_price()
             .await
             .map_err(|e| Error::Connection(format!("Failed to get gas price: {}", e)))?;
 
-        // Assume standard transfer gas limit for now
-        let gas_limit = 21_000u128;
-        let fee = (gas_price as u128) * gas_limit;
+        // Estimate gas limit based on transaction size
+        let gas_limit = if tx.is_empty() {
+            // Default to standard transfer gas limit for empty transaction
+            21_000u128
+        } else {
+            // Estimate based on transaction data size
+            // Base cost (21000) + data cost (~16 gas per non-zero byte, 4 per zero byte)
+            // Use conservative estimate of 16 gas per byte
+            let data_cost = (tx.len() as u128) * 16;
+            let estimated = 21_000u128 + data_cost;
 
+            // For contract calls, add extra buffer
+            if tx.len() > 100 {
+                // Likely a contract call
+                estimated + 100_000u128
+            } else {
+                estimated
+            }
+        };
+
+        let fee = gas_price * gas_limit;
         Ok(fee)
     }
 

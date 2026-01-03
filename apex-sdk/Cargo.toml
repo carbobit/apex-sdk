@@ -61,6 +61,9 @@ substrate = ["apex-sdk-substrate", "sp-core"]
 evm = ["apex-sdk-evm", "alloy-primitives"]
 mocks = ["apex-sdk-core/mocks"]
 
+[package.metadata.cargo-udeps.ignore]
+development = ["mockall", "proptest", "tokio-test"]  # May be used in conditional compilation
+
 [[bench]]
 name = "transaction_benchmarks"
 harness = false

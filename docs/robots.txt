@@ -1,71 +1,39 @@
-# Robots.txt for Apex SDK Protocol
-# https://apexsdk.dev
+# Apex SDK - Robots.txt
+# Updated: 2026-01-02
 
 User-agent: *
 Allow: /
+Allow: /docs/
+Allow: /api/
+Allow: /cli/
+Allow: /quick-start
+Allow: /roadmap
+Allow: /viewer.html
 
-# Sitemap location
-Sitemap: https://apexsdk.dev/sitemap.xml
+# Disallow admin and private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /api/internal/
 
-# Crawl-delay for polite crawlers
-Crawl-delay: 1
-
-# Specific rules for major search engines
+# Allow specific bots
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 0
 
 User-agent: Slurp
 Allow: /
 
-# Enable Googlebot to crawl JavaScript/CSS
-User-agent: Googlebot
-Allow: /*.js
-Allow: /*.css
-Allow: /assets/*
+User-agent: DuckDuckBot
+Allow: /
 
-# Block aggressive crawlers (still allow but slow them down)
-User-agent: AhrefsBot
-Crawl-delay: 10
+# Crawl delay for aggressive bots
+User-agent: *
+Crawl-delay: 1
 
-User-agent: SemrushBot
-Crawl-delay: 10
-
-User-agent: DotBot
-Crawl-delay: 10
-
-User-agent: MJ12bot
-Crawl-delay: 10
-
-# Block unwanted bots
-User-agent: CCBot
-Disallow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-# Block AI training crawlers
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
-
-User-agent: Omgilibot
-Disallow: /
-
-User-agent: FacebookBot
-Disallow: /
+# Sitemap location
+Sitemap: https://apexsdk.dev/sitemap.xml
+Sitemap: https://apexsdk.dev/sitemap-docs.xml
+Sitemap: https://apexsdk.dev/sitemap-blog.xml

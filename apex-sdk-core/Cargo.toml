@@ -1,28 +1,29 @@
 [package]
 name = "apex-sdk-core"
-version = "0.1.4"
-edition.workspace = true
-rust-version.workspace = true
-license.workspace = true
-repository.workspace = true
-homepage.workspace = true
-documentation.workspace = true
-description = "Core functionality for Apex SDK"
-keywords = ["blockchain", "substrate", "evm", "sdk", "cross-chain"]
-categories = ["cryptography::cryptocurrencies", "api-bindings"]
-readme = "README.md"
+version = "0.1.5"
+edition = "2021"
+description = "Core traits and types for Apex SDK"
+license = "Apache-2.0"
+repository = "https://github.com/carbobit/apex-sdk"
 
 [dependencies]
-apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.4" }
-async-trait = { workspace = true }
-rand = { workspace = true }
-tokio = { workspace = true, optional = true }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.5" }
+async-trait = "0.1.80"
+thiserror = "1.0.61"
+serde = { version = "1.0.203", features = ["derive"] }
+serde_json = "1.0"
+hex = "0.4"
+chrono = "0.4"
+tracing = "0.1.40"
+tokio = { version = "1.38.0", features = ["time"] }
 
 [dev-dependencies]
-tokio = { workspace = true, features = ["test-util"] }
-tokio-test = "0.4"
-serde_json = { workspace = true }
+tokio = { version = "1.38.0", features = ["full"] }
+mockall = "0.12.1"
 
 [features]
 default = []
-mocks = ["tokio"]
+mocks = []
+
+[package.metadata.cargo-udeps.ignore]
+development = ["mockall"]  # May be used in conditional compilation

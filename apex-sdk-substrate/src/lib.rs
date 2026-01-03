@@ -366,7 +366,7 @@ impl SubstrateAdapter {
                             block_hash.to_string(),
                             None,
                             None,
-                            Some(confirmations as u32),
+                            Some(confirmations),
                         ))
                     } else if let Some(error) = error_msg {
                         Ok(OldTransactionStatus::failed(tx_hash.to_string(), error))
@@ -622,9 +622,8 @@ impl CoreProvider for SubstrateAdapter {
 #[async_trait]
 impl NonceManager for SubstrateAdapter {
     async fn get_next_nonce(&self, address: &Address) -> std::result::Result<u64, SdkError> {
-        // In Substrate, the next nonce is typically the current transaction count
-        // However, we might need to account for pending transactions in the pool
-        // For now, we'll just use the on-chain nonce
+        // For Substrate nonce management, we query the account nonce directly from storage
+        // This gives us the next nonce to use for transactions
         self.get_transaction_count(address).await
     }
 }

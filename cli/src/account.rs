@@ -73,7 +73,7 @@ fn generate_substrate_account(name: Option<String>) -> Result<()> {
 /// Generate an EVM account
 fn generate_evm_account(name: Option<String>) -> Result<()> {
     use ::rand::RngCore;
-    use alloy::signers::local::{coins_bip39::English, MnemonicBuilder};
+    use alloy_signer_local::{coins_bip39::English, MnemonicBuilder};
 
     // Generate random entropy (16 bytes = 128 bits = 12 words)
     let mut entropy = [0u8; 16];
@@ -119,7 +119,7 @@ fn generate_evm_account(name: Option<String>) -> Result<()> {
 
 /// Import an account from mnemonic
 pub fn import_account(mnemonic: &str, account_type: &str, name: String) -> Result<()> {
-    use alloy::signers::local::{coins_bip39::English, MnemonicBuilder};
+    use alloy_signer_local::{coins_bip39::English, MnemonicBuilder};
 
     // Validate mnemonic
     let mnemonic_obj: bip39::Mnemonic = mnemonic.parse().context("Invalid mnemonic phrase")?;

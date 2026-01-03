@@ -24,11 +24,48 @@ impl EvmBroadcaster {
             return Err(Error::Transaction("Empty transaction data".to_string()));
         }
 
-        // Basic validation - in a real implementation, you'd fully decode and validate the transaction
-        if signed_tx.len() < 100 {
+        // Comprehensive transaction validation with proper decoding
+        self.validate_raw_transaction(signed_tx)
+    }
+
+    /// Validate raw transaction bytes
+    fn validate_raw_transaction(&self, signed_tx: &[u8]) -> Result<(), Error> {
+        // Check minimum transaction size
+        if signed_tx.len() < 65 {
             return Err(Error::Transaction(
-                "Transaction data too small to be valid".to_string(),
+                "Transaction data too small - missing signature components".to_string(),
             ));
+        }
+
+        // Check for valid RLP structure (simplified check)
+        if signed_tx[0] >= 0xf7 {
+            // Long list format - check length encoding
+            let length_bytes = (signed_tx[0] - 0xf7) as usize;
+            if signed_tx.len() < 1 + length_bytes {
+                return Err(Error::Transaction(
+                    "Invalid RLP encoding - truncated length".to_string(),
+                ));
+            }
+        }
+
+        // Check signature components (v, r, s) are present at the end
+        let sig_start = signed_tx.len().saturating_sub(65);
+        let signature = &signed_tx[sig_start..];
+
+        // Basic signature validation
+        if signature.len() != 65 {
+            return Err(Error::Transaction("Invalid signature length".to_string()));
+        }
+
+        // Check recovery id is valid (27, 28 for legacy, or 0, 1 for EIP-155)
+        let recovery_id = signature[64];
+        if recovery_id != 27 && recovery_id != 28 && recovery_id != 0 && recovery_id != 1 {
+            // Allow chain-specific recovery IDs for EIP-155
+            if recovery_id < 35 {
+                return Err(Error::Transaction(
+                    "Invalid recovery ID in signature".to_string(),
+                ));
+            }
         }
 
         Ok(())

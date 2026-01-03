@@ -12,7 +12,7 @@
 //! SUBSTRATE_SEED="your twelve word seed phrase" REAL_TX_TESTS=1 cargo test --test real_transaction_test test_substrate_real_transfer -- --ignored --nocapture
 //! ```
 
-use alloy_primitives::U256;
+// use alloy_primitives::U256; // Unused
 use apex_sdk::prelude::*;
 use apex_sdk_evm::wallet::Wallet as EvmWallet;
 use apex_sdk_substrate::Wallet as SubstrateWallet;
@@ -68,7 +68,7 @@ async fn test_evm_real_transfer_on_sepolia() {
 
     println!("Initial balance: {} wei", initial_balance);
 
-    if initial_balance < U256::from(100_000_000_000_000u128) {
+    if initial_balance < 100_000_000_000_000u128 {
         panic!(
             "Insufficient balance for test. Need at least 0.0001 ETH, have {} wei",
             initial_balance
@@ -230,7 +230,7 @@ async fn test_parallel_executor_with_real_transactions() {
 
     println!("Initial balance: {} wei", initial_balance);
 
-    if initial_balance < U256::from(1_000_000_000_000_000u128) {
+    if initial_balance < 1_000_000_000_000_000u128 {
         panic!("Insufficient balance for batch test. Need at least 0.001 ETH");
     }
 

@@ -3,86 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Apex SDK - The Unified Rust SDK for Cross-Chain Development</title>
-    <meta name="description" content="Build secure, high-performance, and cross-chain applications with Apex SDK, the unified Rust framework for Substrate and EVM ecosystems.">
+    <title>Apex SDK - Rust Blockchain SDK for Multi-Chain Development</title>
+    <meta name="description" content="Apex SDK: Enterprise Rust blockchain SDK for building cross-chain dApps on Ethereum, Polkadot & 15+ networks. Type-safe, fast & production-ready. Start now!">
     <meta name="keywords" content="Apex SDK, Rust blockchain SDK, Substrate SDK, EVM SDK, cross-chain development, Polkadot SDK, Ethereum SDK, blockchain development, Web3 Rust, compile-time safety, multi-chain SDK">
     <meta name="author" content="Apex SDK Team">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://apexsdk.dev/">
 
+    <!-- Open Graph & Twitter Cards -->
     <meta property="og:title" content="Apex SDK - Unified Rust SDK for Cross-Chain Development">
     <meta property="og:description" content="Build secure, high-performance, and cross-chain applications with Apex SDK, the unified Rust framework for Substrate and EVM ecosystems.">
     <meta property="og:image" content="https://apexsdk.dev/assets/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
 
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Favicons & Manifest -->
     <link rel="icon" type="image/png" href="/assets/apex_logo.png">
     <link rel="manifest" href="/manifest.json">
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/modern.css">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Apex SDK",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux, macOS, Windows",
+      "description": "Enterprise Rust blockchain SDK for building cross-chain dApps on Ethereum, Polkadot and 15+ networks",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "programmingLanguage": "Rust",
+      "author": {
+        "@type": "Organization",
+        "name": "Carbobit",
+        "url": "https://carbobit.com"
+      },
+      "url": "https://apexsdk.dev",
+      "softwareVersion": "0.1.5",
+      "license": "https://github.com/carbobit/apex-sdk/blob/main/LICENSE",
+      "downloadUrl": "https://crates.io/crates/apex-sdk",
+      "documentation": "https://apexsdk.dev/api",
+      "codeRepository": "https://github.com/carbobit/apex-sdk",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "12"
+      }
+    }
+    </script>
 </head>
 <body class="loading">
+    <!-- Header -->
     <header id="navbar" class="navbar">
         <div class="nav-container">
-            <div class="nav-left">
-                <a href="index.html" class="nav-logo">
-                    <img src="assets/apex_logo.png" alt="Apex SDK Logo" width="32" height="32">
-                    <div class="logo-text">
-                        <span class="logo-name">Apex SDK</span>
-                        <span class="logo-version">v0.1.5</span>
-                    </div>
-                </a>
-            </div>
+            <a href="index.html" class="nav-logo">
+                <img src="assets/apex_logo.png" alt="Apex SDK Logo" width="32" height="32">
+                <span>Apex SDK</span>
+            </a>
 
             <nav class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="#features" class="nav-link">
-                        <span class="link-text">Features</span>
-                    </a></li>
-                    <li><a href="#performance" class="nav-link">
-                        <span class="link-text">Performance</span>
-                    </a></li>
-                    <li><a href="#architecture" class="nav-link">
-                        <span class="link-text">Architecture</span>
-                    </a></li>
-                    <li><a href="#chains" class="nav-link">
-                        <span class="link-text">Ecosystem</span>
-                    </a></li>
-                    <li><a href="viewer.html" class="nav-link nav-link-docs">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14,2 14,8 20,8"></polyline>
-                        </svg>
-                        <span class="link-text">Docs</span>
-                    </a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#networks" class="nav-link">Networks</a></li>
+                    <li><a href="viewer.html" class="nav-link">Docs</a></li>
                 </ul>
             </nav>
 
             <div class="nav-actions">
                 <a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener" class="btn btn-secondary nav-cta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/>
-                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
                     GitHub
                 </a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
+                    <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg id="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 </button>
                 <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <span class="hamburger-line"></span>
@@ -97,860 +103,377 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-background">
+                <div class="hero-gradient"></div>
                 <div class="hero-grid"></div>
             </div>
             <div class="container hero-content">
                 <div class="hero-badge fade-in-up">
-                    <span class="badge-text">Latest Release</span>
-                    <span class="badge-version">v0.1.5</span>
+                    <span class="badge-dot"></span>
+                    <span>v0.1.5 - Production Ready</span>
                 </div>
                 <h1 class="hero-title fade-in-up delay-1">
-                    Unified Blockchain Development
-                    <span class="text-gradient">Across Substrate & EVM</span>
+                    Build Cross-Chain dApps with
+                    <span class="gradient-text">Type-Safe Rust</span>
                 </h1>
                 <p class="hero-subtitle fade-in-up delay-2">
-                    Apex SDK provides a type-safe, high-performance Rust framework for building cross-chain applications. Write once, deploy across 15+ blockchain networks with enterprise-grade reliability.
+                    Apex SDK is the enterprise-grade Rust framework for building production-ready blockchain applications across <strong>15+ networks</strong>. One unified API for EVM and Substrate ecosystems.
                 </p>
-
-                <div class="hero-stats fade-in-up delay-3">
-                    <div class="stat-item">
-                        <span class="stat-number">15+</span>
-                        <span class="stat-label">Blockchain Networks</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Type-Safe APIs</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-number">Zero</span>
-                        <span class="stat-label">Runtime Overhead</span>
-                    </div>
-                </div>
-
-                <div class="hero-cta fade-in-up delay-4">
+                <div class="hero-cta fade-in-up delay-3">
                     <a href="viewer.html?doc=QUICK_START.md" class="btn btn-primary btn-large">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-                        Get Started
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                        Quick Start Guide
                     </a>
-                    <a href="https://github.com/carbobit/apex-sdk" class="btn btn-secondary btn-large" target="_blank" rel="noopener">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-                        View on GitHub
+                    <a href="viewer.html?doc=API.md" class="btn btn-secondary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        API Reference
                     </a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Code Comparison Section - Commented out for future use
-        <section class="comparison-section">
-            <div class="container">
-                <div class="section-header scroll-reveal">
-                    <span class="section-badge">Developer Experience</span>
-                    <h2 class="section-title">Reduce Complexity, Increase Velocity</h2>
-                    <p class="section-description">
-                        Apex SDK eliminates the complexity of multi-chain development with a unified interface that abstracts protocol differences.
-                    </p>
-                </div>
-
-                <div class="comparison-grid scroll-reveal">
-                    <div class="comparison-card">
-                        <div class="comparison-header without">
-                            <h3>Without Apex SDK</h3>
-                            <span class="comparison-tag">Multiple Dependencies</span>
-                        </div>
-                        <div class="code-window">
-                            <div class="code-content">
-                                <pre><code>...</code></pre>
-                            </div>
-                        </div>
-                        <div class="comparison-stats">
-                            <div class="stat-badge negative">120+ Lines</div>
-                            <div class="stat-badge negative">3 Dependencies</div>
-                        </div>
+                <div class="hero-stats fade-in-up delay-4">
+                    <div class="stat-item">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Blockchain Networks</div>
                     </div>
-
-                    <div class="comparison-card">
-                        <div class="comparison-header with">
-                            <h3>With Apex SDK</h3>
-                            <span class="comparison-tag">Unified Interface</span>
-                        </div>
-                        <div class="code-window">
-                            <div class="code-content">
-                                <pre><code>...</code></pre>
-                            </div>
-                        </div>
-                        <div class="comparison-stats">
-                            <div class="stat-badge positive">30 Lines</div>
-                            <div class="stat-badge positive">1 Dependency</div>
-                        </div>
+                    <div class="stat-item">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Type Safe</div>
                     </div>
-                </div>
-
-                <div class="comparison-benefits scroll-reveal">
-                    <div class="benefit-card">
-                        <div class="benefit-number">75%</div>
-                        <div class="benefit-label">Less Code</div>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-number">3x</div>
-                        <div class="benefit-label">Faster Development</div>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-number">100%</div>
-                        <div class="benefit-label">Type Safety</div>
+                    <div class="stat-item">
+                        <div class="stat-value">1</div>
+                        <div class="stat-label">Unified API</div>
                     </div>
                 </div>
             </div>
         </section>
-        -->
 
         <!-- Features Section -->
         <section id="features" class="features-section">
             <div class="container">
                 <div class="section-header scroll-reveal">
-                    <span class="section-badge">Core Capabilities</span>
-                    <h2 class="section-title">Enterprise-Grade Blockchain Infrastructure</h2>
+                    <span class="section-badge">Why Apex SDK</span>
+                    <h2 class="section-title">Production-Ready Cross-Chain Development</h2>
                     <p class="section-description">
-                        Built from the ground up for production workloads with comprehensive tooling for secure, scalable applications.
+                        Build faster, safer, and smarter with enterprise-grade tools designed for modern blockchain development.
                     </p>
                 </div>
-
-                <div class="features-showcase">
-                    <div class="features-grid">
-                        <div class="feature-card glass-effect scroll-reveal">
-                            <div class="feature-icon primary-gradient">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                </svg>
-                            </div>
-                            <h3>Compile-Time Validation</h3>
-                            <p>Leverage Rust's type system to catch errors before deployment. All cross-chain interactions are verified at compile-time, eliminating entire classes of runtime failures.</p>
-                            <ul class="feature-list">
-                                <li>Type-safe address validation</li>
-                                <li>Transaction parameter verification</li>
-                                <li>Protocol compatibility checks</li>
-                            </ul>
+                <div class="features-grid">
+                    <div class="feature-card scroll-reveal">
+                        <div class="feature-icon primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
                         </div>
+                        <h3>Compile-Time Safety</h3>
+                        <p>Catch bugs before deployment. Rust's type system ensures your cross-chain transactions are validated at compile time, not runtime.</p>
+                        <a href="/viewer.html?doc=API.md#type-safety" class="feature-link">Learn more →</a>
+                    </div>
 
-                        <div class="feature-card glass-effect scroll-reveal">
-                            <div class="feature-icon amber-gradient">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"></polygon>
-                                </svg>
-                            </div>
-                            <h3>Zero-Cost Abstractions</h3>
-                            <p>High-level APIs with zero runtime overhead. Abstractions compile down to efficient machine code identical to hand-written optimized implementations.</p>
-                            <ul class="feature-list">
-                                <li>Sub-microsecond transaction building</li>
-                                <li>Minimal memory footprint</li>
-                                <li>Async runtime integration</li>
-                            </ul>
+                    <div class="feature-card scroll-reveal">
+                        <div class="feature-icon accent">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"></polygon>
+                            </svg>
                         </div>
+                        <h3>Unified Transaction Pipeline</h3>
+                        <p>Built-in retry logic, fee estimation, nonce management, and confirmation tracking. Handle complex workflows with ease.</p>
+                        <a href="/viewer.html?doc=API.md#transaction-pipeline" class="feature-link">Explore pipeline →</a>
+                    </div>
 
-                        <div class="feature-card glass-effect scroll-reveal">
-                            <div class="feature-icon success-gradient">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                                </svg>
-                            </div>
-                            <h3>Universal Chain Adapter</h3>
-                            <p>Single interface for Substrate and EVM chains. Write portable code that works across Polkadot, Ethereum, Polygon, and 12+ other networks.</p>
-                            <ul class="feature-list">
-                                <li>Unified transaction API</li>
-                                <li>Cross-chain compatibility layer</li>
-                                <li>Protocol-agnostic abstractions</li>
-                            </ul>
+                    <div class="feature-card scroll-reveal">
+                        <div class="feature-icon primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
                         </div>
+                        <h3>Multi-Chain by Default</h3>
+                        <p>Write once, deploy everywhere. Seamlessly switch between Ethereum, Polkadot, BSC, Arbitrum, and 11+ more networks.</p>
+                        <a href="#networks" class="feature-link">View all networks →</a>
+                    </div>
 
-                        <div class="feature-card glass-effect scroll-reveal">
-                            <div class="feature-icon info-gradient">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 12l2 2 4-4"></path>
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                </svg>
-                            </div>
-                            <h3>Automatic Error Recovery</h3>
-                            <p>Built-in retry mechanisms with exponential backoff, transaction replacement strategies, and configurable failure handling policies.</p>
-                            <ul class="feature-list">
-                                <li>Nonce conflict resolution</li>
-                                <li>Gas price adjustment</li>
-                                <li>Network partition handling</li>
-                            </ul>
+                    <div class="feature-card scroll-reveal">
+                        <div class="feature-icon accent">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="9" x2="15" y2="9"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
                         </div>
+                        <h3>Smart Contract Interactions</h3>
+                        <p>Type-safe contract calls with automatic ABI encoding/decoding. Deploy, read, and write with full compile-time guarantees.</p>
+                        <a href="/viewer.html?doc=API.md#contracts" class="feature-link">View examples →</a>
+                    </div>
 
-                        <div class="feature-card glass-effect scroll-reveal">
-                            <div class="feature-icon warning-gradient">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                </svg>
-                            </div>
-                            <h3>Comprehensive Observability</h3>
-                            <p>Integrated metrics, structured logging, and tracing support for complete visibility into your blockchain operations.</p>
-                            <ul class="feature-list">
-                                <li>Prometheus metrics export</li>
-                                <li>OpenTelemetry integration</li>
-                                <li>Request/response logging</li>
-                            </ul>
+                    <div class="feature-card scroll-reveal">
+                        <div class="feature-icon primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
                         </div>
+                        <h3>XCM Cross-Chain Messaging</h3>
+                        <p>Native support for Polkadot's XCM protocol. Transfer assets and execute calls across parachains with type-safe abstractions.</p>
+                        <a href="/viewer.html?doc=API.md#xcm" class="feature-link">XCM guide →</a>
+                    </div>
 
-                        <div class="feature-card glass-effect scroll-reveal">
-                            <div class="feature-icon danger-gradient">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                            </div>
-                            <h3>Security-First Design</h3>
-                            <p>Memory-safe implementation with no unsafe blocks, comprehensive input validation, and defense against common attack vectors.</p>
-                            <ul class="feature-list">
-                                <li>No buffer overflows or use-after-free</li>
-                                <li>Replay attack prevention</li>
-                                <li>Secure key management</li>
-                            </ul>
+                    <div class="feature-card scroll-reveal">
+                        <div class="feature-icon accent">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
                         </div>
+                        <h3>Developer Experience</h3>
+                        <p>Intuitive CLI, comprehensive documentation, and production-tested examples. Get from zero to deployed in under 10 minutes.</p>
+                        <a href="/viewer.html?doc=CLI.md" class="feature-link">CLI guide →</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Performance Section -->
-        <section id="performance" class="performance-section">
-            <div class="container">
-                <div class="section-header scroll-reveal">
-                    <span class="section-badge">Benchmarks</span>
-                    <h2 class="section-title">Built for Performance at Scale</h2>
-                    <p class="section-description">
-                        Optimized for high-throughput applications with minimal latency. Real-world performance metrics from production deployments.
-                    </p>
-                </div>
-
-                <!-- Performance metrics commented out pending benchmark verification
-                <div class="performance-grid">
-                    <div class="performance-card scroll-reveal">
-                        <div class="performance-header">
-                            <div class="performance-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Transaction Throughput</h3>
-                        </div>
-                        <div class="performance-metric">
-                            <span class="metric-value">10,000+</span>
-                            <span class="metric-unit">tx/sec</span>
-                        </div>
-                        <p class="performance-description">Transaction signing and encoding operations per second on standard hardware</p>
-                    </div>
-
-                    <div class="performance-card scroll-reveal">
-                        <div class="performance-header">
-                            <div class="performance-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12,6 12,12 16,14"></polyline>
-                                </svg>
-                            </div>
-                            <h3>RPC Call Latency</h3>
-                        </div>
-                        <div class="performance-metric">
-                            <span class="metric-value">&lt;50</span>
-                            <span class="metric-unit">ms</span>
-                        </div>
-                        <p class="performance-description">P95 latency for blockchain queries with connection pooling and caching</p>
-                    </div>
-
-                    <div class="performance-card scroll-reveal">
-                        <div class="performance-header">
-                            <div class="performance-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                </svg>
-                            </div>
-                            <h3>Memory Efficiency</h3>
-                        </div>
-                        <div class="performance-metric">
-                            <span class="metric-value">~12</span>
-                            <span class="metric-unit">MB</span>
-                        </div>
-                        <p class="performance-description">Baseline memory usage for multi-chain SDK instance with connection pools</p>
-                    </div>
-
-                    <div class="performance-card scroll-reveal">
-                        <div class="performance-header">
-                            <div class="performance-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                                </svg>
-                            </div>
-                            <h3>Concurrent Operations</h3>
-                        </div>
-                        <div class="performance-metric">
-                            <span class="metric-value">1,000+</span>
-                            <span class="metric-unit">ops/sec</span>
-                        </div>
-                        <p class="performance-description">Concurrent transaction submissions with automatic nonce management</p>
-                    </div>
-                </div>
-
-                <div class="performance-chart scroll-reveal">
-                    <div class="chart-header">
-                        <h4>Transaction Processing Time Comparison</h4>
-                        <p>Average time to build, sign, and encode transactions</p>
-                    </div>
-                    <div class="chart-bars">
-                        <div class="chart-bar-group">
-                            <div class="chart-label">Apex SDK</div>
-                            <div class="chart-bar-wrapper">
-                                <div class="chart-bar apex" style="width: 15%">
-                                    <span class="bar-value">0.08ms</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chart-bar-group">
-                            <div class="chart-label">Ethers-rs</div>
-                            <div class="chart-bar-wrapper">
-                                <div class="chart-bar other" style="width: 35%">
-                                    <span class="bar-value">0.18ms</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chart-bar-group">
-                            <div class="chart-label">Web3.js</div>
-                            <div class="chart-bar-wrapper">
-                                <div class="chart-bar other" style="width: 100%">
-                                    <span class="bar-value">0.52ms</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                -->
-
-                <div class="performance-note scroll-reveal">
-                    <div class="note-content">
-                        <h4>Performance Benchmarks Coming Soon</h4>
-                        <p>Comprehensive benchmarks are currently being conducted across various hardware configurations and network conditions. Results will be published here upon completion of the validation process.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Architecture Section -->
-        <section id="architecture" class="architecture-section">
-            <div class="container">
-                <div class="section-header scroll-reveal">
-                    <span class="section-badge">Technical Design</span>
-                    <h2 class="section-title">Component-Based Modular Architecture</h2>
-                    <p class="section-description">
-                        Highly composable architecture with trait-based abstractions. Each component is independently testable, swappable, and optimized for specific blockchain protocols.
-                    </p>
-                </div>
-
-                <div class="architecture-grid">
-                    <div class="arch-component scroll-reveal">
-                        <div class="component-header">
-                            <div class="component-icon provider">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    <path d="M12 1v6m0 6v6m5.2-13.2l-4.3 4.3m-4.3 4.3L4.3 18.7m13.4 0l-4.3-4.3m-4.3-4.3L4.3 5.3m13.4 13.4l4.3 4.3M19.7 4.3l-4.3 4.3"></path>
-                                </svg>
-                            </div>
-                            <div class="component-title">
-                                <h4>Provider</h4>
-                                <span class="component-trait">trait Provider</span>
-                            </div>
-                        </div>
-                        <p class="component-description">Network communication layer handling RPC calls, connection pooling, and request routing.</p>
-                        <div class="component-tech">
-                            <span class="tech-tag">HTTP</span>
-                            <span class="tech-tag">WebSocket</span>
-                            <span class="tech-tag">Connection Pool</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-component scroll-reveal">
-                        <div class="component-header">
-                            <div class="component-icon signer">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                </svg>
-                            </div>
-                            <div class="component-title">
-                                <h4>Signer</h4>
-                                <span class="component-trait">trait Signer</span>
-                            </div>
-                        </div>
-                        <p class="component-description">Cryptographic signing interface supporting multiple key types and signature schemes.</p>
-                        <div class="component-tech">
-                            <span class="tech-tag">ECDSA</span>
-                            <span class="tech-tag">Ed25519</span>
-                            <span class="tech-tag">Hardware Wallet</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-component scroll-reveal">
-                        <div class="component-header">
-                            <div class="component-icon fee">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                            </div>
-                            <div class="component-title">
-                                <h4>Fee Estimator</h4>
-                                <span class="component-trait">trait FeeEstimator</span>
-                            </div>
-                        </div>
-                        <p class="component-description">Dynamic fee estimation using network conditions, historical data, and priority levels.</p>
-                        <div class="component-tech">
-                            <span class="tech-tag">EIP-1559</span>
-                            <span class="tech-tag">Legacy Gas</span>
-                            <span class="tech-tag">Oracle</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-component scroll-reveal">
-                        <div class="component-header">
-                            <div class="component-icon nonce">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                                    <line x1="7" y1="8" x2="7" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                                    <line x1="17" y1="8" x2="17" y2="12"></line>
-                                </svg>
-                            </div>
-                            <div class="component-title">
-                                <h4>Nonce Manager</h4>
-                                <span class="component-trait">trait NonceManager</span>
-                            </div>
-                        </div>
-                        <p class="component-description">Thread-safe nonce tracking with conflict resolution and automatic recovery mechanisms.</p>
-                        <div class="component-tech">
-                            <span class="tech-tag">Concurrent</span>
-                            <span class="tech-tag">Conflict Resolution</span>
-                            <span class="tech-tag">Cache</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-component scroll-reveal">
-                        <div class="component-header">
-                            <div class="component-icon broadcaster">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
-                                    <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
-                                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-                                    <circle cx="12" cy="20" r="1"></circle>
-                                </svg>
-                            </div>
-                            <div class="component-title">
-                                <h4>Broadcaster</h4>
-                                <span class="component-trait">trait Broadcaster</span>
-                            </div>
-                        </div>
-                        <p class="component-description">Transaction submission with retry logic, failure handling, and multi-endpoint broadcasting.</p>
-                        <div class="component-tech">
-                            <span class="tech-tag">Retry Logic</span>
-                            <span class="tech-tag">Multi-Endpoint</span>
-                            <span class="tech-tag">Timeout</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-component scroll-reveal">
-                        <div class="component-header">
-                            <div class="component-icon watcher">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </div>
-                            <div class="component-title">
-                                <h4>Receipt Watcher</h4>
-                                <span class="component-trait">trait ReceiptWatcher</span>
-                            </div>
-                        </div>
-                        <p class="component-description">Monitors transaction status with configurable confirmation strategies and reorg detection.</p>
-                        <div class="component-tech">
-                            <span class="tech-tag">Polling</span>
-                            <span class="tech-tag">Confirmations</span>
-                            <span class="tech-tag">Reorg Detection</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="architecture-pipeline scroll-reveal">
-                    <div class="pipeline-header">
-                        <h3>Transaction Pipeline</h3>
-                        <p>All components orchestrated through a unified pipeline that handles the complete transaction lifecycle</p>
-                    </div>
-                    <div class="pipeline-flow">
-                        <div class="pipeline-step">
-                            <span class="step-label">Build</span>
-                            <div class="step-arrow">→</div>
-                        </div>
-                        <div class="pipeline-step">
-                            <span class="step-label">Estimate Fee</span>
-                            <div class="step-arrow">→</div>
-                        </div>
-                        <div class="pipeline-step">
-                            <span class="step-label">Get Nonce</span>
-                            <div class="step-arrow">→</div>
-                        </div>
-                        <div class="pipeline-step">
-                            <span class="step-label">Sign</span>
-                            <div class="step-arrow">→</div>
-                        </div>
-                        <div class="pipeline-step">
-                            <span class="step-label">Broadcast</span>
-                            <div class="step-arrow">→</div>
-                        </div>
-                        <div class="pipeline-step">
-                            <span class="step-label">Confirm</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="architecture-benefits scroll-reveal">
-                    <div class="benefit-column">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20,6 9,17 4,12"></polyline>
-                                </svg>
-                            </div>
-                            <span>Trait-Based Abstraction</span>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20,6 9,17 4,12"></polyline>
-                                </svg>
-                            </div>
-                            <span>Swappable Components</span>
-                        </div>
-                    </div>
-                    <div class="benefit-column">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20,6 9,17 4,12"></polyline>
-                                </svg>
-                            </div>
-                            <span>Independent Testing</span>
-                        </div>
-                        <div class="benefit-item">
-                            <div class="benefit-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20,6 9,17 4,12"></polyline>
-                                </svg>
-                            </div>
-                            <span>Protocol-Agnostic Core</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Use Cases Section -->
-        <section class="usecases-section">
-            <div class="container">
-                <div class="section-header scroll-reveal">
-                    <span class="section-badge">Applications</span>
-                    <h2 class="section-title">Built for Real-World Use Cases</h2>
-                    <p class="section-description">
-                        From DeFi protocols to enterprise infrastructure, Apex SDK powers mission-critical blockchain applications.
-                    </p>
-                </div>
-
-                <div class="usecases-grid">
-                    <div class="usecase-card scroll-reveal">
-                        <div class="usecase-icon defi">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="1" x2="12" y2="23"></line>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                            </svg>
-                        </div>
-                        <h3>DeFi Protocols</h3>
-                        <p>Build cross-chain decentralized exchanges, lending platforms, and yield aggregators with unified liquidity access.</p>
-                        <ul class="usecase-features">
-                            <li>Multi-chain liquidity routing</li>
-                            <li>Atomic swap execution</li>
-                            <li>Cross-chain collateral</li>
-                        </ul>
-                    </div>
-
-                    <div class="usecase-card scroll-reveal">
-                        <div class="usecase-icon nft">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="14" width="7" height="7"></rect>
-                                <rect x="3" y="14" width="7" height="7"></rect>
-                            </svg>
-                        </div>
-                        <h3>NFT Marketplaces</h3>
-                        <p>Launch cross-chain NFT platforms with seamless minting, trading, and bridging capabilities.</p>
-                        <ul class="usecase-features">
-                            <li>Multi-chain NFT standards</li>
-                            <li>Metadata synchronization</li>
-                            <li>Royalty enforcement</li>
-                        </ul>
-                    </div>
-
-                    <div class="usecase-card scroll-reveal">
-                        <div class="usecase-icon wallet">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                                <path d="M7 15h.01M11 15h2"></path>
-                            </svg>
-                        </div>
-                        <h3>Wallet Infrastructure</h3>
-                        <p>Develop multi-chain wallets with advanced features like hardware wallet support and multi-signature schemes.</p>
-                        <ul class="usecase-features">
-                            <li>HD wallet derivation</li>
-                            <li>Hardware wallet integration</li>
-                            <li>Transaction batching</li>
-                        </ul>
-                    </div>
-
-                    <div class="usecase-card scroll-reveal">
-                        <div class="usecase-icon indexer">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                <line x1="11" y1="8" x2="11" y2="14"></line>
-                                <line x1="8" y1="11" x2="14" y2="11"></line>
-                            </svg>
-                        </div>
-                        <h3>Data Indexers</h3>
-                        <p>Create high-performance blockchain indexers and analytics platforms with real-time event processing.</p>
-                        <ul class="usecase-features">
-                            <li>Event stream processing</li>
-                            <li>Historical data queries</li>
-                            <li>Custom aggregations</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Supported Chains Section -->
-        <section id="chains" class="chains-section">
+        <!-- Supported Networks Section -->
+        <section id="networks" class="networks-section">
             <div class="container">
                 <div class="section-header scroll-reveal">
                     <span class="section-badge">Ecosystem</span>
-                    <h2 class="section-title">Multi-Chain Network Support</h2>
+                    <h2 class="section-title">Connect to 15+ Leading Blockchain Networks</h2>
                     <p class="section-description">
-                        Connect to leading blockchain networks across Substrate and EVM ecosystems with production-ready integrations.
+                        One unified SDK for the entire Web3 ecosystem. Seamlessly integrate with EVM chains, Substrate parachains, and hybrid networks.
                     </p>
                 </div>
 
-                <div class="chains-controls">
-                    <button class="chain-filter active" data-filter="all">
-                        <span>All Networks</span>
-                        <span class="filter-count">15</span>
-                    </button>
-                    <button class="chain-filter" data-filter="substrate">
-                        <span>Substrate</span>
-                        <span class="filter-count">5</span>
-                    </button>
-                    <button class="chain-filter" data-filter="evm">
-                        <span>EVM</span>
-                        <span class="filter-count">7</span>
-                    </button>
-                    <button class="chain-filter" data-filter="hybrid">
-                        <span>Hybrid</span>
-                        <span class="filter-count">3</span>
-                    </button>
+                <!-- EVM Networks -->
+                <div class="network-category scroll-reveal">
+                    <div class="category-header">
+                        <h3>Ethereum & EVM-Compatible Chains</h3>
+                        <span class="category-badge">7 Networks</span>
+                    </div>
+                    <div class="chains-grid">
+                        <div class="chain-card">
+                            <div class="chain-icon ethereum">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
+                            </div>
+                            <h4>Ethereum</h4>
+                            <p class="chain-type">Mainnet</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon arbitrum">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L2 12l10 12 10-12L12 0zm0 4.5L19 12l-7 8.5L5 12l7-7.5z"/></svg>
+                            </div>
+                            <h4>Arbitrum</h4>
+                            <p class="chain-type">Layer 2</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon optimism">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+                            </div>
+                            <h4>Optimism</h4>
+                            <p class="chain-type">Layer 2</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon polygon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/></svg>
+                            </div>
+                            <h4>Polygon</h4>
+                            <p class="chain-type">Sidechain</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon base">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+                            </div>
+                            <h4>Base</h4>
+                            <p class="chain-type">Layer 2</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon bsc">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 8l8 6 8-6-8-6zm0 12l-8 6 8 6 8-6-8-6z"/></svg>
+                            </div>
+                            <h4>BNB Chain</h4>
+                            <p class="chain-type">Mainnet</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon avalanche">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l10 17H2L12 2z"/></svg>
+                            </div>
+                            <h4>Avalanche</h4>
+                            <p class="chain-type">Mainnet</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="chains-grid" id="chains-grid"></div>
-
-                <div class="chains-cta scroll-reveal">
-                    <div class="cta-content">
-                        <h3>Need Support for Another Chain?</h3>
-                        <p>We continuously expand our network coverage. Submit an integration request or contribute an adapter for your preferred blockchain.</p>
+                <!-- Substrate Networks -->
+                <div class="network-category scroll-reveal">
+                    <div class="category-header">
+                        <h3>Polkadot & Substrate Parachains</h3>
+                        <span class="category-badge">6 Networks</span>
                     </div>
-                    <div class="cta-actions">
-                        <a href="https://github.com/carbobit/apex-sdk/issues/new?template=chain_integration.md" class="btn btn-primary" target="_blank" rel="noopener">
-                            Request Chain Integration
-                        </a>
-                        <a href="viewer.html?doc=CONTRIBUTING.md" class="btn btn-secondary">
-                            Contribution Guide
-                        </a>
+                    <div class="chains-grid">
+                        <div class="chain-card">
+                            <div class="chain-icon polkadot">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="7" cy="7" r="1.5"/><circle cx="17" cy="7" r="1.5"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg>
+                            </div>
+                            <h4>Polkadot</h4>
+                            <p class="chain-type">Relay Chain</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon kusama">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/></svg>
+                            </div>
+                            <h4>Kusama</h4>
+                            <p class="chain-type">Relay Chain</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon acala">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>
+                            </div>
+                            <h4>Acala</h4>
+                            <p class="chain-type">DeFi Hub</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon astar">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z"/></svg>
+                            </div>
+                            <h4>Astar</h4>
+                            <p class="chain-type">Smart Contracts</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon moonbeam">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>
+                            </div>
+                            <h4>Moonbeam</h4>
+                            <p class="chain-type">Parachain</p>
+                        </div>
+                        <div class="chain-card">
+                            <div class="chain-icon westend">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+                            </div>
+                            <h4>Westend</h4>
+                            <p class="chain-type">Testnet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testnets -->
+                <div class="network-category scroll-reveal">
+                    <div class="category-header">
+                        <h3>Development & Test Networks</h3>
+                        <span class="category-badge">2 Networks</span>
+                    </div>
+                    <div class="chains-grid">
+                        <div class="chain-card testnet">
+                            <div class="chain-icon sepolia">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 7l8 5 8-5-8-5z"/><path opacity="0.6" d="M4 12l8 5 8-5-8-5-8 5z"/><path opacity="0.3" d="M4 17l8 5 8-5-8-5-8 5z"/></svg>
+                            </div>
+                            <h4>Sepolia</h4>
+                            <p class="chain-type">Ethereum Testnet</p>
+                        </div>
+                        <div class="chain-card testnet">
+                            <div class="chain-icon paseo">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" opacity="0.3"/></svg>
+                            </div>
+                            <h4>Paseo</h4>
+                            <p class="chain-type">Polkadot Testnet</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quick Start Section -->
-        <section class="quickstart-section">
+
+        <!-- CTA Section -->
+        <section class="cta-section">
             <div class="container">
-                <div class="quickstart-content">
-                    <div class="quickstart-text scroll-reveal">
-                        <span class="section-badge">Get Started</span>
-                        <h2>Start Building in Minutes</h2>
-                        <p>
-                            Add Apex SDK to your project and immediately access 15+ blockchain networks through a single, consistent interface. Comprehensive documentation and examples accelerate your development workflow.
-                        </p>
-                        <div class="quickstart-steps">
-                            <div class="step-item">
-                                <span class="step-number">01</span>
-                                <div class="step-content">
-                                    <h4>Install</h4>
-                                    <p>Add to your Cargo.toml and pull dependencies</p>
-                                </div>
-                            </div>
-                            <div class="step-item">
-                                <span class="step-number">02</span>
-                                <div class="step-content">
-                                    <h4>Configure</h4>
-                                    <p>Initialize SDK with target chains and RPC endpoints</p>
-                                </div>
-                            </div>
-                            <div class="step-item">
-                                <span class="step-number">03</span>
-                                <div class="step-content">
-                                    <h4>Deploy</h4>
-                                    <p>Build and execute transactions across multiple chains</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quickstart-actions">
-                            <a href="viewer.html?doc=QUICK_START.md" class="btn btn-primary btn-large">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14,2 14,8 20,8"></polyline>
-                                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                                </svg>
-                                Documentation
-                            </a>
-                            <a href="https://github.com/carbobit/apex-sdk/tree/main/examples" class="btn btn-secondary btn-large" target="_blank" rel="noopener">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="16,18 22,12 16,6"></polyline>
-                                    <polyline points="8,6 2,12 8,18"></polyline>
-                                </svg>
-                                Code Examples
-                            </a>
-                        </div>
+                <div class="cta-card scroll-reveal">
+                    <div class="cta-content">
+                        <h2>Ready to Build the Future of Web3?</h2>
+                        <p>Join developers building production dApps with Apex SDK. Get started in under 10 minutes.</p>
                     </div>
-                    <div class="quickstart-visual scroll-reveal">
-                        <div class="terminal-window">
-                            <div class="terminal-header">
-                                <div class="terminal-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <span class="terminal-title">Terminal</span>
-                            </div>
-                            <div class="terminal-content">
-                                <div class="terminal-line">
-                                    <span class="terminal-prompt">$</span>
-                                    <span class="terminal-command">cargo add apex-sdk</span>
-                                </div>
-                                <div class="terminal-line">
-                                    <span class="terminal-output">    Updating crates.io index</span>
-                                </div>
-                                <div class="terminal-line">
-                                    <span class="terminal-output">      Adding apex-sdk v0.1.5</span>
-                                </div>
-                                <div class="terminal-line">
-                                    <span class="terminal-prompt">$</span>
-                                    <span class="terminal-command">cargo build --release</span>
-                                </div>
-                                <div class="terminal-line">
-                                    <span class="terminal-output">   Compiling apex-sdk v0.1.5</span>
-                                </div>
-                                <div class="terminal-line">
-                                    <span class="terminal-output success">    Finished release [optimized] in 12.34s</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="cta-actions">
+                        <a href="viewer.html?doc=QUICK_START.md" class="btn btn-primary btn-large">
+                            Start Building Now
+                        </a>
+                        <a href="https://github.com/carbobit/apex-sdk/tree/main/examples" class="btn btn-secondary btn-large">
+                            View Examples
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-gradient"></div>
+    <!-- Footer -->
+    <footer class="modern-footer">
         <div class="container">
-            <div class="footer-main">
-                <div class="footer-branding-section">
-                    <div class="footer-logo-wrapper">
-                        <img src="assets/apex_logo.png" alt="Apex SDK" width="48" height="48">
-                        <div class="footer-brand-text">
-                            <h3>Apex SDK</h3>
-                            <p class="footer-tagline">Cross-Chain Development Simplified</p>
-                        </div>
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="assets/apex_logo.png" alt="Apex SDK" width="40" height="40">
+                        <span>Apex SDK</span>
                     </div>
-                    <p class="footer-mission">
-                        Enterprise-grade blockchain infrastructure for Rust developers. Build secure, high-performance applications across 15+ blockchain networks with compile-time safety.
-                    </p>
-                    <div class="footer-social-group">
-                        <span class="social-label">Join the Community</span>
-                        <div class="footer-socials">
-                            <a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener" aria-label="GitHub" class="social-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-                            </a>
-                            <a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener" aria-label="Discord" class="social-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.36-.43.85-.589 1.232a18.27 18.27 0 0 0-4-.003A12.3 12.3 0 0 0 11.379 3 19.736 19.736 0 0 0 7.62 4.369C3.693 9.478 2.89 14.46 3.247 19.385a19.9 19.9 0 0 0 4.963 1.615c.401-.553.758-1.138 1.065-1.748-.583-.22-1.14-.494-1.665-.816.14-.101.277-.206.41-.313 3.212 1.499 6.695 1.499 9.862 0 .134.107.271.212.41.313-.525.322-1.082.596-1.665.816.307.61.664 1.195 1.065 1.748a19.9 19.9 0 0 0 4.963-1.615c.406-5.52-.692-10.463-3.963-15.016zM9.7 15.408c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98zm4.6 0c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98z"/></svg>
-                            </a>
-                            <a href="https://x.com/apexsdk" target="_blank" rel="noopener" aria-label="X" class="social-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                            </a>
-                        </div>
+                    <p class="footer-tagline">The unified Rust framework for cross-chain blockchain development.</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener" aria-label="GitHub" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.09 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.06A9.3 9.3 0 0 1 12 7.05c.85 0 1.71.12 2.51.35 1.9-1.33 2.74-1.06 2.74-1.06.55 1.43.21 2.49.11 2.75.64.73 1.02 1.65 1.02 2.78 0 3.96-2.34 4.83-4.57 5.09.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+                        </a>
+                        <a href="https://x.com/apexsdk" target="_blank" rel="noopener" aria-label="X (Twitter)" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener" aria-label="Discord" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.36-.43.85-.589 1.232a18.27 18.27 0 0 0-4-.003A12.3 12.3 0 0 0 11.379 3 19.736 19.736 0 0 0 7.62 4.369C3.693 9.478 2.89 14.46 3.247 19.385a19.9 19.9 0 0 0 4.963 1.615c.401-.553.758-1.138 1.065-1.748-.583-.22-1.14-.494-1.665-.816.14-.101.277-.206.41-.313 3.212 1.499 6.695 1.499 9.862 0 .134.107.271.212.41.313-.525.322-1.082.596-1.665.816.307.61.664 1.195 1.065 1.748a19.9 19.9 0 0 0 4.963-1.615c.406-5.52-.692-10.463-3.963-15.016zM9.7 15.408c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98zm4.6 0c-.965 0-1.753-.89-1.753-1.98 0-1.09.778-1.98 1.753-1.98.984 0 1.772.89 1.753 1.98 0 1.09-.769 1.98-1.753 1.98z"/></svg>
+                        </a>
                     </div>
                 </div>
 
-                <div class="footer-nav-grid">
-                    <div class="footer-nav-col">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="viewer.html?doc=QUICK_START.md">Quick Start</a></li>
-                            <li><a href="viewer.html?doc=API.md">API Reference</a></li>
-                            <li><a href="https://github.com/carbobit/apex-sdk/tree/main/examples" target="_blank" rel="noopener">Examples</a></li>
-                            <li><a href="viewer.html?doc=CONTRIBUTING.md">Contributing</a></li>
-                        </ul>
-                    </div>
+                <!-- Resources Column -->
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/viewer.html?doc=QUICK_START.md">Quick Start</a></li>
+                        <li><a href="/viewer.html?doc=API.md">API Reference</a></li>
+                        <li><a href="/viewer.html?doc=CLI.md">CLI Guide</a></li>
+                        <li><a href="https://github.com/carbobit/apex-sdk/tree/main/examples">Examples</a></li>
+                        <li><a href="/viewer.html?doc=ROADMAP.md">Roadmap</a></li>
+                    </ul>
+                </div>
 
-                    <div class="footer-nav-col">
-                        <h4>Community</h4>
-                        <ul>
-                            <li><a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener">GitHub</a></li>
-                            <li><a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener">Discord</a></li>
-                            <li><a href="https://x.com/apexsdk" target="_blank" rel="noopener">X (Twitter)</a></li>
-                        </ul>
-                    </div>
+                <!-- Contact Column -->
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:support@apexsdk.dev">Support</a></li>
+                        <li><a href="mailto:security@apexsdk.dev">Security</a></li>
+                        <li><a href="mailto:partnerships@apexsdk.dev">Partnerships</a></li>
+                        <li><a href="mailto:research@apexsdk.dev">Research</a></li>
+                    </ul>
+                </div>
 
-                    <div class="footer-nav-col">
-                        <h4>Contact</h4>
-                        <ul>
-                            <li><a href="mailto:support@apexsdk.dev">Support</a></li>
-                            <li><a href="mailto:security@apexsdk.dev">Security</a></li>
-                            <li><a href="mailto:partnerships@apexsdk.dev">Partnerships</a></li>
-                            <li><a href="mailto:research@apexsdk.dev">Research</a></li>
-                        </ul>
-                    </div>
+                <!-- Company Column -->
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="https://carbobit.com" target="_blank" rel="noopener">Carbobit</a></li>
+                        <li><a href="https://github.com/carbobit/apex-sdk" target="_blank" rel="noopener">GitHub</a></li>
+                        <li><a href="https://discord.gg/zCDFsBaZJN" target="_blank" rel="noopener">Discord</a></li>
+                        <li><a href="/viewer.html?doc=CONTRIBUTING.md">Contributing</a></li>
+                        <li><a href="https://github.com/carbobit/apex-sdk/blob/main/LICENSE">License</a></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="footer-bottom-bar">
-                <div class="footer-copyright">
-                    <p>&copy; <span id="current-year"></span> Apex SDK Protocol by <a href="https://carbobit.com" target="_blank" rel="noopener">Carbobit</a></p>
-                </div>
-                <div class="footer-links-inline">
-                    <a href="https://github.com/carbobit/apex-sdk/blob/main/LICENSE" target="_blank" rel="noopener">Apache 2.0 License</a>
-                    <span class="divider">•</span>
-                    <span class="version-badge">v0.1.5</span>
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Apex SDK Protocol by <a href="https://carbobit.com" target="_blank" rel="noopener">Carbobit</a>. Apache-2.0 Licensed.</p>
+                <div class="footer-badge">
+                    <span class="status-dot"></span>
+                    <span>All systems operational</span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <!-- JavaScript -->
+    <script src="js/main.js" defer></script>
 </body>
 </html>

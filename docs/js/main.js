@@ -203,3 +203,27 @@ function renderChains() {
         </a>
     `).join('');
 }
+
+// Code Showcase Tabs
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.code-tab');
+    const codeBlocks = document.querySelectorAll('.code-block');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab;
+            
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Update active code block
+            codeBlocks.forEach(block => {
+                block.classList.remove('active');
+                if (block.dataset.content === targetTab) {
+                    block.classList.add('active');
+                }
+            });
+        });
+    });
+});

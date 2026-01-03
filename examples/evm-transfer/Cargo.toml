@@ -1,19 +1,12 @@
-[workspace]
-
 [package]
 name = "evm-transfer"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
-
-[[bin]]
-name = "evm-transfer"
-path = "main.rs"
+publish = false
 
 [dependencies]
-apex-sdk = { path = "../../apex-sdk" }
-apex-sdk-evm = { path = "../../apex-sdk-evm" }
-alloy-primitives = "1.5.2"
-tokio = { version = "1.35", features = ["full"] }
-anyhow = "1.0"
-tracing = "0.1"
-tracing-subscriber = "0.3"
+apex-sdk = { path = "../../apex-sdk", version = "0.1.5", features = ["evm"] }
+tokio = { version = "1.38.0", features = ["full"] }
+anyhow = "1.0.86"
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"

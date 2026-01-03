@@ -169,10 +169,14 @@ fn benchmark_serialization(c: &mut Criterion) {
     });
 
     // TransactionStatus serialization
-    let tx_status = TransactionStatus::Confirmed {
-        block_hash: "0x1234567890abcdef".to_string(),
-        block_number: Some(12345),
-    };
+    let tx_status = TransactionStatus::confirmed(
+        "0x1234567890abcdef".to_string(),
+        12345,
+        "0x1234567890abcdef".to_string(),
+        Some(21000),
+        Some(20000000000),
+        Some(1),
+    );
     group.bench_function("serialize_transaction_status", |b| {
         b.iter(|| black_box(serde_json::to_string(&tx_status).unwrap()))
     });

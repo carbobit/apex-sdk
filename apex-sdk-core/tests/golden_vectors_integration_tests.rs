@@ -107,7 +107,7 @@ fn test_golden_vector_set_serialization() {
     let json_str = serde_json::to_string_pretty(&vector_set).unwrap();
     assert!(json_str.contains("test_vector"));
     assert!(json_str.contains("deadbeef"));
-    assert!(json_str.contains("Evm"));
+    assert!(json_str.contains("Ethereum"));
 
     // Test JSON deserialization
     let deserialized_set: GoldenVectorSet = serde_json::from_str(&json_str).unwrap();
@@ -189,7 +189,7 @@ fn test_substrate_golden_vector_creation() {
             ],
             era: Some(SubstrateEra {
                 period: 64,
-                phase: 32,
+                phase: 0,
             }),
             nonce: 0,
             tip: 0,

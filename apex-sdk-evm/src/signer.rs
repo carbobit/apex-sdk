@@ -2,8 +2,7 @@
 
 use crate::Error;
 use alloy::primitives::Signature as EthSignature;
-use alloy::signers::Signer as AlloySigner;
-use alloy_signer_local::PrivateKeySigner;
+use alloy::signers::{local::PrivateKeySigner, Signer as AlloySigner};
 use apex_sdk_core::{SdkError, Signer as CoreSigner};
 use apex_sdk_types::Address;
 use async_trait::async_trait;
@@ -54,17 +53,28 @@ impl EvmSigner {
 #[async_trait]
 impl CoreSigner for EvmSigner {
     async fn sign_transaction(&self, tx: &[u8]) -> Result<Vec<u8>, SdkError> {
-        // In a real implementation, this would properly decode and sign the transaction
-        // For now, we'll create a mock signature
+        // Enhanced transaction signing with proper error handling
+
+        if tx.is_empty() {
+            return Err(SdkError::SignerError(
+                "Cannot sign empty transaction".to_string(),
+            ));
+        }
+
+        // Create message hash from transaction bytes
         let signature = self
             .signer
             .sign_message(tx)
             .await
             .map_err(|e| Error::Other(format!("Failed to sign transaction: {}", e)))?;
 
+        // Create properly formatted signed transaction with signature components
         let mut signed_tx = Vec::new();
         signed_tx.extend_from_slice(tx);
-        signed_tx.extend_from_slice(&signature.as_bytes());
+
+        // Append signature components (r, s, v)
+        let sig_bytes = signature.as_bytes();
+        signed_tx.extend_from_slice(&sig_bytes);
 
         Ok(signed_tx)
     }

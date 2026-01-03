@@ -1,5 +1,6 @@
 //! Advanced features and utilities.
 
+use crate::sdk::ApexSDK;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::broadcast;
@@ -250,7 +251,7 @@ impl ParallelExecutor {
         let mut tasks = Vec::new();
 
         for tx in transactions {
-            let sdk = Arc::clone(&self.sdk);
+            let sdk: Arc<ApexSDK> = Arc::clone(&self.sdk);
             let semaphore = Arc::clone(&semaphore);
 
             let task = tokio::spawn(async move {

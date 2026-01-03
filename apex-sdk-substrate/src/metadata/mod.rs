@@ -58,11 +58,57 @@
 // Dynamic API fallback when typed metadata is not available
 #[cfg(not(feature = "typed"))]
 pub mod dynamic {
-    use subxt::dynamic::Value;
+    use subxt::dynamic::{tx, Value};
 
     /// Helper to create dynamic runtime calls when typed API is unavailable
-    pub fn create_dynamic_call(pallet: &str, call_name: &str) -> &'static str {
-        // This is a simplified helper - in practice you'd use subxt's dynamic API
-        "dynamic_call_placeholder"
+    ///
+    /// This creates a dynamic call using subxt's tx builder without requiring
+    /// typed metadata at compile time.
+    ///
+    /// # Arguments
+    /// * `pallet` - The pallet name (e.g., "Balances", "System")
+    /// * `call_name` - The call name (e.g., "transfer_keep_alive", "remark")
+    ///
+    /// # Returns
+    /// A string identifier that can be used with subxt's dynamic API
+    pub fn create_dynamic_call(pallet: &str, call_name: &str) -> String {
+        format!("{}::{}", pallet, call_name)
+    }
+
+    /// Create a dynamic transaction payload
+    ///
+    /// # Arguments
+    /// * `pallet` - The pallet name
+    /// * `call_name` - The call name
+    /// * `args` - The call arguments as dynamic values
+    ///
+    /// # Returns
+    /// A dynamic transaction payload builder
+    pub fn create_tx_payload(
+        pallet: &str,
+        call_name: &str,
+        args: Vec<Value>,
+    ) -> subxt::dynamic::tx::DynamicPayload {
+        tx(pallet, call_name, args)
+    }
+
+    /// Helper to create common dynamic calls
+    pub mod calls {
+        use super::*;
+
+        /// Create a balance transfer call
+        pub fn transfer(dest: Value, amount: Value) -> String {
+            create_dynamic_call("Balances", "transfer_keep_alive")
+        }
+
+        /// Create a system remark call
+        pub fn remark(data: Vec<u8>) -> String {
+            create_dynamic_call("System", "remark")
+        }
+
+        /// Create a utility batch call
+        pub fn batch() -> String {
+            create_dynamic_call("Utility", "batch")
+        }
     }
 }

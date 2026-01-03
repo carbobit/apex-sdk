@@ -95,7 +95,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-apex-sdk = "0.1.4"
+apex-sdk = "0.1.5"
 tokio = { version = "1.35", features = ["full"] }
 ```
 

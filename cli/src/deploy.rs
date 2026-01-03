@@ -238,7 +238,7 @@ async fn deploy_substrate_contract(
             .context("Failed to submit upload_code transaction")?;
 
         let tx_hash = tx_progress.extrinsic_hash();
-        println!("{}: {:?}", "Transaction Hash".cyan(), tx_hash);
+        println!("{}: {}", "Transaction Hash".cyan(), tx_hash);
 
         // Wait for finalization
         println!("{}", "Waiting for finalization...".yellow());
@@ -250,7 +250,7 @@ async fn deploy_substrate_contract(
 
         println!("\n{}", "Contract Code Uploaded Successfully".green().bold());
         println!("{}", "═══════════════════════════════════════".dimmed());
-        println!("{}: {:?}", "Extrinsic Hash".cyan(), events.extrinsic_hash());
+        println!("{}: {}", "Extrinsic Hash".cyan(), events.extrinsic_hash());
         println!("{}: {} bytes", "Code Size".dimmed(), contract_code.len());
 
         // Extract code hash from events
@@ -281,7 +281,6 @@ async fn deploy_evm_contract(
     account_name: Option<String>,
     dry_run: bool,
 ) -> Result<()> {
-    use alloy::primitives::U256;
     use apex_sdk_evm::{wallet::Wallet, EvmAdapter};
 
     let title = if dry_run {
@@ -405,32 +404,27 @@ async fn deploy_evm_contract(
         Wallet::from_mnemonic(&mnemonic, 0).context("Failed to create wallet from mnemonic")?;
 
     // Get chain ID from provider
-    let chain_id = adapter
-        .provider()
-        .get_chain_id()
-        .await
-        .context("Failed to get chain ID")?;
+    let chain_id = adapter.provider().chain_id();
 
     let wallet = wallet.with_chain_id(chain_id);
 
     spinner.set_message("Estimating gas...");
 
-    // Create transaction executor
-    let executor = adapter.transaction_executor();
-
-    // Estimate gas for deployment (to address is zero for contract creation)
-    let dummy_to = "0x0000000000000000000000000000000000000000"
-        .parse()
-        .unwrap();
-    let gas_estimate = executor
-        .estimate_gas(
-            wallet.eth_address(),
-            Some(dummy_to),
-            Some(U256::ZERO),
-            Some(contract_data.clone()),
-        )
+    // Get current gas price from the network
+    use alloy::providers::Provider;
+    let provider = adapter.provider();
+    let gas_price = provider
+        .provider
+        .get_gas_price()
         .await
-        .context("Failed to estimate gas")?;
+        .context("Failed to get gas price")?;
+
+    // Estimate gas for contract deployment
+    // Contract deployments typically need more gas than standard transfers
+    // We estimate based on bytecode size with a reasonable multiplier
+    let base_gas = 21000u64; // Base transaction cost
+    let bytecode_gas = (contract_data.len() as u64) * 200; // ~200 gas per byte
+    let gas_estimate = base_gas + bytecode_gas + 50000; // Add buffer for constructor execution
 
     spinner.finish_and_clear();
 
@@ -445,17 +439,19 @@ async fn deploy_evm_contract(
     println!("{}: {}", "Deployer".dimmed(), signer_name);
     println!("{}: {}", "From Address".dimmed(), wallet.address());
     println!("{}: {}", "Chain ID".dimmed(), chain_id);
-    println!("{}: {}", "Gas Estimate".dimmed(), gas_estimate.gas_limit);
-    println!(
-        "{}: {} gwei",
-        "Gas Price".dimmed(),
-        gas_estimate.gas_price_gwei()
-    );
+    println!("{}: {}", "Gas Estimate".dimmed(), gas_estimate);
 
+    // Display actual gas price from network
+    let gas_price_gwei = gas_price as f64 / 1e9;
+    println!("{}: {:.2} gwei", "Gas Price".dimmed(), gas_price_gwei);
+
+    // Calculate estimated cost with real gas price
+    let estimated_cost_wei = (gas_estimate as u128) * gas_price;
+    let estimated_cost_eth = estimated_cost_wei as f64 / 1e18;
     println!(
-        "{}: {} ETH",
+        "{}: {:.6} ETH",
         "Est. Cost".yellow().bold(),
-        gas_estimate.total_cost_eth()
+        estimated_cost_eth
     );
 
     if dry_run {
@@ -480,10 +476,7 @@ async fn deploy_evm_contract(
         println!("  -Sign the transaction with your private key");
         println!("  -Broadcast to the network");
         println!("  -Wait for confirmation");
-        println!(
-            "  -Spend ~{} ETH in gas fees",
-            gas_estimate.total_cost_eth()
-        );
+        println!("  -Spend ~{:.6} ETH in gas fees", estimated_cost_eth);
     } else {
         println!("\n{}", "Ready to Deploy".yellow().bold());
         println!("This will spend gas fees from your account.");
@@ -501,55 +494,85 @@ async fn deploy_evm_contract(
 
         println!("\n{}", "Broadcasting transaction...".cyan());
 
-        // For contract deployment, send to zero address with bytecode as data
-        let zero_address = "0x0000000000000000000000000000000000000000"
-            .parse()
-            .unwrap();
+        // Build deployment transaction
+        use alloy::network::TransactionBuilder;
+        use alloy::primitives::{Bytes, U256};
+        use alloy::rpc::types::TransactionRequest;
 
-        // Send the deployment transaction
-        let tx_hash = executor
-            .send_transaction(&wallet, zero_address, U256::ZERO, Some(contract_data))
+        // Get nonce
+        let from_address: alloy::primitives::Address = wallet
+            .address()
+            .to_string()
+            .parse()
+            .context("Failed to parse wallet address")?;
+
+        let nonce = provider
+            .provider
+            .get_transaction_count(from_address)
+            .await
+            .context("Failed to get nonce")?;
+
+        // Create deployment transaction request (no 'to' address for contract creation)
+        let tx_request = TransactionRequest::default()
+            .with_from(from_address)
+            .with_chain_id(chain_id)
+            .with_nonce(nonce)
+            .with_gas_limit(gas_estimate)
+            .with_gas_price(gas_price)
+            .with_value(U256::ZERO)
+            .with_input(Bytes::from(contract_data.clone()));
+
+        // Send transaction directly using provider
+        use alloy::providers::Provider;
+        let pending_tx = provider
+            .provider
+            .send_transaction(tx_request)
             .await
             .context("Failed to send deployment transaction")?;
 
-        println!("{}: {:?}", "Transaction Hash".cyan(), tx_hash);
+        let tx_hash = format!("0x{:x}", *pending_tx.tx_hash());
+        println!("{}: {}", "Transaction Hash".cyan(), &tx_hash);
 
         // Wait for confirmation
         println!("{}", "Waiting for confirmation...".yellow());
 
-        let receipt = executor
-            .wait_for_confirmation(tx_hash, 1)
+        // Wait for transaction receipt
+        let receipt = pending_tx
+            .get_receipt()
             .await
-            .context("Failed to get transaction receipt")?
-            .ok_or_else(|| anyhow::anyhow!("Transaction receipt not found"))?;
+            .context("Failed to get transaction receipt")?;
 
-        // Extract contract address (for deployment transactions)
+        // Extract results from receipt
         let contract_address = receipt
             .contract_address
-            .ok_or_else(|| anyhow::anyhow!("Contract address not found in receipt"))?;
+            .map(|addr| format!("0x{:x}", addr))
+            .unwrap_or_else(|| "N/A".to_string());
+
+        let block_number = receipt.block_number.unwrap_or(0);
+        let actual_gas_used = receipt.gas_used;
+        let effective_gas_price = receipt.effective_gas_price;
+
+        // Check deployment status
+        if !receipt.status() {
+            println!("\n{}", "Deployment Failed!".red().bold());
+            println!("{}: Transaction reverted", "Error".red());
+            return Err(anyhow::anyhow!("Contract deployment transaction reverted"));
+        }
 
         println!("\n{}", "Deployment Successful".green().bold());
         println!("{}", "═══════════════════════════════════════".dimmed());
         println!(
-            "{}: {:?}",
+            "{}: {}",
             "Contract Address".green().bold(),
             contract_address
         );
-        println!("{}: {:?}", "Transaction Hash".cyan(), tx_hash);
-        println!(
-            "{}: {}",
-            "Block Number".dimmed(),
-            receipt
-                .block_number
-                .map(|n| n.to_string())
-                .unwrap_or_else(|| "unknown".to_string())
-        );
-        println!("{}: {}", "Gas Used".dimmed(), receipt.gas_used);
+        println!("{}: {}", "Transaction Hash".cyan(), tx_hash);
+        println!("{}: {}", "Block Number".dimmed(), block_number);
+        println!("{}: {}", "Gas Used".dimmed(), actual_gas_used);
 
-        // Calculate actual cost
-        let gas_used = receipt.gas_used as u128;
-        let gas_price = receipt.effective_gas_price;
-        let actual_cost_wei = gas_used * gas_price;
+        // Calculate actual cost with real values from receipt
+        let gas_used = actual_gas_used as u128;
+        let actual_cost_wei = gas_used * (effective_gas_price as u128);
 
         // Format to ETH
         let actual_cost_eth = format_wei_to_eth(actual_cost_wei);

@@ -152,11 +152,28 @@ impl Transaction {
         match (&self.from, &self.to) {
             (Address::Substrate(_), Address::Evm(_)) => true,
             (Address::Evm(_), Address::Substrate(_)) => true,
-            _ => {
-                // Same address types - could still be cross-chain if different networks
-                // For now, we consider it same-chain unless explicitly different types
+            (Address::Substrate(from_addr), Address::Substrate(to_addr)) => {
+                // For Substrate-to-Substrate, check if they have different SS58 prefixes
+                // indicating different parachains/relay chains
+                !Self::same_substrate_network(from_addr, to_addr)
+            }
+            (Address::Evm(_), Address::Evm(_)) => {
+                // For EVM-to-EVM, same chain unless proven otherwise
+                // Would need chain_id comparison in future enhancement
                 false
             }
+        }
+    }
+
+    /// Check if two Substrate addresses are on the same network
+    fn same_substrate_network(addr1: &str, addr2: &str) -> bool {
+        // Extract network prefix from SS58 addresses
+        // Different prefixes indicate different networks (e.g., Polkadot vs Kusama)
+        use apex_sdk_types::extract_ss58_prefix;
+
+        match (extract_ss58_prefix(addr1), extract_ss58_prefix(addr2)) {
+            (Some(prefix1), Some(prefix2)) => prefix1 == prefix2,
+            _ => true, // If we can't determine, assume same network
         }
     }
 

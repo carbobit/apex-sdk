@@ -16,7 +16,7 @@ resolver = "2"
 #   and will be fixed upstream. See: https://github.com/paritytech/trie/issues
 
 [workspace.package]
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 description = "Compile-time safe, unified Rust SDK for cross-chain blockchain development across Substrate and EVM ecosystems"
 authors = ["Khalid Hussein <kherld.hussein@gmail.com>"]
@@ -70,6 +70,7 @@ tracing-subscriber = "0.3.22"
 rand = "0.9.2"
 sha3 = "0.10"
 zeroize = "1.7"
+chrono = "0.4"
 
 # Dev-dependencies
 proptest = "1.4"

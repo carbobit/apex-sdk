@@ -1,19 +1,35 @@
 [package]
 name = "apex-sdk-substrate"
-version = "0.1.4"
-edition.workspace = true
-rust-version.workspace = true
-license.workspace = true
+version = "0.1.5"
+edition = "2021"
 description = "Substrate adapter for Apex SDK"
-repository.workspace = true
-homepage.workspace = true
-documentation.workspace = true
-keywords = ["blockchain", "substrate", "polkadot", "kusama", "sdk"]
-categories = ["cryptography::cryptocurrencies", "api-bindings"]
-readme = "README.md"
+license = "Apache-2.0"
+repository = "https://github.com/carbobit/apex-sdk"
 
-[package.metadata.cargo-udeps.ignore]
-normal = ["sp-runtime"]
+[dependencies]
+apex-sdk-core = { path = "../apex-sdk-core", version = "0.1.5" }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.5" }
+subxt = { workspace = true, features = ["native"] }
+tokio = { version = "1.38.0", features = ["full"] }
+async-trait = "0.1.80"
+thiserror = "2.0.17"
+tracing = "0.1.40"
+serde = { version = "1.0.203", features = ["derive"] }
+serde_json = "1.0.117"
+hex = "0.4.3"
+sp-core = { workspace = true, features = ["full_crypto"] }
+sp-runtime = { workspace = true }
+parity-scale-codec = { version = "3.6.12", features = ["derive"] }
+parking_lot = "0.12.3"
+bip39 = "2.0.0"
+rand = "0.9.2"
+lru = "0.16.2"
+chrono = "0.4"
+
+[dev-dependencies]
+tokio = { version = "1.38.0", features = ["full", "test-util"] }
+mockall = "0.14.0"
+criterion = { workspace = true }
 
 [features]
 default = []
@@ -22,52 +38,6 @@ typed-polkadot = ["typed"]
 typed-kusama = ["typed"]
 typed-westend = ["typed"]
 
-[dependencies]
-apex-sdk-core = { path = "../apex-sdk-core", version = "0.1.4" }
-apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.4" }
-tokio = { workspace = true }
-async-trait = { workspace = true }
-thiserror = { workspace = true }
-chrono = { version = "0.4", features = ["serde"] }
-
-tracing = { workspace = true }
-
-# Substrate dependencies
-subxt = { workspace = true }
-sp-core = { workspace = true }
-sp-runtime = { workspace = true }
-
-# Serialization
-serde = { workspace = true }
-serde_json = { workspace = true }
-
-# Utilities
-hex = { workspace = true }
-bs58 = { workspace = true }
-rand = { workspace = true }
-zeroize = { workspace = true }
-
-# Additional Substrate dependencies
-parity-scale-codec = "3.0"
-scale-info = "2.0"
-schnorrkel = "0.11"
-bip39 = "2.0"
-
-# Caching and metrics
-lru = "0.16.2"
-parking_lot = "0.12"
-
-[build-dependencies]
-# No build dependencies needed - metadata generation is manual
-
-[dev-dependencies]
-proptest = { workspace = true }
-mockall = { workspace = true }
-wiremock = "0.6"
-tokio-test = "0.4"
-assert_matches = "1.5"
-criterion.workspace = true
-
-[[bench]]
-name = "substrate_benchmarks"
-harness = false
+[package.metadata.cargo-udeps.ignore]
+normal = ["sp-runtime"]  # Used in auto-generated metadata files (westend.rs, westend_generated.rs)
+development = ["mockall"]  # May be used in conditional compilation

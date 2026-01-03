@@ -10,7 +10,7 @@ fn cli_binary() -> PathBuf {
     let mut path = std::env::current_exe().unwrap();
     path.pop(); // Remove test binary name
     path.pop(); // Remove 'deps' directory
-    path.push("apex");
+    path.push("apex-cli");
     path
 }
 

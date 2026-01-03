@@ -194,25 +194,35 @@ pub struct ConnectionGuard<'a, T> {
 /// Rate limiter for controlling request rates
 #[derive(Debug)]
 pub struct RateLimiter {
-    semaphore: Semaphore,
+    semaphore: Arc<Semaphore>,
+    interval: Duration,
 }
 
 impl RateLimiter {
-    pub fn new(max_requests: usize, _interval: Duration) -> Self {
+    pub fn new(max_requests: usize, interval: Duration) -> Self {
         Self {
-            semaphore: Semaphore::new(max_requests),
+            semaphore: Arc::new(Semaphore::new(max_requests)),
+            interval,
         }
     }
 
     pub async fn acquire(&self) -> RateLimitGuard {
-        let _permit = self
+        let permit = self
             .semaphore
-            .acquire()
+            .clone()
+            .acquire_owned()
             .await
             .expect("Rate limiter semaphore should not be closed");
 
-        // Return guard immediately - in a real implementation
-        // we'd use a different strategy to release after interval
+        // Schedule permit release after the interval
+        let interval = self.interval;
+
+        tokio::spawn(async move {
+            tokio::time::sleep(interval).await;
+            // Permit is automatically released when dropped
+            drop(permit);
+        });
+
         RateLimitGuard
     }
 }
@@ -263,7 +273,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore] // Rate limiter implementation is a placeholder - doesn't actually implement time delays
     async fn test_rate_limiter() {
         let limiter = RateLimiter::new(2, Duration::from_millis(100));
 

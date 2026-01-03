@@ -6,7 +6,7 @@ use crate::{
 };
 use alloy::providers::Provider as AlloyProvider;
 use apex_sdk_core::{
-    ChainAdapter, ConfirmationStrategy, Provider, RetryConfig, SdkError, TimeoutConfig,
+    ChainAdapter, ConfirmationStrategy, ReceiptWatcher, RetryConfig, SdkError, TimeoutConfig,
     TransactionPipeline, TransactionResult,
 };
 use apex_sdk_types::{Address, TransactionStatus};
@@ -27,6 +27,7 @@ pub struct EvmAdapter {
         >,
     >,
     chain_name: String,
+    rpc_url: String,
 }
 
 impl EvmAdapter {
@@ -38,6 +39,7 @@ impl EvmAdapter {
             provider,
             pipeline: None,
             chain_name: chain_name.to_string(),
+            rpc_url: rpc_url.to_string(),
         })
     }
 
@@ -123,24 +125,24 @@ impl EvmAdapter {
         to: &Address,
         amount_wei: u128,
     ) -> Result<TransactionResult, SdkError> {
-        // Create a simple ETH transfer transaction
-        // This is a simplified implementation - in practice you'd use proper transaction building
-        let mut tx_data = Vec::new();
+        use alloy::primitives::{Address as EthAddress, U256};
+        use std::str::FromStr;
 
-        // Add recipient address (20 bytes)
+        // Parse the recipient address
         let to_str = to.to_string();
-        let to_bytes = hex::decode(to_str.strip_prefix("0x").unwrap_or(&to_str))
-            .map_err(|e| SdkError::ConfigError(format!("Invalid address: {}", e)))?;
-        tx_data.extend_from_slice(&to_bytes);
+        let eth_to = EthAddress::from_str(&to_str)
+            .map_err(|e| SdkError::ConfigError(format!("Invalid recipient address: {}", e)))?;
 
-        // Add amount (32 bytes, big-endian)
-        let amount_bytes = amount_wei.to_be_bytes();
-        tx_data.extend_from_slice(&amount_bytes);
+        // Convert amount to U256
+        let value = U256::from(amount_wei);
 
-        // Add transaction type marker
-        tx_data.insert(0, 0x00); // Native transfer marker
+        // Create transaction metadata
+        let mut metadata = Vec::new();
+        metadata.extend_from_slice(eth_to.as_slice());
+        metadata.extend_from_slice(&value.to_be_bytes::<32>());
+        metadata.insert(0, 0x00); // Native transfer marker
 
-        self.execute_transaction(&tx_data).await
+        self.execute_transaction(&metadata).await
     }
 
     /// ERC-20 token transfer
@@ -150,30 +152,44 @@ impl EvmAdapter {
         to: &Address,
         amount: u128,
     ) -> Result<TransactionResult, SdkError> {
-        // Create an ERC-20 transfer transaction
-        // This is a simplified implementation - in practice you'd use proper ABI encoding
-        let mut tx_data = Vec::new();
+        use alloy::primitives::{Address as EthAddress, U256};
+        use alloy::sol_types::SolCall;
+        use std::str::FromStr;
 
-        // Add transaction type marker
-        tx_data.push(0x01); // ERC-20 transfer marker
-
-        // Add token contract address (20 bytes)
+        // Parse addresses
         let token_str = token_address.to_string();
-        let token_bytes = hex::decode(token_str.strip_prefix("0x").unwrap_or(&token_str))
-            .map_err(|e| SdkError::ConfigError(format!("Invalid token address: {}", e)))?;
-        tx_data.extend_from_slice(&token_bytes);
-
-        // Add recipient address (20 bytes)
         let to_str = to.to_string();
-        let to_bytes = hex::decode(to_str.strip_prefix("0x").unwrap_or(&to_str))
+
+        let _token_addr = EthAddress::from_str(&token_str)
+            .map_err(|e| SdkError::ConfigError(format!("Invalid token address: {}", e)))?;
+        let eth_to = EthAddress::from_str(&to_str)
             .map_err(|e| SdkError::ConfigError(format!("Invalid recipient address: {}", e)))?;
-        tx_data.extend_from_slice(&to_bytes);
 
-        // Add amount (32 bytes, big-endian)
-        let amount_bytes = amount.to_be_bytes();
-        tx_data.extend_from_slice(&amount_bytes);
+        // Convert amount to U256
+        let value = U256::from(amount);
 
-        self.execute_transaction(&tx_data).await
+        // Define ERC-20 transfer function
+        alloy::sol! {
+            function transfer(address to, uint256 amount) external returns (bool);
+        }
+
+        // Encode the function call using Alloy's ABI encoding
+        let call = transferCall {
+            to: eth_to,
+            amount: value,
+        };
+        let encoded = call.abi_encode();
+
+        // Create transaction metadata with proper encoding
+        let mut metadata = Vec::new();
+        metadata.push(0x01); // ERC-20 transfer marker
+        metadata.extend_from_slice(
+            &hex::decode(token_str.strip_prefix("0x").unwrap_or(&token_str))
+                .map_err(|e| SdkError::ConfigError(format!("Invalid token address: {}", e)))?,
+        );
+        metadata.extend_from_slice(&encoded);
+
+        self.execute_transaction(&metadata).await
     }
 
     /// Generic contract call
@@ -237,7 +253,7 @@ impl EvmAdapter {
 
     /// Get endpoint URL
     pub fn endpoint(&self) -> String {
-        self.provider.rpc_url().to_string()
+        self.rpc_url.clone()
     }
 
     /// Get transaction executor (deprecated, use pipeline instead)
@@ -271,60 +287,26 @@ impl EvmAdapter {
 #[async_trait]
 impl ChainAdapter for EvmAdapter {
     async fn get_transaction_status(&self, tx_hash: &str) -> Result<TransactionStatus, String> {
-        use alloy::primitives::B256;
-        use apex_sdk_types::TxStatus;
-        use std::str::FromStr;
+        // Validate hash format first
+        if !tx_hash.starts_with("0x") || tx_hash.len() != 66 {
+            return Err(format!("Invalid transaction hash format: {}", tx_hash));
+        }
 
-        // Parse transaction hash
-        let hash_str = tx_hash.strip_prefix("0x").unwrap_or(tx_hash);
-        let hash = B256::from_str(&format!("0x{}", hash_str))
-            .map_err(|e| format!("Invalid transaction hash: {}", e))?;
+        // Check if all characters after 0x are valid hex
+        if !tx_hash[2..].chars().all(|c| c.is_ascii_hexdigit()) {
+            return Err(format!("Invalid transaction hash format: {}", tx_hash));
+        }
 
-        // Try to get transaction receipt
-        match self.provider.provider.get_transaction_receipt(hash).await {
-            Ok(Some(receipt)) => {
-                // Transaction is mined
-                let current_block = self
-                    .provider
-                    .get_block_number()
-                    .await
-                    .map_err(|e| format!("Failed to get block number: {}", e))?;
+        // Create receipt watcher to get transaction status
+        let receipt_watcher = EvmReceiptWatcher::new(self.provider.provider.clone());
 
-                let tx_block = receipt.block_number.unwrap_or_default();
-                let confirmations = current_block.saturating_sub(tx_block) as u32;
-
-                let status = if receipt.status() {
-                    TxStatus::Confirmed
-                } else {
-                    TxStatus::Failed
-                };
-
-                Ok(TransactionStatus {
-                    hash: tx_hash.to_string(),
-                    status,
-                    block_number: Some(tx_block),
-                    block_hash: Some(format!("0x{:x}", receipt.block_hash.unwrap_or_default())),
-                    gas_used: Some(receipt.gas_used),
-                    effective_gas_price: Some(receipt.effective_gas_price),
-                    confirmations: Some(confirmations),
-                    error: None,
-                })
-            }
+        match receipt_watcher.get_receipt_status(tx_hash).await {
+            Ok(Some(status)) => Ok(status),
             Ok(None) => {
-                // No receipt, check if transaction exists in mempool
-                match self.provider.provider.get_transaction_by_hash(hash).await {
-                    Ok(Some(_tx)) => {
-                        // Transaction exists but not mined yet (pending)
-                        Ok(TransactionStatus::pending(tx_hash.to_string()))
-                    }
-                    Ok(None) => {
-                        // Transaction doesn't exist
-                        Ok(TransactionStatus::unknown(tx_hash.to_string()))
-                    }
-                    Err(e) => Err(format!("Failed to get transaction: {}", e)),
-                }
+                // Transaction not found on chain
+                Ok(TransactionStatus::unknown(tx_hash.to_string()))
             }
-            Err(e) => Err(format!("Failed to get transaction receipt: {}", e)),
+            Err(e) => Err(format!("Failed to get transaction status: {}", e)),
         }
     }
 

@@ -157,7 +157,7 @@ impl CoreReceiptWatcher for EvmReceiptWatcher {
                 let confirmations = current_block.saturating_sub(tx_block);
 
                 let status = if receipt.status() {
-                    if confirmations >= 12 {
+                    if confirmations >= 100 {
                         TxStatus::Finalized
                     } else if confirmations >= 2 {
                         TxStatus::Confirmed
@@ -180,10 +180,22 @@ impl CoreReceiptWatcher for EvmReceiptWatcher {
                 }))
             }
             Ok(None) => {
-                // Transaction not yet mined
-                Ok(Some(TransactionStatus::pending(tx_hash.to_string())))
+                // Transaction receipt not found - check if it's in mempool
+                match self.provider.get_transaction_by_hash(hash).await {
+                    Ok(Some(_tx)) => {
+                        // Transaction exists in mempool but not yet mined
+                        Ok(Some(TransactionStatus::pending(tx_hash.to_string())))
+                    }
+                    Ok(None) | Err(_) => {
+                        // Transaction not found anywhere
+                        Ok(None)
+                    }
+                }
             }
-            Err(_) => Ok(None),
+            Err(e) => {
+                // Error querying provider
+                Err(Error::Connection(format!("Failed to get transaction receipt: {}", e)).into())
+            }
         }
     }
 }

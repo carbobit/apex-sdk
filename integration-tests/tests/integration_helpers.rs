@@ -58,6 +58,7 @@ pub async fn wait_for_substrate_node(max_retries: u32) -> Result<(), String> {
     for i in 0..max_retries {
         let health_url = substrate_rpc_url()
             .replace("ws://", "http://")
+            .replace("wss://", "https://")
             .replace(":9944", ":9933")
             + "/health";
 

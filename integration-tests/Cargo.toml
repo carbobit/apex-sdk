@@ -7,6 +7,7 @@ publish = false
 
 [dependencies]
 apex-sdk = { path = "../apex-sdk" }
+apex-sdk-core = { path = "../apex-sdk-core" }
 apex-sdk-evm = { path = "../apex-sdk-evm" }
 apex-sdk-substrate = { path = "../apex-sdk-substrate" }
 tokio = { workspace = true }

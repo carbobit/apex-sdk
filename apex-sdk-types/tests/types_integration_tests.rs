@@ -1,6 +1,6 @@
 use apex_sdk_types::{
     Address, Chain, ChainType, CrossChainTransaction, Event, EventFilter, TransactionStatus,
-    ValidationError,
+    TxStatus, ValidationError,
 };
 use proptest::prelude::*;
 use serde_json::json;
@@ -293,110 +293,107 @@ fn test_address_serde_serialization() {
 
 #[test]
 fn test_transaction_status_pending() {
-    let status = TransactionStatus::Pending;
-    assert!(matches!(status, TransactionStatus::Pending));
-    assert_eq!(format!("{:?}", status), "Pending");
+    let status = TransactionStatus::pending("0x123".to_string());
+    assert_eq!(status.status, TxStatus::Pending);
+    assert_eq!(status.hash, "0x123");
+    assert_eq!(status.block_number, None);
 }
 
 #[test]
 fn test_transaction_status_in_mempool() {
-    let status = TransactionStatus::InMempool;
-    assert!(matches!(status, TransactionStatus::InMempool));
-    assert_eq!(format!("{:?}", status), "InMempool");
+    let mut status = TransactionStatus::pending("0x123".to_string());
+    status.status = TxStatus::InMempool;
+    assert_eq!(status.status, TxStatus::InMempool);
+    assert_eq!(status.hash, "0x123");
 }
 
 #[test]
 fn test_transaction_status_confirmed() {
-    let status = TransactionStatus::Confirmed {
-        block_hash: "0xabc123".to_string(),
-        block_number: Some(12345),
-    };
+    let status = TransactionStatus::confirmed(
+        "0x123".to_string(),
+        12345,
+        "0xabc123".to_string(),
+        Some(21000),
+        Some(20000000000),
+        Some(1),
+    );
 
-    match status {
-        TransactionStatus::Confirmed {
-            block_hash,
-            block_number,
-        } => {
-            assert_eq!(block_hash, "0xabc123");
-            assert_eq!(block_number, Some(12345));
-        }
-        _ => panic!("Expected Confirmed status"),
-    }
+    assert_eq!(status.status, TxStatus::Confirmed);
+    assert_eq!(status.hash, "0x123");
+    assert_eq!(status.block_number, Some(12345));
+    assert_eq!(status.block_hash, Some("0xabc123".to_string()));
+    assert_eq!(status.gas_used, Some(21000));
 }
 
 #[test]
 fn test_transaction_status_confirmed_no_block_number() {
-    let status = TransactionStatus::Confirmed {
-        block_hash: "0xabc123".to_string(),
-        block_number: None,
-    };
+    let status = TransactionStatus::confirmed(
+        "0x123".to_string(),
+        0,
+        "0xabc123".to_string(),
+        None,
+        None,
+        None,
+    );
 
-    match status {
-        TransactionStatus::Confirmed {
-            block_hash,
-            block_number,
-        } => {
-            assert_eq!(block_hash, "0xabc123");
-            assert_eq!(block_number, None);
-        }
-        _ => panic!("Expected Confirmed status"),
-    }
+    assert_eq!(status.status, TxStatus::Confirmed);
+    assert_eq!(status.block_hash, Some("0xabc123".to_string()));
+    assert_eq!(status.block_number, Some(0));
 }
 
 #[test]
 fn test_transaction_status_finalized() {
-    let status = TransactionStatus::Finalized {
-        block_hash: "0xdef456".to_string(),
-        block_number: 67890,
-    };
+    let status = TransactionStatus::finalized(
+        "0x456".to_string(),
+        67890,
+        "0xdef456".to_string(),
+        Some(21000),
+        Some(20000000000),
+        Some(2),
+    );
 
-    match status {
-        TransactionStatus::Finalized {
-            block_hash,
-            block_number,
-        } => {
-            assert_eq!(block_hash, "0xdef456");
-            assert_eq!(block_number, 67890);
-        }
-        _ => panic!("Expected Finalized status"),
-    }
+    assert_eq!(status.status, TxStatus::Finalized);
+    assert_eq!(status.hash, "0x456");
+    assert_eq!(status.block_number, Some(67890));
+    assert_eq!(status.block_hash, Some("0xdef456".to_string()));
 }
 
 #[test]
 fn test_transaction_status_failed() {
-    let status = TransactionStatus::Failed {
-        error: "Insufficient gas".to_string(),
-    };
+    let status = TransactionStatus::failed("0x789".to_string(), "Insufficient gas".to_string());
 
-    match status {
-        TransactionStatus::Failed { error } => {
-            assert_eq!(error, "Insufficient gas");
-        }
-        _ => panic!("Expected Failed status"),
-    }
+    assert_eq!(status.status, TxStatus::Failed);
+    assert_eq!(status.hash, "0x789");
+    assert_eq!(status.block_number, None);
 }
 
 #[test]
 fn test_transaction_status_unknown() {
-    let status = TransactionStatus::Unknown;
-    assert!(matches!(status, TransactionStatus::Unknown));
+    let status = TransactionStatus::unknown("0xabc".to_string());
+    assert_eq!(status.status, TxStatus::Unknown);
+    assert_eq!(status.hash, "0xabc");
 }
 
 #[test]
 fn test_transaction_status_clone() {
-    let status1 = TransactionStatus::Confirmed {
-        block_hash: "0xabc123".to_string(),
-        block_number: Some(12345),
-    };
+    let status1 = TransactionStatus::confirmed(
+        "0x123".to_string(),
+        12345,
+        "0xabc123".to_string(),
+        Some(21000),
+        Some(20000000000),
+        Some(1),
+    );
     let status2 = status1.clone();
     assert_eq!(status1, status2);
 }
 
 #[test]
 fn test_transaction_status_partial_eq() {
-    let status1 = TransactionStatus::Pending;
-    let status2 = TransactionStatus::Pending;
-    let status3 = TransactionStatus::InMempool;
+    let status1 = TransactionStatus::pending("0x123".to_string());
+    let status2 = TransactionStatus::pending("0x123".to_string());
+    let mut status3 = TransactionStatus::pending("0x123".to_string());
+    status3.status = TxStatus::InMempool;
 
     assert_eq!(status1, status2);
     assert_ne!(status1, status3);
@@ -404,21 +401,30 @@ fn test_transaction_status_partial_eq() {
 
 #[test]
 fn test_transaction_status_serde() {
+    let mut status_mempool = TransactionStatus::pending("0x1".to_string());
+    status_mempool.status = TxStatus::InMempool;
+
     let statuses = vec![
-        TransactionStatus::Pending,
-        TransactionStatus::InMempool,
-        TransactionStatus::Confirmed {
-            block_hash: "0xabc123".to_string(),
-            block_number: Some(12345),
-        },
-        TransactionStatus::Finalized {
-            block_hash: "0xdef456".to_string(),
-            block_number: 67890,
-        },
-        TransactionStatus::Failed {
-            error: "Test error".to_string(),
-        },
-        TransactionStatus::Unknown,
+        TransactionStatus::pending("0x1".to_string()),
+        status_mempool,
+        TransactionStatus::confirmed(
+            "0x2".to_string(),
+            12345,
+            "0xabc123".to_string(),
+            Some(21000),
+            None,
+            Some(1),
+        ),
+        TransactionStatus::finalized(
+            "0x3".to_string(),
+            67890,
+            "0xdef456".to_string(),
+            Some(21000),
+            None,
+            Some(2),
+        ),
+        TransactionStatus::failed("0x4".to_string(), "Test error".to_string()),
+        TransactionStatus::unknown("0x5".to_string()),
     ];
 
     for status in statuses {
@@ -1021,10 +1027,14 @@ fn test_cross_chain_transaction_creation() {
         destination_chain: Chain::Polkadot,
         source_tx_hash: Some("0xabc".to_string()),
         destination_tx_hash: Some("0xdef".to_string()),
-        status: TransactionStatus::Confirmed {
-            block_hash: "0x123".to_string(),
-            block_number: Some(1000),
-        },
+        status: TransactionStatus::confirmed(
+            "0xabc".to_string(),
+            1000,
+            "0x123".to_string(),
+            None,
+            None,
+            None,
+        ),
         timestamp: 1234567890,
     };
 
@@ -1044,12 +1054,12 @@ fn test_cross_chain_transaction_pending() {
         destination_chain: Chain::Moonbeam,
         source_tx_hash: Some("0x111".to_string()),
         destination_tx_hash: None,
-        status: TransactionStatus::Pending,
+        status: TransactionStatus::pending("0x111".to_string()),
         timestamp: 9876543210,
     };
 
     assert_eq!(tx.destination_tx_hash, None);
-    assert!(matches!(tx.status, TransactionStatus::Pending));
+    assert_eq!(tx.status.status, TxStatus::Pending);
 }
 
 #[test]
@@ -1060,7 +1070,11 @@ fn test_cross_chain_transaction_clone() {
         destination_chain: Chain::Polygon,
         source_tx_hash: None,
         destination_tx_hash: None,
-        status: TransactionStatus::InMempool,
+        status: {
+            let mut status = TransactionStatus::pending("0x789".to_string());
+            status.status = TxStatus::InMempool;
+            status
+        },
         timestamp: 1111111111,
     };
 
@@ -1078,10 +1092,14 @@ fn test_cross_chain_transaction_serde() {
         destination_chain: Chain::Polkadot,
         source_tx_hash: Some("0xsrc".to_string()),
         destination_tx_hash: Some("0xdst".to_string()),
-        status: TransactionStatus::Finalized {
-            block_hash: "0xblock".to_string(),
-            block_number: 5000,
-        },
+        status: TransactionStatus::finalized(
+            "0xsrc".to_string(),
+            5000,
+            "0xblock".to_string(),
+            None,
+            None,
+            None,
+        ),
         timestamp: 1357924680,
     };
 
@@ -1182,9 +1200,7 @@ fn test_chain_from_str_whitespace() {
 
 #[test]
 fn test_transaction_status_debug_output() {
-    let status = TransactionStatus::Failed {
-        error: "Test error message".to_string(),
-    };
+    let status = TransactionStatus::failed("0x123".to_string(), "Test error message".to_string());
     let debug_str = format!("{:?}", status);
     assert!(debug_str.contains("Failed"));
     assert!(debug_str.contains("Test error message"));

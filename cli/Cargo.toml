@@ -1,61 +1,39 @@
 [package]
-name = "apex-sdk-cli"
-version = "0.1.4"
-edition.workspace = true
-rust-version.workspace = true
-license.workspace = true
+name = "apex-cli"
+version = "0.1.5"
+edition = "2021"
 description = "CLI tool for Apex SDK"
-
-[package.metadata.cargo-udeps.ignore]
-normal = ["apex-sdk", "tracing"]
-
-[[bin]]
-name = "apex"
-path = "src/main.rs"
+license = "Apache-2.0"
 
 [dependencies]
-apex-sdk = { path = "../apex-sdk", version = "0.1.4" }
-apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.4" }
-tokio = { workspace = true }
-anyhow = { workspace = true }
-clap = { version = "4.4", features = ["derive"] }
-clap_complete = "4.4"
-tracing = { workspace = true }
-tracing-subscriber = { workspace = true }
-serde = { workspace = true }
-serde_json = { workspace = true }
-
-# Cryptography & Key Management
+apex-sdk-core = { path = "../apex-sdk-core", version = "0.1.5" }
+apex-sdk-types = { path = "../apex-sdk-types", version = "0.1.5" }
+apex-sdk-evm = { path = "../apex-sdk-evm", version = "0.1.5" }
+clap = { version = "4.5.4", features = ["derive"] }
+clap_complete = "4.5"
+tokio = { version = "1.38.0", features = ["full"] }
+anyhow = "1.0.86"
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+colored = "2.1"
 sp-core = { workspace = true }
-bip39 = "2.0"
 rand = { workspace = true }
-hex = { workspace = true }
-
-# Secure storage
-aes-gcm = "0.10"
-argon2 = "0.5"
-zeroize = "1.7"
-
-# Blockchain interaction
-subxt = { workspace = true }
-subxt-signer = { version = "0.44.0", features = ["sr25519"] }
 alloy = { workspace = true }
 alloy-signer-local = { workspace = true }
-apex-sdk-evm = { path = "../apex-sdk-evm", version = "0.1.4" }
-
-# UX improvements
-indicatif = "0.18.3"
-dialoguer = "0.12.0"
-colored = "3.0.0"
-
-# File system
-dirs = "6.0.0"
-
-# Password input
+subxt = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+dialoguer = "0.11"
+aes-gcm = "0.10"
+argon2 = "0.5"
+zeroize = { workspace = true }
+bip39 = "2.0"
+chrono = { workspace = true }
+indicatif = "0.18"
+subxt-signer = "0.44"
+hex = { workspace = true }
 rpassword = "7.3"
-
-# Date/time
-chrono = "0.4"
+dirs = "5.0"
 
 [dev-dependencies]
-tempfile = "3.8"
+tempfile = "3.24"

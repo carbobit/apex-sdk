@@ -1,274 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 
-  <!-- Homepage - All variants point to canonical URL -->
+  <!-- Homepage -->
   <url>
     <loc>https://apexsdk.dev/</loc>
-    <lastmod>2025-12-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://apexsdk.dev/assets/apex_logo.png</image:loc>
-      <image:title>Apex SDK Protocol Logo</image:title>
-    </image:image>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/index.html</loc>
-    <lastmod>2025-12-21</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Documentation Pages -->
+  <!-- Quick Start -->
   <url>
-    <loc>https://apexsdk.dev/QUICK_START.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/API.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/CLI_GUIDE.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/TESTNETS.md</loc>
-    <lastmod>2025-12-09</lastmod>
+    <loc>https://apexsdk.dev/quick-start</loc>
+    <lastmod>2026-01-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
 
+  <!-- API Reference -->
   <url>
-    <loc>https://apexsdk.dev/SECURITY.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
+    <loc>https://apexsdk.dev/api</loc>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- CLI Documentation -->
+  <url>
+    <loc>https://apexsdk.dev/cli</loc>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Roadmap -->
   <url>
-    <loc>https://apexsdk.dev/CONTACT.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/CONTRIBUTING.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/DOMAINS.md</loc>
-    <lastmod>2025-12-10</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/SYSTEM_ARCHITECTURE.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/ROADMAP.md</loc>
-    <lastmod>2025-12-09</lastmod>
+    <loc>https://apexsdk.dev/roadmap</loc>
+    <lastmod>2026-01-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <url>
-    <loc>https://apexsdk.dev/DOCUMENTATION_HUB.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/ECOSYSTEM_INTEGRATION.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/SECURITY_AUDIT.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/TESTING_FRAMEWORK.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/TYPED_METADATA.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/METADATA_GENERATION.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/RESEARCH_INITIATIVES.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/Substrate_Features.md</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Interactive Documentation -->
+  <!-- Documentation Viewer -->
   <url>
     <loc>https://apexsdk.dev/viewer.html</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/docs.html</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Research Portal -->
+  <!-- Subdomains -->
   <url>
-    <loc>https://apexsdk.dev/research/</loc>
-    <lastmod>2025-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Viewer Documentation Pages (with query parameters) -->
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=QUICK_START.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=API.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=CLI_GUIDE.md</loc>
-    <lastmod>2025-12-20</lastmod>
+    <loc>https://start.apexsdk.dev/</loc>
+    <lastmod>2026-01-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=SYSTEM_ARCHITECTURE.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://api.apexsdk.dev/</loc>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=TYPED_METADATA.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://cli.apexsdk.dev/</loc>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=TESTNETS.md</loc>
-    <lastmod>2025-12-20</lastmod>
+    <loc>https://blog.apexsdk.dev/</loc>
+    <lastmod>2026-01-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://play.apexsdk.dev/</loc>
+    <lastmod>2026-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=TESTING_FRAMEWORK.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=SECURITY.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=SECURITY_AUDIT.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=CONTACT.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=CONTRIBUTING.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=ROADMAP.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=RESEARCH_INITIATIVES.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://apexsdk.dev/viewer.html?doc=Substrate_Features.md</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>quarterly</changefreq>
-    <priority>0.6</priority>
   </url>
 
 </urlset>
