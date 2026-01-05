@@ -1483,9 +1483,9 @@ a:hover::after {
 }
 
 .chain-type-badge.substrate {
-    background: rgba(230, 0, 122, 0.1);
-    color: #e6007a;
-    border: 1px solid rgba(230, 0, 122, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .chain-type-badge.evm {
@@ -3121,7 +3121,7 @@ a:hover::after {
 .chain-icon.base { background: linear-gradient(135deg, #0052ff, #0066ff); color: white; }
 .chain-icon.bsc { background: linear-gradient(135deg, #f3ba2f, #f5c842); color: #1e2026; }
 .chain-icon.avalanche { background: linear-gradient(135deg, #e84142, #ff5b5c); color: white; }
-.chain-icon.polkadot { background: linear-gradient(135deg, #e6007a, #ff1a8c); color: white; }
+.chain-icon.polkadot { background: linear-gradient(135deg, #000000, #1a1a1a); color: white; }
 .chain-icon.kusama { background: linear-gradient(135deg, #000000, #1a1a1a); color: white; }
 .chain-icon.acala { background: linear-gradient(135deg, #645aff, #7b73ff); color: white; }
 .chain-icon.astar { background: linear-gradient(135deg, #0ae2ff, #1cebff); color: white; }
@@ -3863,7 +3863,7 @@ a:hover::after {
 }
 
 .network-icon.polkadot {
-    background: linear-gradient(135deg, #e6007a, #ff1a8c);
+    background: linear-gradient(135deg, #000000, #1a1a1a);
     color: white;
 }
 

@@ -206,7 +206,7 @@
 }
 
 .network-icon.polkadot {
-    background: linear-gradient(135deg, #e6007a 0%, #b8005a 100%);
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     color: white;
 }
 
@@ -379,4 +379,13 @@
         align-items: flex-start;
         gap: 0.5rem;
     }
+}
+
+/* Force Polkadot background to black - highest specificity */
+.network-card[data-network="polkadot"] .network-icon.polkadot,
+.network-card.featured[data-network="polkadot"] .network-icon.polkadot,
+.network-icon.polkadot,
+.chain-icon.polkadot {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+    color: white !important;
 }

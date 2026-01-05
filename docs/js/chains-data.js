@@ -5,10 +5,10 @@
 
 const SUPPORTED_CHAINS = {
     substrate: [
-        { name: 'Polkadot', status: 'stable', type: 'Relay Chain', logo: 'assets/logos/polkadot.svg', color: '#E6007A', website: 'https://polkadot.network' },
+        { name: 'Polkadot', status: 'stable', type: 'Relay Chain', logo: 'assets/logos/polkadot.svg', color: '#000000', website: 'https://polkadot.network' },
         { name: 'Kusama', status: 'stable', type: 'Relay Chain', logo: 'assets/logos/kusama.svg', color: '#000000', website: 'https://kusama.network' },
-        { name: 'Paseo', status: 'testnet', type: 'Testnet', logo: 'assets/logos/polkadot.svg', color: '#E6007A', website: 'https://polkadot.network' },
-        { name: 'Westend', status: 'testnet', type: 'Testnet', logo: 'assets/logos/polkadot.svg', color: '#E6007A', website: 'https://polkadot.network' }
+        { name: 'Paseo', status: 'testnet', type: 'Testnet', logo: 'assets/logos/polkadot.svg', color: '#000000', website: 'https://polkadot.network' },
+        { name: 'Westend', status: 'testnet', type: 'Testnet', logo: 'assets/logos/polkadot.svg', color: '#000000', website: 'https://polkadot.network' }
     ],
     evm: [
         { name: 'Ethereum', status: 'stable', type: 'Mainnet', logo: 'assets/logos/ethereum.svg', color: '#627EEA', website: 'https://ethereum.org' },
