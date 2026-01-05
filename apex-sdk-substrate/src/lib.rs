@@ -14,7 +14,7 @@ use apex_sdk_core::{
     BlockInfo, Broadcaster, ConfirmationStrategy, NonceManager, Provider as CoreProvider,
     ReceiptWatcher, SdkError,
 };
-use apex_sdk_types::{Address, TransactionStatus as OldTransactionStatus};
+use apex_sdk_types::{Address, TransactionStatus, TxStatus};
 use async_trait::async_trait;
 use subxt::{OnlineClient, PolkadotConfig};
 use thiserror::Error;
@@ -248,7 +248,7 @@ impl SubstrateAdapter {
     }
 
     /// Get transaction status by extrinsic hash
-    pub async fn get_transaction_status(&self, tx_hash: &str) -> Result<OldTransactionStatus> {
+    pub async fn get_transaction_status(&self, tx_hash: &str) -> Result<TransactionStatus> {
         if !self.connected {
             return Err(Error::Connection("Not connected".to_string()));
         }
@@ -360,7 +360,7 @@ impl SubstrateAdapter {
                     return if success {
                         // For substrate, we consider a transaction confirmed once it's included in a block
                         // The confirmation threshold is mainly for documentation purposes
-                        Ok(OldTransactionStatus::confirmed(
+                        Ok(TransactionStatus::confirmed(
                             tx_hash.to_string(),
                             block_num as u64,
                             block_hash.to_string(),
@@ -369,17 +369,17 @@ impl SubstrateAdapter {
                             Some(confirmations),
                         ))
                     } else if let Some(error) = error_msg {
-                        Ok(OldTransactionStatus::failed(tx_hash.to_string(), error))
+                        Ok(TransactionStatus::failed(tx_hash.to_string(), error))
                     } else {
                         // Transaction found but status unclear
-                        Ok(OldTransactionStatus::unknown(tx_hash.to_string()))
+                        Ok(TransactionStatus::unknown(tx_hash.to_string()))
                     };
                 }
             }
         }
 
         // Transaction not found in recent blocks
-        Ok(OldTransactionStatus::unknown(tx_hash.to_string()))
+        Ok(TransactionStatus::unknown(tx_hash.to_string()))
     }
 
     /// Validate a Substrate address (SS58 format)
@@ -503,7 +503,7 @@ impl apex_sdk_core::ChainAdapter for SubstrateAdapter {
     async fn get_transaction_status(
         &self,
         tx_hash: &str,
-    ) -> std::result::Result<OldTransactionStatus, String> {
+    ) -> std::result::Result<TransactionStatus, String> {
         self.get_transaction_status(tx_hash)
             .await
             .map_err(|e| e.to_string())
@@ -650,7 +650,7 @@ impl ReceiptWatcher for SubstrateAdapter {
     async fn wait_for_receipt(
         &self,
         tx_hash: &str,
-    ) -> std::result::Result<OldTransactionStatus, SdkError> {
+    ) -> std::result::Result<TransactionStatus, SdkError> {
         // Simple polling implementation
         // In a real implementation, we might want to use the retry/backoff logic or subscriptions
         let start = std::time::Instant::now();
@@ -662,9 +662,7 @@ impl ReceiptWatcher for SubstrateAdapter {
                 .await
                 .map_err(|e| SdkError::NetworkError(e.to_string()))?;
             // Check if status represents finalized or confirmed
-            if status.status == apex_sdk_types::TxStatus::Confirmed
-                || status.status == apex_sdk_types::TxStatus::Finalized
-            {
+            if status.status == TxStatus::Confirmed || status.status == TxStatus::Finalized {
                 return Ok(status);
             }
             // For Substrate, we default to finalized head confirmation policy
@@ -680,7 +678,7 @@ impl ReceiptWatcher for SubstrateAdapter {
         &self,
         tx_hash: &str,
         _strategy: &ConfirmationStrategy,
-    ) -> std::result::Result<OldTransactionStatus, SdkError> {
+    ) -> std::result::Result<TransactionStatus, SdkError> {
         // For now, use the basic wait implementation regardless of strategy
         self.wait_for_receipt(tx_hash)
             .await
@@ -690,7 +688,7 @@ impl ReceiptWatcher for SubstrateAdapter {
     async fn get_receipt_status(
         &self,
         tx_hash: &str,
-    ) -> std::result::Result<Option<OldTransactionStatus>, SdkError> {
+    ) -> std::result::Result<Option<TransactionStatus>, SdkError> {
         match self.get_transaction_status(tx_hash).await {
             Ok(status) => Ok(Some(status)),
             Err(_) => Ok(None), // If error, assume transaction not found

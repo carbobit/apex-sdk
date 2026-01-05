@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     renderChains();
     initChainsFilter();
     setCurrentYear();
+    initNetworkExplorer();
+    
+    // Initialize docs viewer if we're on the viewer page
+    if (window.location.pathname.includes('viewer.html')) {
+        initDocsViewer();
+    }
 });
 
 function setCurrentYear() {
@@ -227,3 +233,158 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Documentation viewer functionality
+function initDocsViewer() {
+    const docsList = [
+        { name: 'Quick Start', file: 'QUICK_START.md', path: 'QUICK_START.md' },
+        { name: 'API Reference', file: 'API.md', path: 'API.md' },
+        { name: 'CLI Guide', file: 'CLI_GUIDE.md', path: 'CLI_GUIDE.md' },
+        { name: 'System Architecture', file: 'SYSTEM_ARCHITECTURE.md', path: 'SYSTEM_ARCHITECTURE.md' },
+        { name: 'Testing Framework', file: 'TESTING_FRAMEWORK.md', path: 'TESTING_FRAMEWORK.md' },
+        { name: 'Roadmap', file: 'ROADMAP.md', path: 'ROADMAP.md' },
+        { name: 'Contributing', file: 'CONTRIBUTING.md', path: 'CONTRIBUTING.md' },
+        { name: 'Security', file: 'SECURITY.md', path: 'SECURITY.md' }
+    ];
+
+    // Build navigation menu
+    const navElement = document.getElementById('doc-nav');
+    if (navElement) {
+        navElement.innerHTML = docsList.map(doc => 
+            `<a href="viewer.html?doc=${doc.file}" class="doc-nav-item ${getActiveClass(doc.file)}">
+                ${doc.name}
+            </a>`
+        ).join('');
+    }
+
+    // Load document based on URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const docFile = urlParams.get('doc') || 'QUICK_START.md';
+    loadDocument(docFile);
+
+    // Setup search functionality
+    setupDocumentSearch();
+}
+
+function getActiveClass(docFile) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentDoc = urlParams.get('doc') || 'QUICK_START.md';
+    return currentDoc === docFile ? 'active' : '';
+}
+
+async function loadDocument(filename) {
+    const contentElement = document.getElementById('doc-content');
+    if (!contentElement) return;
+
+    try {
+        // Show loading state
+        contentElement.innerHTML = '<div class="loading">Loading documentation...</div>';
+        
+        const response = await fetch(`../${filename}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const markdown = await response.text();
+        
+        // Convert markdown to HTML using marked.js
+        if (typeof marked !== 'undefined') {
+            const html = marked.parse(markdown);
+            contentElement.innerHTML = html;
+            
+            // Highlight code blocks using highlight.js
+            if (typeof hljs !== 'undefined') {
+                contentElement.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            }
+        } else {
+            // Fallback to plain text if marked is not available
+            contentElement.innerHTML = `<pre>${markdown}</pre>`;
+        }
+        
+        // Update page title
+        updateDocumentTitle(filename);
+        
+    } catch (error) {
+        console.error('Error loading document:', error);
+        contentElement.innerHTML = `
+            <div class="error">
+                <h2>Error Loading Document</h2>
+                <p>Could not load <code>${filename}</code>. Please check if the file exists.</p>
+                <p>Error: ${error.message}</p>
+            </div>
+        `;
+    }
+}
+
+function updateDocumentTitle(filename) {
+    const docTitles = {
+        'QUICK_START.md': 'Quick Start Guide',
+        'API.md': 'API Reference',
+        'CLI_GUIDE.md': 'CLI Guide',
+        'SYSTEM_ARCHITECTURE.md': 'System Architecture',
+        'TESTING_FRAMEWORK.md': 'Testing Framework',
+        'ROADMAP.md': 'Roadmap',
+        'CONTRIBUTING.md': 'Contributing',
+        'SECURITY.md': 'Security'
+    };
+    
+    const title = docTitles[filename] || 'Documentation';
+    document.title = `${title} - Apex SDK`;
+}
+
+function setupDocumentSearch() {
+    const searchInput = document.getElementById('search-input');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const navItems = document.querySelectorAll('.doc-nav-item');
+
+        navItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(query)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+}
+
+// Network Explorer functionality
+function initNetworkExplorer() {
+    const tabs = document.querySelectorAll('.explorer-tab');
+    const panels = document.querySelectorAll('.ecosystem-panel');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const ecosystem = tab.dataset.ecosystem;
+            
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Update active panel
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+                if (panel.dataset.panel === ecosystem) {
+                    panel.classList.add('active');
+                }
+            });
+        });
+    });
+
+    // Add hover effects to network cards
+    const networkCards = document.querySelectorAll('.network-card');
+    networkCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+}

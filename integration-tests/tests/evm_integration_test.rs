@@ -5,8 +5,8 @@
 #[path = "integration_helpers.rs"]
 mod integration_helpers;
 
-use apex_sdk_evm::{wallet::Wallet, EvmAdapter, EvmSigner};
 use apex_sdk_core::Signer;
+use apex_sdk_evm::{wallet::Wallet, EvmAdapter, EvmSigner};
 use integration_helpers::*;
 
 #[tokio::test]
@@ -68,10 +68,9 @@ async fn test_evm_send_transaction_to_docker_node() {
         .await
         .expect("Should connect to EVM node");
 
-    let signer = EvmSigner::new(
-        "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
-    )
-    .expect("Should create signer");
+    let signer =
+        EvmSigner::new("0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80")
+            .expect("Should create signer");
 
     // Configure the adapter with the signer
     let adapter = adapter.with_signer(signer.clone());

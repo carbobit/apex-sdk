@@ -236,144 +236,344 @@
         <section id="networks" class="networks-section">
             <div class="container">
                 <div class="section-header scroll-reveal">
-                    <span class="section-badge">Ecosystem</span>
-                    <h2 class="section-title">Connect to 15+ Leading Blockchain Networks</h2>
+                    <span class="section-badge">Multi-Chain Ecosystem</span>
+                    <h2 class="section-title">15+ Networks, One Unified SDK</h2>
                     <p class="section-description">
-                        One unified SDK for the entire Web3 ecosystem. Seamlessly integrate with EVM chains, Substrate parachains, and hybrid networks.
+                        Build once, deploy everywhere. From Ethereum's robust ecosystem to Polkadot's interoperable parachains—unified under a single, type-safe API.
                     </p>
                 </div>
 
-                <!-- EVM Networks -->
-                <div class="network-category scroll-reveal">
-                    <div class="category-header">
-                        <h3>Ethereum & EVM-Compatible Chains</h3>
-                        <span class="category-badge">7 Networks</span>
+                <!-- Interactive Network Explorer -->
+                <div class="network-explorer scroll-reveal">
+                    <div class="explorer-tabs">
+                        <button class="explorer-tab active" data-ecosystem="evm">
+                            <div class="tab-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/>
+                                </svg>
+                            </div>
+                            <div class="tab-content">
+                                <h4>EVM Ecosystem</h4>
+                                <p>7 Networks</p>
+                            </div>
+                        </button>
+                        <button class="explorer-tab" data-ecosystem="substrate">
+                            <div class="tab-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/>
+                                    <circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/>
+                                    <circle cx="7" cy="7" r="1.5"/><circle cx="17" cy="7" r="1.5"/>
+                                    <circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="tab-content">
+                                <h4>Substrate Ecosystem</h4>
+                                <p>6 Networks</p>
+                            </div>
+                        </button>
+                        <button class="explorer-tab" data-ecosystem="testnets">
+                            <div class="tab-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="tab-content">
+                                <h4>Test Networks</h4>
+                                <p>2 Networks</p>
+                            </div>
+                        </button>
                     </div>
-                    <div class="chains-grid">
-                        <div class="chain-card">
-                            <div class="chain-icon ethereum">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg>
-                            </div>
-                            <h4>Ethereum</h4>
-                            <p class="chain-type">Mainnet</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon arbitrum">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L2 12l10 12 10-12L12 0zm0 4.5L19 12l-7 8.5L5 12l7-7.5z"/></svg>
-                            </div>
-                            <h4>Arbitrum</h4>
-                            <p class="chain-type">Layer 2</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon optimism">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-                            </div>
-                            <h4>Optimism</h4>
-                            <p class="chain-type">Layer 2</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon polygon">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/></svg>
-                            </div>
-                            <h4>Polygon</h4>
-                            <p class="chain-type">Sidechain</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon base">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
-                            </div>
-                            <h4>Base</h4>
-                            <p class="chain-type">Layer 2</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon bsc">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 8l8 6 8-6-8-6zm0 12l-8 6 8 6 8-6-8-6z"/></svg>
-                            </div>
-                            <h4>BNB Chain</h4>
-                            <p class="chain-type">Mainnet</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon avalanche">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l10 17H2L12 2z"/></svg>
-                            </div>
-                            <h4>Avalanche</h4>
-                            <p class="chain-type">Mainnet</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Substrate Networks -->
-                <div class="network-category scroll-reveal">
-                    <div class="category-header">
-                        <h3>Polkadot & Substrate Parachains</h3>
-                        <span class="category-badge">6 Networks</span>
-                    </div>
-                    <div class="chains-grid">
-                        <div class="chain-card">
-                            <div class="chain-icon polkadot">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="7" cy="7" r="1.5"/><circle cx="17" cy="7" r="1.5"/><circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/></svg>
-                            </div>
-                            <h4>Polkadot</h4>
-                            <p class="chain-type">Relay Chain</p>
+                    <!-- EVM Networks Grid -->
+                    <div class="ecosystem-panel active" data-panel="evm">
+                        <div class="panel-header">
+                            <h3>Ethereum & EVM-Compatible Networks</h3>
+                            <p>Deploy your smart contracts across the most popular EVM-compatible chains with identical APIs and consistent performance.</p>
                         </div>
-                        <div class="chain-card">
-                            <div class="chain-icon kusama">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/></svg>
+                        <div class="advanced-networks-grid">
+                            <div class="network-card featured" data-network="ethereum">
+                                <div class="network-header">
+                                    <div class="network-icon ethereum">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Ethereum</h4>
+                                        <span class="network-type mainnet">Mainnet</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">The world's leading programmable blockchain with the largest developer ecosystem and DeFi liquidity.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Smart Contracts</span>
+                                    <span class="feature-tag">DeFi Hub</span>
+                                    <span class="feature-tag">NFTs</span>
+                                </div>
                             </div>
-                            <h4>Kusama</h4>
-                            <p class="chain-type">Relay Chain</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon acala">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>
-                            </div>
-                            <h4>Acala</h4>
-                            <p class="chain-type">DeFi Hub</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon astar">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z"/></svg>
-                            </div>
-                            <h4>Astar</h4>
-                            <p class="chain-type">Smart Contracts</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon moonbeam">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>
-                            </div>
-                            <h4>Moonbeam</h4>
-                            <p class="chain-type">Parachain</p>
-                        </div>
-                        <div class="chain-card">
-                            <div class="chain-icon westend">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
-                            </div>
-                            <h4>Westend</h4>
-                            <p class="chain-type">Testnet</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Testnets -->
-                <div class="network-category scroll-reveal">
-                    <div class="category-header">
-                        <h3>Development & Test Networks</h3>
-                        <span class="category-badge">2 Networks</span>
-                    </div>
-                    <div class="chains-grid">
-                        <div class="chain-card testnet">
-                            <div class="chain-icon sepolia">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 7l8 5 8-5-8-5z"/><path opacity="0.6" d="M4 12l8 5 8-5-8-5-8 5z"/><path opacity="0.3" d="M4 17l8 5 8-5-8-5-8 5z"/></svg>
+                            <div class="network-card" data-network="arbitrum">
+                                <div class="network-header">
+                                    <div class="network-icon arbitrum">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0L2 12l10 12 10-12L12 0zm0 4.5L19 12l-7 8.5L5 12l7-7.5z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Arbitrum</h4>
+                                        <span class="network-type layer2">Layer 2</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">High-performance Layer 2 solution with 10x lower fees and Ethereum-grade security guarantees.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Low Fees</span>
+                                    <span class="feature-tag">Fast</span>
+                                    <span class="feature-tag">Optimistic Rollup</span>
+                                </div>
                             </div>
-                            <h4>Sepolia</h4>
-                            <p class="chain-type">Ethereum Testnet</p>
+
+                            <div class="network-card" data-network="polygon">
+                                <div class="network-header">
+                                    <div class="network-icon polygon">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Polygon</h4>
+                                        <span class="network-type sidechain">Sidechain</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">Multi-chain scaling platform enabling instant, low-cost transactions with enterprise adoption.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Enterprise</span>
+                                    <span class="feature-tag">Gaming</span>
+                                    <span class="feature-tag">Scaling</span>
+                                </div>
+                            </div>
+
+                            <div class="network-card" data-network="base">
+                                <div class="network-header">
+                                    <div class="network-icon base">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="6" y="6" width="12" height="12" rx="2"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Base</h4>
+                                        <span class="network-type layer2">Layer 2</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">Coinbase's Layer 2 solution bringing millions of users onchain with seamless Web2 integration.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Coinbase</span>
+                                    <span class="feature-tag">Onramp</span>
+                                    <span class="feature-tag">Consumer Apps</span>
+                                </div>
+                            </div>
+
+                            <div class="network-card compact" data-network="optimism">
+                                <div class="network-icon optimism">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                </div>
+                                <h5>Optimism</h5>
+                                <span class="network-type layer2">Layer 2</span>
+                            </div>
+
+                            <div class="network-card compact" data-network="bsc">
+                                <div class="network-icon bsc">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2L4 8l8 6 8-6-8-6zm0 12l-8 6 8 6 8-6-8-6z"/>
+                                    </svg>
+                                </div>
+                                <h5>BNB Chain</h5>
+                                <span class="network-type mainnet">Mainnet</span>
+                            </div>
+
+                            <div class="network-card compact" data-network="avalanche">
+                                <div class="network-icon avalanche">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l10 17H2L12 2z"/>
+                                    </svg>
+                                </div>
+                                <h5>Avalanche</h5>
+                                <span class="network-type mainnet">Mainnet</span>
+                            </div>
                         </div>
-                        <div class="chain-card testnet">
-                            <div class="chain-icon paseo">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" opacity="0.3"/></svg>
+                    </div>
+
+                    <!-- Substrate Networks Grid -->
+                    <div class="ecosystem-panel" data-panel="substrate">
+                        <div class="panel-header">
+                            <h3>Polkadot & Substrate Parachains</h3>
+                            <p>Leverage the interoperable Web3 foundation with specialized parachains for DeFi, NFTs, and next-generation dApps.</p>
+                        </div>
+                        <div class="advanced-networks-grid">
+                            <div class="network-card featured" data-network="polkadot">
+                                <div class="network-header">
+                                    <div class="network-icon polkadot">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/>
+                                            <circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/>
+                                            <circle cx="7" cy="7" r="1.5"/><circle cx="17" cy="7" r="1.5"/>
+                                            <circle cx="7" cy="17" r="1.5"/><circle cx="17" cy="17" r="1.5"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Polkadot</h4>
+                                        <span class="network-type relay">Relay Chain</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">The foundation of interoperable blockchain networks enabling true cross-chain communication and shared security.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Interoperability</span>
+                                    <span class="feature-tag">Shared Security</span>
+                                    <span class="feature-tag">Governance</span>
+                                </div>
                             </div>
-                            <h4>Paseo</h4>
-                            <p class="chain-type">Polkadot Testnet</p>
+
+                            <div class="network-card" data-network="moonbeam">
+                                <div class="network-header">
+                                    <div class="network-icon moonbeam">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <circle cx="12" cy="12" r="8"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Moonbeam</h4>
+                                        <span class="network-type parachain">Parachain</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">Ethereum-compatible smart contract parachain combining the best of both Ethereum and Polkadot ecosystems.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">EVM Compatible</span>
+                                    <span class="feature-tag">Cross-Chain</span>
+                                    <span class="feature-tag">Smart Contracts</span>
+                                </div>
+                            </div>
+
+                            <div class="network-card compact" data-network="acala">
+                                <div class="network-icon acala">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2L2 12l10 10 10-10L12 2z"/>
+                                    </svg>
+                                </div>
+                                <h5>Acala</h5>
+                                <span class="network-type parachain">DeFi Hub</span>
+                            </div>
+
+                            <div class="network-card compact" data-network="astar">
+                                <div class="network-icon astar">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z"/>
+                                    </svg>
+                                </div>
+                                <h5>Astar</h5>
+                                <span class="network-type parachain">dApp Hub</span>
+                            </div>
+
+                            <div class="network-card compact" data-network="kusama">
+                                <div class="network-icon kusama">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/>
+                                        <circle cx="4" cy="12" r="2"/><circle cx="20" cy="12" r="2"/>
+                                    </svg>
+                                </div>
+                                <h5>Kusama</h5>
+                                <span class="network-type relay">Canary Network</span>
+                            </div>
+
+                            <div class="network-card compact" data-network="westend">
+                                <div class="network-icon westend">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <rect x="4" y="4" width="16" height="16" rx="2"/>
+                                    </svg>
+                                </div>
+                                <h5>Westend</h5>
+                                <span class="network-type testnet">Testnet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Networks -->
+                    <div class="ecosystem-panel" data-panel="testnets">
+                        <div class="panel-header">
+                            <h3>Development & Test Networks</h3>
+                            <p>Perfect your applications with cost-free testing on networks that mirror production environments.</p>
+                        </div>
+                        <div class="advanced-networks-grid">
+                            <div class="network-card" data-network="sepolia">
+                                <div class="network-header">
+                                    <div class="network-icon sepolia">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2L4 7l8 5 8-5-8-5z"/><path opacity="0.6" d="M4 12l8 5 8-5-8-5-8 5z"/><path opacity="0.3" d="M4 17l8 5 8-5-8-5-8 5z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Sepolia</h4>
+                                        <span class="network-type testnet">Ethereum Testnet</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">Primary Ethereum testnet for application development and testing with reliable faucets and stable operation.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Free Testing</span>
+                                    <span class="feature-tag">EVM Compatible</span>
+                                    <span class="feature-tag">Stable</span>
+                                </div>
+                            </div>
+
+                            <div class="network-card" data-network="paseo">
+                                <div class="network-header">
+                                    <div class="network-icon paseo">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                            <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" opacity="0.3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-info">
+                                        <h4>Paseo</h4>
+                                        <span class="network-type testnet">Polkadot Testnet</span>
+                                    </div>
+                                    <div class="network-status">
+                                        <div class="status-dot active"></div>
+                                        <span>Ready</span>
+                                    </div>
+                                </div>
+                                <p class="network-description">Community-driven Polkadot testnet providing a stable environment for parachain and cross-chain development.</p>
+                                <div class="network-features">
+                                    <span class="feature-tag">Cross-Chain Testing</span>
+                                    <span class="feature-tag">Community</span>
+                                    <span class="feature-tag">Parachain Ready</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -465,10 +665,6 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <p>&copy; 2025 Apex SDK Protocol by <a href="https://carbobit.com" target="_blank" rel="noopener">Carbobit</a>. Apache-2.0 Licensed.</p>
-                <div class="footer-badge">
-                    <span class="status-dot"></span>
-                    <span>All systems operational</span>
-                </div>
             </div>
         </div>
     </footer>
