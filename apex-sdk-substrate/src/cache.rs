@@ -55,6 +55,10 @@ pub struct CacheConfig {
     pub metadata_ttl: Duration,
     /// Default TTL for general RPC responses
     pub rpc_ttl: Duration,
+    /// TTL for finalized blocks (immutable, can cache longer)
+    pub block_ttl_finalized: Duration,
+    /// TTL for recent blocks (might reorg, cache shorter)
+    pub block_ttl_recent: Duration,
     /// Enable cache statistics
     pub enable_stats: bool,
 }
@@ -67,6 +71,8 @@ impl Default for CacheConfig {
             balance_ttl: Duration::from_secs(10),
             metadata_ttl: Duration::from_secs(300),
             rpc_ttl: Duration::from_secs(60),
+            block_ttl_finalized: Duration::from_secs(3600), // 1 hour for finalized blocks
+            block_ttl_recent: Duration::from_secs(12),      // 2 block times for recent blocks
             enable_stats: true,
         }
     }
@@ -107,6 +113,18 @@ impl CacheConfig {
         self.rpc_ttl = ttl;
         self
     }
+
+    /// Set block TTL for finalized blocks
+    pub fn with_block_ttl_finalized(mut self, ttl: Duration) -> Self {
+        self.block_ttl_finalized = ttl;
+        self
+    }
+
+    /// Set block TTL for recent (non-finalized) blocks
+    pub fn with_block_ttl_recent(mut self, ttl: Duration) -> Self {
+        self.block_ttl_recent = ttl;
+        self
+    }
 }
 
 /// Multi-level cache for Substrate queries
@@ -116,6 +134,7 @@ pub struct Cache {
     balance_cache: Arc<RwLock<LruCache<String, CacheEntry<u128>>>>,
     metadata_cache: Arc<RwLock<LruCache<String, CacheEntry<String>>>>,
     rpc_cache: Arc<RwLock<LruCache<String, CacheEntry<String>>>>,
+    block_cache: Arc<RwLock<LruCache<String, CacheEntry<apex_sdk_core::BlockInfo>>>>,
     stats: Arc<RwLock<CacheStats>>,
 }
 
@@ -135,6 +154,7 @@ impl Cache {
             balance_cache: Arc::new(RwLock::new(LruCache::new(capacity))),
             metadata_cache: Arc::new(RwLock::new(LruCache::new(capacity))),
             rpc_cache: Arc::new(RwLock::new(LruCache::new(capacity))),
+            block_cache: Arc::new(RwLock::new(LruCache::new(capacity))),
             stats: Arc::new(RwLock::new(CacheStats::default())),
             config,
         }
@@ -225,12 +245,67 @@ impl Cache {
         self.rpc_cache.write().put(key, entry);
     }
 
+    /// Get block by number from cache
+    pub fn get_block_by_number(&self, block_number: u64) -> Option<apex_sdk_core::BlockInfo> {
+        let key = format!("block:num:{}", block_number);
+        let mut cache = self.block_cache.write();
+        if let Some(entry) = cache.get(&key) {
+            if let Some(value) = entry.get() {
+                self.record_hit();
+                return Some(value.clone());
+            } else {
+                cache.pop(&key);
+            }
+        }
+        self.record_miss();
+        None
+    }
+
+    /// Get block by hash from cache
+    pub fn get_block_by_hash(&self, block_hash: &str) -> Option<apex_sdk_core::BlockInfo> {
+        let key = format!("block:hash:{}", block_hash);
+        let mut cache = self.block_cache.write();
+        if let Some(entry) = cache.get(&key) {
+            if let Some(value) = entry.get() {
+                self.record_hit();
+                return Some(value.clone());
+            } else {
+                cache.pop(&key);
+            }
+        }
+        self.record_miss();
+        None
+    }
+
+    /// Put block in cache with finality-aware TTL
+    ///
+    /// Finalized blocks are cached with a longer TTL since they are immutable.
+    /// Recent blocks use a shorter TTL as they might be affected by chain reorganizations.
+    pub fn put_block(&self, block_info: apex_sdk_core::BlockInfo) {
+        let ttl = if block_info.is_finalized {
+            self.config.block_ttl_finalized
+        } else {
+            self.config.block_ttl_recent
+        };
+
+        let entry = CacheEntry::new(block_info.clone(), ttl);
+
+        // Cache by both number and hash for efficient lookups
+        let num_key = format!("block:num:{}", block_info.number);
+        let hash_key = format!("block:hash:{}", block_info.hash);
+
+        let mut cache = self.block_cache.write();
+        cache.put(num_key, entry.clone());
+        cache.put(hash_key, entry);
+    }
+
     /// Clear all caches
     pub fn clear(&self) {
         self.storage_cache.write().clear();
         self.balance_cache.write().clear();
         self.metadata_cache.write().clear();
         self.rpc_cache.write().clear();
+        self.block_cache.write().clear();
         self.stats.write().reset();
     }
 
@@ -293,6 +368,24 @@ impl Cache {
         // RPC cache
         {
             let mut cache = self.rpc_cache.write();
+            let keys: Vec<String> = cache
+                .iter()
+                .filter_map(|(k, v)| {
+                    if v.is_expired() {
+                        Some(k.clone())
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+            for key in keys {
+                cache.pop(&key);
+            }
+        }
+
+        // Block cache
+        {
+            let mut cache = self.block_cache.write();
             let keys: Vec<String> = cache
                 .iter()
                 .filter_map(|(k, v)| {

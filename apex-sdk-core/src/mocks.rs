@@ -117,6 +117,11 @@ impl CoreProvider for MockProvider {
             parent_hash: format!("0x{:064x}", block_number.saturating_sub(1)),
             timestamp: 1640995200 + block_number * 12, // 12 second blocks
             transactions: vec![format!("0x{:064x}", block_number * 1000)],
+            state_root: Some(format!("0x{:064x}", block_number + 1)),
+            extrinsics_root: Some(format!("0x{:064x}", block_number + 2)),
+            extrinsic_count: 1,
+            event_count: Some(3),
+            is_finalized: block_number > 100, // Mock: blocks > 100 are finalized
         })
     }
 

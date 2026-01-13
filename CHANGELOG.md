@@ -7,21 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
--## [0.1.5]
+## [0.1.5] - 2026-01-12
 
 ### Added
- **Core Transaction Pipeline**: Implemented the complete transaction lifecycle (build -> sign -> submit -> track -> receipt) for both EVM and Substrate.
- **Connection Pooling**: Added robust connection pooling with health checks and failover for both EVM (HTTP) and Substrate (WebSocket) adapters.
- **Metrics Collection**: Introduced a metrics system to track RPC calls, transaction success rates, and errors.
- **Unified Signer**: Implemented a unified `Signer` trait and concrete implementations for EVM (PrivateKey) and Substrate (SR25519/ED25519).
- **Fee Estimation**: Added fee estimation logic, including EIP-1559 support for EVM.
- **Contract Interaction**: Added `contract.rs` to the EVM adapter for easier smart contract interaction (including ERC-20).
- **Integration Tests**: Added comprehensive integration tests running against local Docker nodes (Hardhat/Westend).
+- **Core Transaction Pipeline**: Implemented the complete transaction lifecycle (build -> sign -> submit -> track -> receipt) for both EVM and Substrate.
+- **Connection Pooling**: Added robust connection pooling with health checks and failover for both EVM (HTTP) and Substrate (WebSocket) adapters.
+- **Metrics Collection**: Introduced a metrics system to track RPC calls, transaction success rates, and errors.
+- **Unified Signer**: Implemented a unified `Signer` trait and concrete implementations for EVM (PrivateKey) and Substrate (SR25519/ED25519).
+- **Fee Estimation**: Added fee estimation logic, including EIP-1559 support for EVM.
+- **Contract Interaction**: Added `contract.rs` to the EVM adapter for easier smart contract interaction (including ERC-20).
+- **Integration Tests**: Added comprehensive integration tests running against local Docker nodes (Hardhat/Westend).
+- **Block Information Retrieval System**: Modernized block query infrastructure with subxt v0.44 capabilities
+  - Enhanced `BlockInfo` structure with comprehensive metadata (state_root, extrinsics_root, extrinsic_count, event_count, is_finalized)
+  - Added `DetailedBlockInfo`, `ExtrinsicInfo`, and `BlockEvent` structures for advanced block analysis
+  - Implemented `BlockQuery` module with query by number and hash support
+  - Added finality-aware caching with dual-key storage (1 hour TTL for finalized blocks, 12 seconds for recent blocks)
+  - Added helper methods: `get_block_by_hash()`, `get_block_detailed()`, `get_block_events()`
+  - Full backward compatibility with existing BlockInfo API
+  - Comprehensive benchmark suite for block operations
+  - 13 unit tests covering block caching, serialization, and edge cases
 
--### Changed
--- **Architecture**: Refactored the internal architecture to use the new `Provider`, `Signer`, `Broadcaster`, and `ReceiptWatcher` traits.
--- **Error Handling**: Unified error handling across the SDK using the `SdkError` enum.
--- **Documentation**: Updated the landing page and documentation to reflect the new features and professional branding.
+### Changed
+- **Architecture**: Refactored the internal architecture to use the new `Provider`, `Signer`, `Broadcaster`, and `ReceiptWatcher` traits.
+- **Error Handling**: Unified error handling across the SDK using the `SdkError` enum.
+- **Documentation**: Updated the landing page and documentation to reflect the new features and professional branding.
+- **Block Queries**: Replaced mock block data with real blockchain data retrieval using subxt v0.44 APIs
 
 ## [0.1.4] - 2025-11-24
 

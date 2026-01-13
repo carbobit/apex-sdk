@@ -136,6 +136,11 @@ impl CoreProvider for EvmProvider {
                 .hashes()
                 .map(|hash| format!("0x{:x}", hash))
                 .collect(),
+            state_root: Some(format!("0x{:x}", block.header.state_root)),
+            extrinsics_root: Some(format!("0x{:x}", block.header.transactions_root)),
+            extrinsic_count: block.transactions.len() as u32,
+            event_count: None,   // Events not directly available in block headers
+            is_finalized: false, // EVM chains don't have explicit finalization like Substrate
         })
     }
 

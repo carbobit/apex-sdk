@@ -20,6 +20,7 @@ use subxt::{OnlineClient, PolkadotConfig};
 use thiserror::Error;
 use tracing::{debug, info};
 
+pub mod block;
 pub mod cache;
 pub mod contracts;
 pub mod metrics;
@@ -34,6 +35,7 @@ pub mod xcm;
 #[cfg(feature = "typed")]
 pub mod metadata;
 
+pub use block::BlockQuery;
 pub use cache::{Cache, CacheConfig};
 pub use contracts::{
     parse_metadata, ContractCallBuilder, ContractClient, ContractMetadata, GasLimit,
@@ -247,6 +249,36 @@ impl SubstrateAdapter {
     /// Get metrics snapshot
     pub fn metrics(&self) -> MetricsSnapshot {
         self.metrics.snapshot()
+    }
+
+    /// Get block by hash
+    ///
+    /// This is more efficient than get_block if you have the block hash.
+    pub async fn get_block_by_hash(&self, block_hash: &str) -> Result<BlockInfo> {
+        let block_query = crate::block::BlockQuery::new(self.client.clone());
+        block_query.get_block_by_hash(block_hash).await
+    }
+
+    /// Get detailed block information including extrinsics and events
+    ///
+    /// This provides comprehensive block data for advanced analysis.
+    pub async fn get_block_detailed(
+        &self,
+        block_number: u64,
+    ) -> Result<apex_sdk_core::DetailedBlockInfo> {
+        let block_query = crate::block::BlockQuery::new(self.client.clone());
+        block_query.get_detailed_block(block_number).await
+    }
+
+    /// Get events from a specific block
+    ///
+    /// Returns all events that occurred in the specified block.
+    pub async fn get_block_events(
+        &self,
+        block_number: u64,
+    ) -> Result<Vec<apex_sdk_core::BlockEvent>> {
+        let detailed = self.get_block_detailed(block_number).await?;
+        Ok(detailed.events)
     }
 
     /// Get transaction status by extrinsic hash
@@ -568,15 +600,13 @@ impl CoreProvider for SubstrateAdapter {
     }
 
     async fn get_block(&self, block_number: u64) -> std::result::Result<BlockInfo, SdkError> {
-        // Due to subxt API changes, we'll provide basic block info
-        // This would need to be implemented with proper subxt v0.44 API calls
-        Ok(BlockInfo {
-            number: block_number,
-            hash: format!("block_{}", block_number),
-            timestamp: chrono::Utc::now().timestamp() as u64,
-            parent_hash: format!("parent_{}", block_number.saturating_sub(1)),
-            transactions: vec![], // Empty for now, would require proper API implementation
-        })
+        // Use BlockQuery to fetch real blockchain data
+        let block_query = crate::block::BlockQuery::new(self.client.clone());
+
+        block_query
+            .get_block_by_number(block_number)
+            .await
+            .map_err(|e| SdkError::ProviderError(format!("Failed to get block: {}", e)))
     }
 
     async fn health_check(&self) -> std::result::Result<(), SdkError> {

@@ -130,6 +130,61 @@ pub struct BlockInfo {
     pub parent_hash: String,
     pub timestamp: u64,
     pub transactions: Vec<String>,
+
+    // Enhanced fields for comprehensive block data
+    #[serde(default)]
+    pub state_root: Option<String>,
+    #[serde(default)]
+    pub extrinsics_root: Option<String>,
+    #[serde(default)]
+    pub extrinsic_count: u32,
+    #[serde(default)]
+    pub event_count: Option<u32>,
+    #[serde(default)]
+    pub is_finalized: bool,
+}
+
+/// Detailed block information with extrinsics and events
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DetailedBlockInfo {
+    /// Basic block information
+    pub basic: BlockInfo,
+    /// List of extrinsics in the block
+    pub extrinsics: Vec<ExtrinsicInfo>,
+    /// List of events in the block
+    pub events: Vec<BlockEvent>,
+}
+
+/// Information about an extrinsic (transaction) in a block
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ExtrinsicInfo {
+    /// Index of the extrinsic in the block
+    pub index: u32,
+    /// Hash of the extrinsic
+    pub hash: String,
+    /// Whether the extrinsic is signed
+    pub signed: bool,
+    /// Address of the signer (if signed)
+    pub signer: Option<String>,
+    /// Pallet name
+    pub pallet: String,
+    /// Call name
+    pub call: String,
+    /// Whether the extrinsic succeeded
+    pub success: bool,
+}
+
+/// Information about an event in a block
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BlockEvent {
+    /// Index of the event
+    pub index: u32,
+    /// Index of the associated extrinsic (if any)
+    pub extrinsic_index: Option<u32>,
+    /// Pallet name
+    pub pallet: String,
+    /// Event name
+    pub event: String,
 }
 
 /// Signer trait for signing transactions
